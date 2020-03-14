@@ -68,9 +68,11 @@ angular.module('app')
             advanced:{
                 updateOnContentResize: true
             },
-                setHeight: 200,
-                scrollInertia: 0
+                setHeight: 500,
+                scrollInertia: 400
             }
+
+            $rootScope.screenHeight = window.innerHeight;
 
             $rootScope.uiConfig = {
                 calendar: {
