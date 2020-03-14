@@ -26,7 +26,7 @@ app.controller('SigninFormController', ['$scope', '$http', '$state', 'authServic
                 if(getData.status==200) {
                     $rootScope.user = $sessionStorage.user = getData.data;
                     localStorage.user = JSON.stringify($sessionStorage.user);
-                    $state.go('app.chatlist');
+                    $state.go('app.home');
                 } else {
                     $scope.errors = utility.getError(getData.data.message);
                     $rootScope.$emit("showErrors", $scope.errors);

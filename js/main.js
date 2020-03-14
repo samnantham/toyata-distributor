@@ -61,6 +61,22 @@ angular.module('app')
             $rootScope.kaizentypes = angular.copy(app.kaizentypes);
 
             $rootScope.dummyarray = [1,2,3,4,5,6,7,8,9,10];
+
+            $rootScope.uiConfig = {
+                calendar: {
+                    height: 'auto',
+                    editable: true,
+                    header: {
+                        left: 'prev,next',
+                        center: 'title',
+                        right: 'month basicWeek basicDay listDay listWeek listMonth,'
+                    },
+                    dayClick: $scope.alertOnEventClick,
+                    eventDrop: $scope.alertOnDrop,
+                    eventResize: $scope.alertOnResize,
+                    eventMouseover: $scope.alertOnMouseOver
+                }
+            };
             
             $rootScope.fixHelper = function(e, ui) {
                 ui.children().each(function() {

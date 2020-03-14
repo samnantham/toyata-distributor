@@ -1,7 +1,7 @@
 <div ng-controller="TBPController">
     <div class="wrapper-md p-t-none p-b-none m-t-md">
-        <div class="panel panel-default r-3x m-t-md bg-transparent ">
-            <div class="panel-heading r-3x r-b-none bg-dark p-b-none">
+        <div class="panel panel-default r-3x m-t-md bg-white ">
+            <div class="panel-heading r-3x r-b-none bg-main2 p-b-none">
                 <button class="btn no-shadow b-no  btn-default panel-tab" ng-class="{'active': activetab == tbp.id}" ng-click="changeActive(tbp.id)" ng-repeat="(num,tbp) in tbptypes">{{tbp.type}}</button>
             </div>
             <div class="scroller padder">
@@ -17,13 +17,13 @@
                     
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 " dir-paginate="(key,data) in tbps.data | itemsPerPage: totalPerPage" total-items="tbps.total" current-page="pagination.current">
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12" dir-paginate="(key,data) in tbps.data | itemsPerPage: totalPerPage" total-items="tbps.total" current-page="pagination.current">
                         <div class="panel panel-default r-3x m-t-md ">
                             <div class="panel-heading r-3x r-b-none bg-main1 tex-center">
                                 {{data.title}}
                                 <button class="btn btn-default btn-xs bg-main2 pull-right b-no" ui-sref="app.viewtbp({'id':data.id})">View More</button>
                             </div>
-                            <div class="bg-white sm-padder-v sm-padder col-md-12 col-lg-12 col-sm-12  col-xs-12 ">
+                            <div class="bg-white sm-padder-v sm-padder col-md-12 col-lg-12 col-sm-12  col-xs-12 b b-2x r-3x">
                                 <div class="col-md-12 col-lg-12 col-sm-12 padder-v bg-white b-light b b-2x r-3x tbp-container">
                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-b b-dark p-r-none p-l-none sm-padder-v font-bold"> Invitation </div>
                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-b b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,invitation) in data.invitations | limitTo:3"> {{invitation.name}} <a class="btn btn-default btn-xs bdrc-bg2 pull-right b-no" ng-href="{{IMGURL}}{{invitation.file}}" download="{{invitation.file.split('/').pop()}}" target="_blank">Download</a> 
