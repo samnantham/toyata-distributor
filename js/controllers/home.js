@@ -118,6 +118,8 @@ app.controller('DashboardCtrl', ['$scope', '$ngConfirm', 'webServices', '$rootSc
                     angular.forEach($scope.calendarevents, function(data, no) {
                         data.start = new Date(data.start);
                     });
+
+                    console.log($scope.shuffle(getData.data.dataarray))
                     //$scope.eventSources = [$scope.calendarevents];
                 } else {
                     $rootScope.$emit("showerror", getData);
@@ -125,7 +127,18 @@ app.controller('DashboardCtrl', ['$scope', '$ngConfirm', 'webServices', '$rootSc
             });
         }
 
-
+        /*$scope.shuffle = function(array) {
+          var currentIndex = array.length, temporaryValue, randomIndex;
+          while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+          }
+          return array;
+        }
+*/
         $scope.getData();
 
     }

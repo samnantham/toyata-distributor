@@ -126,7 +126,6 @@ angular.module('app')
             }
             
             $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-                
                 $rootScope.loading = true;
                 $rootScope.currentState = toState.name;
                 $rootScope.previousState = fromState.name;
@@ -178,7 +177,6 @@ angular.module('app')
             $rootScope.getUserInfo = function() {
                 $rootScope.errors = [];
                 webServices.get('getauthenticateduser').then(function(getData) {
-                    console.log(getData)
                     if (getData.status == 200) {
                         $rootScope.user = $sessionStorage.user = getData.data;
                         localStorage.user = JSON.stringify($sessionStorage.user);

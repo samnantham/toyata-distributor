@@ -1,46 +1,84 @@
 <div ng-controller='ChangePasswordController'>
-    <div class="wrapper-md p-t-none p-b-none m-t-md">
-        <div class="panel panel-default r-3x">
-            <div class="panel-heading r-3x r-b-none bg-main1 text-center message-head">
-                <span class="font-bold">Chat Board</span>
-                <div class="option">
-                    <img src="img/profile.png"><img src="img/profile.png">
-                </div>
-            </div>
-            <div class="bg-white padder-v padder r-2x">
-                <div class="row">
-                    <div class="chat-wrap">
-                        <div class="messenger private-chat" scroll-to-bottom="chatData">
-                            <div class="message-wrap">
-                                <div class="message">
-                                    <div class="other-img">
-                                        <img src="img/profile.png">
-                                    </div>
-                                    <div class="info">James Park Woods (1886–1963) was an Australian recipient of the Victoria Cross, the highest award for gallantry in the face of the enemy that could be awarded to members of the Australian armed forces at the time. Woods enlisted in the Australian Imperial Force in September 1916, and joined the 48th Battalion in France in September 1917. He participated in the First Battle of
-                                        <div class="time-left">
-                                            <span>18-Sep-19 08:03 pm</span>
-                                        </div>
-                                    </div>
-                                </div>
+    <div class="wrapper-md">
+        <div class="chat-wrap bg-white box-shadow b b-2x">
+                    <div class="message-head b b-3x bdrc-bg1">
+                        <h2>Chat Board </h2>
+                        <div class="option">
+                            <img src="img/profile.png"><img src="img/profile.png">
+                        </div>
+                    </div>
+                    <div class="col-xs-4 p-l-none bg-white scroller">
+                        <div class="col-xs-12 text-right p-r-none">
+                            <button class="btn btn-default btn-xs  m-r-xs r-2x m-t">Create New Group</button>
+                        </div>
+                        <div class="col-xs-12 text-right p-r-none m-t-xs">
+                            <div class="form-group m-t-sm inner-addon right-addon">
+                                <i class="fa fa-search sm-padder sm-padder-v"></i>
+                                <input class="form-control r-3x chatsearch" type="text" placeholder="search" required="" ng-minlength="8">
                             </div>
-                            <div class="message-wrap">
-                                <div class="message">
-                                    <div class="other-img">
-                                        <img src="img/profile.png">
-                                    </div>
-                                    <div class="info">James Park Woods (1886–1963) was an Australian recipient of the Victoria Cross, the highest award for gallantry in the face of the enemy that could be awarded to members of the Australian armed forces at the time. Woods enlisted in the Australian Imperial Force in September 1916, and joined the 48th Battalion in France in September 1917. He participated in the First Battle of
-                                        <div class="time-left">
-                                            <span>18-Sep-19 08:03 pm</span>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="col-xs-12 p-r-none p-l-none sm-padder-v">
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v bg-chat-active">
+                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
+                                <div class="col-xs-6 p-l-none padder-v font-bold"> user name</div>
+                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
                             </div>
-                            <div class="message-wrap">
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
+                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
+                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
+                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
+                            </div>
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
+                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
+                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
+                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
+                            </div>
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
+                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
+                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
+                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
+                            </div>
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
+                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
+                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
+                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
+                            </div>
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
+                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
+                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
+                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
+                            </div>
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
+                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
+                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
+                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
+                            </div>
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
+                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
+                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
+                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
+                            </div>
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
+                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
+                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
+                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
+                            </div>
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
+                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
+                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
+                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-8">
+                        <div class="messenger private-chat ng-isolate-scope" scroll-to-bottom="chatData">
+                            <div class="message-wrap ng-scope">
                                 <div class="message">
-                                    <div class="other-img">
+                                    <div class="other-img ng-scope">
                                         <img src="img/profile.png">
                                     </div>
-                                    <div class="info">James Park Woods (1886–1963) was an Australian recipient of the Victoria Cross, the highest award for gallantry in the face of the enemy that could be awarded to members of the Australian armed forces at the time. Woods enlisted in the Australian Imperial Force in September 1916, and joined the 48th Battalion in France in September 1917. He participated in the First Battle of
+                                    <div class="info">
+                                        James Park Woods (1886–1963) was an Australian recipient of the Victoria Cross, the highest award for gallantry in the face of the enemy that could be awarded to members of the Australian armed forces at the time. Woods enlisted in the Australian Imperial Force in September 1916, and joined the 48th Battalion in France in September 1917. He participated in the First Battle of
                                         <div class="time-left">
                                             <span>18-Sep-19 08:03 pm</span>
                                         </div>
@@ -49,12 +87,12 @@
                             </div>
                             <div class="message-wrap">
                                 <div class="message me">
-                                    <div class="info">James Park Woods (1886–1963) was an Australian recipient of the Victoria Cross, the highest award for gallantry in the face of the enemy that could be awarded to members of the Australian armed forces at the time. Woods enlisted in the Australian Imperial Force in September 1916, and joined the 48th Battalion in France in September 1917. He participated in the First Battle of
+                                    <div class="info">
+                                        James Park Woods (1886–1963) was an Australian recipient of the Victoria Cross, the highest award for gallantry in the face of the enemy that could be awarded to members of the Australian armed forces at the time. Woods enlisted in the Australian Imperial Force in September 1916, and joined the 48th Battalion in France in September 1917. He participated in the First Battle of
                                         <div class="time-left">
                                             <span>18-Sep-19 08:03 pm</span>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -67,8 +105,6 @@
                             <div class="chat-btn" tabindex="0"><i class="fa fa-send"></i></div>
                         </div>
                     </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

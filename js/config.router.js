@@ -117,6 +117,12 @@ angular.module('app')
                   resolve: load(['js/controllers/profile/changepassword.js'])
               })
 
+              .state('app.calendar', {
+                  url: 'calendar',
+                  templateUrl: 'tpl/calendar.html',
+                  resolve: load(['moment','fullcalendar','ui.calendar','js/controllers/calendar.js'])
+              })
+
 
 
               .state('app.404', {
