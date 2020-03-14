@@ -12,9 +12,9 @@ var app =
                 app.service = $provide.service;
                 app.constant = $provide.constant;
                 app.value = $provide.value;
-                app.apiurl = "http://localhost/project/Rilwan/API/user/";
-                app.imageurl = "http://localhost/project/Rilwan/API/";
-                app.noauthroutes = ['access.signin','access.signup','access.forgotpwd','access.distributor_signin','access.resetpwd'];
+                app.apiurl = "http://67.205.159.216/API/user/";
+                app.imageurl = "http://67.205.159.216/API/";
+                app.noauthroutes = ['access.signin','access.signup','access.forgotpwd','access.resetpwd'];
                 app.pagelimits = [10, 25, 50, 100];
                 app.constantlatlong = {lat:'25.0688266',long:'55.1394262',location:'1 Sheikh Mohammed bin Rashid Blvd - Dubai - United Arab Emirates'};
                 app.imgextensions = ['jpeg', 'png', 'jpg', 'gif'];
@@ -41,6 +41,9 @@ var app =
                 }, {
                     id: 3,
                     type: 'Practices'
+                },{
+                    id: 4,
+                    type: 'Others'
                 }];
             }
 

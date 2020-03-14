@@ -4,6 +4,7 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
 
     $scope.event = {};
     $rootScope.loading = true;
+    $scope.now = new Date();
 
     $scope.getData = function() {
         webServices.get('event/' + $stateParams.id).then(function(getData) {
