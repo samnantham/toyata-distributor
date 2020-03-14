@@ -983,3 +983,14 @@ input:read-only {
     background-color: transparent;
     border:none;
 }
+.slick-prev {
+    left: -10px !important;
+}
+.slick-next, .slick-prev {
+ 
+    width: 20px !important;
+    height: 50px !important;
+}
+.slick-next {
+    right: -12px !important;
+}
