@@ -8,8 +8,8 @@ app.controller('DashboardCtrl', ['$scope', '$ngConfirm', 'webServices', '$rootSc
                     slidesToShow: 5,//$rootScope.slidecount,
                     slidesToScroll:5,// $rootScope.scrollslides,
                     arrows: true,
-                    prevArrow: "<img src='img/sliderL.png'>",
-                    nextArrow: "<img src='img/sliderR.png'>",
+                    prevArrow: "<img class='slick-prev slick-arrow' src='img/sliderL.png'>",
+                    nextArrow: "<img class='slick-next slick-arrow' src='img/sliderR.png'>",
                     method: {},
                     infinite: false    
         };
