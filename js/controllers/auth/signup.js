@@ -1,5 +1,5 @@
 'use strict';
-app.controller('SignUpFormController', ['$scope', '$http', '$state', 'authServices', '$sessionStorage', 'webServices', 'utility', '$rootScope' , 'toaster' , function($scope, $http, $state, authServices, $sessionStorage, webServices, utility, $rootScope , toaster) {
+app.controller('SignUpFormController', ['$scope', '$timeout', '$state', 'authServices', '$sessionStorage', 'webServices', 'utility', '$rootScope' , 'toaster' , function($scope, $timeout, $state, authServices, $sessionStorage, webServices, utility, $rootScope , toaster) {
 
     $rootScope.loading = false;
     $scope.formData = {};
@@ -20,7 +20,14 @@ app.controller('SignUpFormController', ['$scope', '$http', '$state', 'authServic
                     $state.go('app.chatlist');
                 } else {
                     $scope.errors = utility.getError(getData.data.message);
-                    $rootScope.$emit("showErrors", $scope.errors);
+                    if(getData.data.authstatus == 1){
+                        $rootScope.$emit("showSuccessMsg", $scope.errors[0]);
+                        $timeout(function() {
+                            $state.go('access.signin');
+                        }, 5000);
+                    }else{
+                        $rootScope.$emit("showErrors", $scope.errors);
+                    }
                 }
             });
         } else {

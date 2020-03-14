@@ -27,17 +27,12 @@ angular.module('app')
                   templateUrl: layout
               })
 
+              //DASHBOARD
+
               .state('app.home', {
                   url: 'home',
                   templateUrl: 'tpl/home.html',
                   resolve: load(['moment','fullcalendar','ui.calendar','js/controllers/home.js'])
-              })
-
-              //Vendors
-              .state('app.vendors', {
-                  url: 'vendors',
-                  templateUrl: 'tpl/vendors/vendors.html',
-                  resolve: load(['js/controllers/vendors/vendors.js'])
               })
 
               //MEBIT Events
@@ -122,8 +117,6 @@ angular.module('app')
                   templateUrl: 'tpl/calendar.html',
                   resolve: load(['moment','fullcalendar','ui.calendar','js/controllers/calendar.js'])
               })
-
-
 
               .state('app.404', {
                   url: '404',

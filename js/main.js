@@ -59,6 +59,7 @@ angular.module('app')
             $rootScope.validfileextensions = angular.copy(app.validfileextensions);
             $rootScope.tbptypes = angular.copy(app.tbptypes);
             $rootScope.kaizentypes = angular.copy(app.kaizentypes);
+            $rootScope.kaizen_upload_types = angular.copy(app.kaizen_upload_types);
 
             $rootScope.dummyarray = [1,2,3,4,5,6,7,8,9,10];
 
@@ -96,16 +97,6 @@ angular.module('app')
                 });
                 return ui;
             };
-
-            $rootScope.setSliderConfig = function() {
-                $rootScope.slickConfig = {
-                    enabled: true,
-                    autoplay: false,
-                    draggable: false,
-                    slidesToShow: $rootScope.slidecount,
-                    slidesToScroll: $rootScope.scrollslides,
-                };
-            }
 
             $rootScope.getfileCounts = function(files,type){
                 return files.filter((obj) => obj.filetype === type).length;
@@ -152,13 +143,38 @@ angular.module('app')
             $rootScope.goback = function() {
                 history.back();
             }
-            
+
+            $rootScope.setSlides = function(){
+                if (!isMobile.phone) {
+                    if (($rootScope.screenWidth >= 960) && ($rootScope.screenWidth < 1368)) {
+                        $rootScope.scrollslides = 3;
+                        $rootScope.slidecount = 3;
+                    } else if (($rootScope.screenWidth >= 1370) && ($rootScope.screenWidth < 1602)) {
+                        $rootScope.scrollslides = 4;
+                        $rootScope.slidecount = 4;
+                    } else if (($rootScope.screenWidth >= 1603) && ($rootScope.screenWidth < 1924)) {
+                        $rootScope.scrollslides = 5;
+                        $rootScope.slidecount = 5;
+                    } else if (($rootScope.screenWidth >= 1925) && ($rootScope.screenWidth < 3000)) {
+                        $rootScope.scrollslides = 6;
+                        $rootScope.slidecount = 6;
+                    } else {
+                        $rootScope.scrollslides = 3;
+                        $rootScope.slidecount = 3;
+                    }
+                } else {
+                    $rootScope.slidecount = 1;
+                    $rootScope.scrollslides = 1;
+                }
+            }
+
             $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
                 $rootScope.loading = true;
                 $rootScope.currentState = toState.name;
                 $rootScope.previousState = fromState.name;
                 $rootScope.screenWidth = window.innerWidth * window.devicePixelRatio;
                 $rootScope.screenHeight = window.innerHeight;
+                $rootScope.setSlides();
                 if ($rootScope.noauthroutes.includes($rootScope.currentState)) {
                     if (authServices.isLoggedIn()) {
                         $rootScope.getUserInfo();
@@ -201,6 +217,24 @@ angular.module('app')
                     authServices.logout();
                 }
             }
+
+            $rootScope.$on("setSliderConfig", function(event)  {
+
+                $rootScope.slickConfig = {
+                        enabled: true,
+                        autoplay: false,
+                        draggable: true,
+                        slidesToShow: $rootScope.slidecount,
+                        slidesToScroll: $rootScope.scrollslides,
+                        arrows: true,
+                        prevArrow: "<img class='slick-prev slick-arrow' src='img/sliderL.png'>",
+                        nextArrow: "<img class='slick-next slick-arrow' src='img/sliderR.png'>",
+                        method: {},
+                        infinite: false    
+                };
+
+                console.log($rootScope.slickConfig)
+            });
 
             $rootScope.getUserInfo = function() {
                 $rootScope.errors = [];
