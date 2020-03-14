@@ -993,4 +993,6 @@ input:read-only {
 }
 .slick-next {
     right: -12px !important;
+}.slick-disabled{
+    opacity: 0.5;
 }
