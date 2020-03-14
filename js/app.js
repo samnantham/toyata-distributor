@@ -26,11 +26,8 @@ angular.module('app', [
     'cp.ngConfirm',
     'angular-button-spinner',
     'angular-web-notification',
-    'ui.sortable',
-    'ui.select',
-    'textAngular',
-    'dndLists',
     'ismobile',
     'ui.calendar',
-    'slickCarousel'
+    'slickCarousel',
+    'ngScrollbars'
 ]);

@@ -20,7 +20,7 @@
                     <!-- / dropdown -->
                 </li>
             </div>
-            <div class="padder scroller">
+            <div class="padder" ng-scrollbars ng-scrollbars-config="config">
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" dir-paginate="(key,data) in events.data | itemsPerPage: totalPerPage" total-items="events.total" current-page="pagination.current">
                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 m-t padder-v r-3x box-shadow bdr-bg1 cursor" ui-sref="app.viewevent({'id':data.id})">

@@ -62,6 +62,16 @@ angular.module('app')
 
             $rootScope.dummyarray = [1,2,3,4,5,6,7,8,9,10];
 
+            $rootScope.config = {
+            autoHideScrollbar: true,
+            theme: 'dark',
+            advanced:{
+                updateOnContentResize: true
+            },
+                setHeight: 200,
+                scrollInertia: 0
+            }
+
             $rootScope.uiConfig = {
                 calendar: {
                     height: 'auto',
