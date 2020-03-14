@@ -1,13 +1,13 @@
 <div class="hbox hbox-auto-xs hbox-auto-sm">
     <!-- main -->
     <div ng-controller="DashboardCtrl">
-        <div class="panel panel-default r-3x m-t-md m-l">
+        <div class="panel panel-default r-3x m-t-xl m-l">
             <div class="panel-heading r-3x r-b-none bg-main2 text-center">
                 What's New
             </div>
-            <div class="bg-white padder-v padder vbox">
+            <div class="bg-white padder-v padder">
                 <slick ng-if="!loading" init-onload="false" data="dummyarray" settings="slickConfig">
-                    <div class="col-md-3 col-lg-2 col-sm-3 col-xs-6 " ng-repeat="(key,data) in dummyarray">
+                    <div class="col-md-3 col-lg-2 col-sm-3 col-xs-6 slide-item" ng-repeat="(key,data) in dummyarray">
                         <div class="col-xs-12 bg-main1 text-center"> test</div>
                         <div class="col-xs-12 m-b sm-padder padder-v bg-white b bdrc-bg-2">
                             <div class="col-xs-12 sm-padder">

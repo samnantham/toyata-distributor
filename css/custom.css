@@ -139,8 +139,12 @@ textarea {
 
 .navi ul.nav li.active a,
 .app-aside-folded .nav li.active {
-    background: #F1592A;
-    color: #fff;
+    background: #FAFAFA !important;
+    
+}
+.navi ul.nav li.active a p
+{
+ color: #F1592A !important;   
 }
 
 .navi ul.nav li a i {
@@ -167,12 +171,13 @@ textarea {
 .icon-holder {
     position: relative;
     float: left;
-    width: 40px;
+    width: 50px;
     margin: -10px -10px;
     margin-right: 5px;
     overflow: hidden;
     line-height: 35px;
     text-align: center;
+    margin-left: -15px;
 }
 
 .menu-icon {
@@ -296,10 +301,10 @@ textarea {
     display: block !important;
 }
 
-.app-aside-folded .active .icon-holder {
+/*.app-aside-folded .active .icon-holder {
     background: #F1592A;
     line-height: 25px;
-}
+}*/
 
 .list-none {
     list-style: none;
@@ -918,5 +923,17 @@ input:read-only {
 }
 .slide-item
 {
-    max-width: 300px;
+    max-width: 250px;
+}
+.navi-wrap p {
+    color: #fff;
+    font-size: 10px;
+    inline-size: max-content;
+    margin-top: -10px !important;
+    margin: auto;
+}
+.thumb-head {
+    display: inline-block;
+    width: 40px !important;
+    height: 40px !important;
 }
