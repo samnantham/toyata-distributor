@@ -20,7 +20,7 @@
                     <!-- / dropdown -->
                 </li>
             </div>
-            <div class="no-padder" ng-scrollbars ng-scrollbars-config="config">
+            <div class="no-padder">
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  " dir-paginate="(key,data) in events.data | itemsPerPage: totalPerPage" total-items="events.total" current-page="pagination.current">
                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 m-t wrapper-lg  box-shadow bg-white cursor r-3x" ui-sref="app.viewevent({'id':data.id})">
@@ -45,10 +45,10 @@
                                 <div class="col-xs-12 p-l-none m-b-xs"><a class="font-bold text-black text-xs">Time & Venue</a> </div>
                                
                                 <div class="mbit-venue bdr-bg1 bg-main1 m-t-lg text-center text-too-small" >
-                                    <div class="col-xs-12 h5 m-t font-bold">15 March 2020</div>
-                                    <div class="col-xs-12 h5 m-t-xs">Sun Day</div>
-                                    <div class="col-xs-12 h5 m-t"><strong>09</strong> AM to <strong>04</strong> PM </div>
-                                    <div class="col-xs-12 h5 m-t">1 Sheikh Mohammed bin Rashid Blvd - Dubai - United Arab Emirates</div>
+                                    <div class="col-xs-12 h5 m-t font-bold">{{convertDate(data.start_date) | date:'dd MMMM yyyy'}}</div>
+                                    <div class="col-xs-12 h5 m-t-xs">{{convertDate(data.start_date) | date:'EEEE'}}</div>
+                                    <div class="col-xs-12 h5 m-t"><strong>{{convertDate(data.start_time) | date:'hh:mm a'}} </strong> to <strong>{{convertDate(data.end_time) | date:'hh:mm a'}}</strong> </div>
+                                    <div class="col-xs-12 h5 m-t">{{data.location | cut:true:30:'...'}}</div>
                                 </div>
                             </div>
                         </div>
