@@ -1,6 +1,6 @@
 <div ng-controller="EventsController">
     <div class="wrapper-md p-t-none p-b-none m-t-md">
-        <div class="panel panel-default r-3x m-t-md">
+        <div class="panel panel-default r-3x m-t-md panel-remover">
             <div class="panel-heading r-3x r-b-none bg-main2 p-b-none">
                 <button class="btn no-shadow b-no btn-default panel-tab" ng-class="{'active': activetab == 'upcoming'}" ng-click="changeActive('upcoming')">Upcoming Events</button>
                 <button class="btn no-shadow b-no btn-default panel-tab" ng-class="{'active': activetab == 'past'}" ng-click="changeActive('past')">Past Events</button>
@@ -20,22 +20,35 @@
                     <!-- / dropdown -->
                 </li>
             </div>
-            <div class="padder" ng-scrollbars ng-scrollbars-config="config">
+            <div class="no-padder" ng-scrollbars ng-scrollbars-config="config">
                 <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" dir-paginate="(key,data) in events.data | itemsPerPage: totalPerPage" total-items="events.total" current-page="pagination.current">
-                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 m-t padder-v r-3x box-shadow bdr-bg1 cursor" ui-sref="app.viewevent({'id':data.id})">
-                            <div class="col-lg-5 col-md-4 col-sm-4 col-xs-4 p-l-none p-r-none">
-                                <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{data.cover_image}}"></div>
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  " dir-paginate="(key,data) in events.data | itemsPerPage: totalPerPage" total-items="events.total" current-page="pagination.current">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 m-t wrapper-lg  box-shadow bg-white cursor r-3x" ui-sref="app.viewevent({'id':data.id})">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 p-r-none">
+                                <div class="mbite-img box-shadow b" background-image="{{IMGURL}}{{data.cover_image}}"></div>
                             </div>
-                            <div class="col-lg-7 col-md-8 col-sm-8 col-xs-8 p-r-none">
-                                <div class="m-b-xs">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4 p-r-none">
+                                <div class="">
                                     <a class="h5 font-bold text-black">{{data.title}}</a>
-                                    <small class="block ev-des m-t-xs"> {{data.description | cut:true:180:'....'}} <b class="text-info m-l-md text-xs" ng-if="data.description.length > 180">Read More</b></small>
+                                    <small class="block ev-des m-t-xs"> {{data.description | cut:true:580:'....'}} <b class="text-info m-l-md text-xs" ng-if="data.description.length > 580">Read More</b></small>
                                 </div>
-                                <div class="m-t-md">
-                                    <div class="mbit-dt text-left inline font-bold">{{convertDate(data.start_date) | date:'dd MMM yyyy'}}</div>
-                                    <div class="mbit-dt pull-right text-ellipsis inline m-t-xs font-bold">{{data.location}}</div>
-                                    <div class="clear"></div>
+                                <div class="m-t-xs">
+                                    <div class="col-xs-12 p-l-none"><a class="font-bold text-black text-xs">Workshop Contents</a> </div>
+                                 
+                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 m-t-xs p-l-none" >
+                                    <button class="btn btn-default r-2x padd-xs min-w-60 bdr-bg1 c-bg-2 text-too-small">Presentation </button>
+                                    <a class="btn btn-warning r-2x padd-xxs" ng-href="{{IMGURL}}{{data.file}}" download="{{data.file.split('/').pop()}}" target="_blank"><i class="fa fa-download"></i></a>
+                                </div>  
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 p-r-none">
+                                <div class="col-xs-12 p-l-none m-b-xs"><a class="font-bold text-black text-xs">Time & Venue</a> </div>
+                               
+                                <div class="mbit-venue bdr-bg1 bg-main1 m-t-lg text-center text-too-small" >
+                                    <div class="col-xs-12 h5 m-t font-bold">15 March 2020</div>
+                                    <div class="col-xs-12 h5 m-t-xs">Sun Day</div>
+                                    <div class="col-xs-12 h5 m-t"><strong>09</strong> AM to <strong>04</strong> PM </div>
+                                    <div class="col-xs-12 h5 m-t">1 Sheikh Mohammed bin Rashid Blvd - Dubai - United Arab Emirates</div>
                                 </div>
                             </div>
                         </div>

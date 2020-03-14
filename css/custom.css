@@ -98,6 +98,14 @@ textarea {
     .t-c {
         text-align: center;
     }
+    .navbar-brand img
+    {
+        display: none;
+    }
+    .nav-brand img
+    {
+        display: block;
+    }
 }
 
 @media only screen and (max-width: 650px) {
@@ -107,10 +115,18 @@ textarea {
     .navi {
         margin-top: 50px;
     }
+    .navbar-brand img
+    {
+        display:block ;
+    }
+    .nav-brand img
+    {
+        display: none;
+    }
 }
 
 .app-header-fixed .app-header {
-    padding: 15px 0px;
+    padding: 10px 0px;
     background: #fff;
 }
 
@@ -139,7 +155,7 @@ textarea {
 
 .navi ul.nav li.active a,
 .app-aside-folded .nav li.active {
-    background: #FAFAFA !important;
+    background: #f5f2ee94 !important;
     
 }
 .navi ul.nav li.active a p
@@ -311,13 +327,13 @@ textarea {
 }
 
 .app-aside-folded .navi ul.nav li a {
-    background: transparent;
+    background: transparent !important;
     padding: 20px;
 }
 
-.app-aside-folded .navbar-brand img {
+/*.app-aside-folded .navbar-brand img {
     max-height: 33px;
-}
+}*/
 
 .app-aside-folded .navi-wrap .nav {
     padding: 0px;
@@ -385,14 +401,15 @@ textarea {
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    background: #3A3F51;
+    background: transparent;
 }
 
-.panel-tab.active {
+.panel-tab.active ,.panel-tab:hover{
     padding: 2px 12px;
     border-radius: 10px 10px 0px 0px;
     background: #ffffff !important;
     font-weight: bold;
+    color: #F1592A !important;
 }
 
 .logo-area {
@@ -438,6 +455,28 @@ textarea {
     max-height: auto;
     min-width: 100%;
     border: 1.5px solid #b2b3b678;
+}
+.mbite-img {
+    height: 168px;
+    width: 180px;
+    display: block;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    border-radius: 6px;
+    max-height: auto;
+    min-width: 100%;
+    border: 1.5px solid #b2b3b678;
+}
+.mbit-venue
+{
+    height: 150px;
+    width: 200px;
+    max-height: auto;
+    color: #fff;
+    border-radius: 5px;
+    max-width: 100%
 }
 
 .bdr-bg1 {
@@ -568,7 +607,9 @@ input:read-only {
 .padd-xs {
     padding: 3px 6px;
 }
-
+.padd-xxs {
+    padding: 1px 3px;
+}
 .p-event-auto {
     pointer-events: auto!important;
 }
@@ -936,4 +977,9 @@ input:read-only {
     display: inline-block;
     width: 40px !important;
     height: 40px !important;
+}
+.panel-remover
+{
+    background-color: transparent;
+    border:none;
 }

@@ -9,16 +9,20 @@
         <i class="fa fa-bars"></i>
     </button>
     <!-- brand -->
-    <a class="navbar-brand text-lt">
-        <img class="header-logo" src="img/logo.png" ng-if="!app.settings.asideFolded">
-        <img class="header-logo" src="img/logo.png" ng-if="app.settings.asideFolded">
+     <a class="navbar-brand text-lt ">
+        <img class="header-logo " src="img/logo.png" ng-if="!app.settings.asideFolded">
+        <img class="header-logo " src="img/logo.png" ng-if="app.settings.asideFolded">
     </a>
     <!-- / brand -->
 </div>
 <!-- / navbar header -->
 
 <!-- navbar collapse -->
-<div class="collapse pos-rlt navbar-collapse  {{app.settings.navbarCollapseColor}}">
+<div class="collapse pos-rlt navbar-collapse  {{app.settings.navbarCollapseColor}} p-l-none">
+    <a class="text-lt pull-left nav-brand">
+        <!-- <img class="header-logo" src="img/logo.png" ng-if="!app.settings.asideFolded"> -->
+        <img class="header-logo m-t-xs" src="img/logo.png" ng-if="app.settings.asideFolded" width="130px;">
+    </a>
     <ul class="nav navbar-nav navbar-right">
 
         <li class="dropdown">
