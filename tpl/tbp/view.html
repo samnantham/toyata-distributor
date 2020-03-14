@@ -1,0 +1,262 @@
+<div ng-controller="TBPInfoController">
+    <div class="wrapper-md">
+        <div class="panel panel-default r-3x m-t-md">
+            <div class="panel-heading r-3x r-b-none bg-dark text-center">
+                <span class="font-bold">{{tbp.title}}</span>
+            </div>
+            <div class="bg-white padder-v padder">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12  col-xs-12">
+                        <button class="btn btn-md btn-warning pull-left" type="button" ng-click="openParticipantModal();"> Participants</button>
+                        <div class="pull-right dist-ico">
+                            <img class="m-r-xs" src="img/edit.png" ng-click="editTBP();">
+                            <img src="img/delete.png" ng-click="removeEvent()">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 wrapper-md p-t-none m-t-sm">
+                        <div class="bg-white sm-padder-v sm-padder col-md-12 col-lg-12 col-sm-12  col-xs-12 ">
+                            <div class="col-md-12 col-lg-12 col-sm-12 padder-v bg-white b-light b b-2x r-3x">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padder">
+                                    <h5 class="font-bold"> Invitation </h5>
+                                </div>
+                                <div class="line b-b line-lg m-t-none m-b-none b-2x"></div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-b b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,invitation) in tbp.invitations track by $index"> {{invitation.name}} <a class="btn btn-warning r-2x padd-xs pull-right b-no" ng-href="{{IMGURL}}{{invitation.file}}" download="{{invitation.file.split('/').pop()}}" target="_blank"><i class="fa fa-download"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12 wrapper-md p-t-none m-t-sm">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-md" ng-if="tbp.survey_link">
+                            <div class="m-b-sm">
+                                <h5 class="font-bold"> Survey Link : <a class="h6 font-bold text-black" ng-href="{{tbp.survey_link}}" target="_blank"><span class="text-info font-bold text-xs">{{tbp.survey_link}}</span></a></h5>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="tbp.videocount > 0">
+                            <div class="m-b-sm m-t-sm">
+                                <a class="h5 font-bold text-black">Watch Videos</a>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 m-b-sm p-l-none" ng-repeat="(key,data) in tbp.tbp_files" ng-if="data.filetype == 'video'">
+                                <div class="mbit-img box-shadow b pos-rlt">
+                                    <video width="100%" height="100%" controls>
+                                        <source ng-src="{{getVideoUrl(data.file)}}" type="video/{{data.file.substr(data.file.length - 3)}}">
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="tbp.imagecount > 0">
+                            <div class="m-b-sm m-t-sm">
+                                <a class="h5 font-bold text-black">Images</a>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 m-b-sm p-l-none" ng-repeat="(key,data) in tbp.tbp_files" ng-if="data.filetype == 'image'">
+                                <div class="mbit-img box-shadow b pos-rlt">
+                                    <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{data.file}}"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="tbp.event_documents.length > 0">
+                            <div class="m-b-sm m-t-sm">
+                                <a class="h5 font-bold text-black">Event Contents</a>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 m-b p-l-none" ng-repeat="(key,data) in tbp.event_documents">
+                                <button class="btn btn-default r-2x padd-xs min-w-60">Presentation {{key + 1}}</button>
+                                <a class="btn btn-warning r-2x padd-xs" ng-href="{{IMGURL}}{{data.file}}" download="{{data.file.split('/').pop()}}" target="_blank"><i class="fa fa-download"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12 padder-lg">
+                        <div class="b-t m-b col-xs-12">
+                            <div class="m-t">
+                                <div class="col-sm-2 color-main-1 p-l-none">
+                                    <i class="icon-like m-r-xs"></i> {{tbp.likes}} Likes
+                                </div>
+                                <div class="col-sm-2 color-main-1 p-l-none">
+                                    <i class="fa fa-comment m-r-xs"></i> 8 Comments
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padder-lg">
+                        <div class="panel panel-default r-3x m-t-md">
+                            <div class="panel-heading r-3x r-b-none bg-dark  bg-main1">
+                                <div class="clear">
+                                    <span class="font-bold pull-left">Participants</span>
+                                    <span class="font-bold pull-right">{{tbp.participants.length}}</span>
+                                </div>
+                            </div>
+                            <div class="bg-tbcolor col-xs-12 padder-v">
+                                <div class="bg-white col-xs-12 m-b wrapper-xs" ng-repeat="(no,participant) in tbp.participants">
+                                    <div class="col-xs-4">{{participant.userinfo.first_name}} {{participant.userinfo.last_name}}</div>
+                                    <div class="col-xs-2">{{participant.userinfo.distributorinfo.name}}</div>
+                                    <div class="col-xs-4">{{participant.userinfo.distributorinfo.location}}</div>
+                                    <div class="col-xs-2">
+                                        <div class="pull-right dist-ico">
+                                            <!-- <img class="m-r-xs" src="img/edit.png" ng-click="editTBP();"> -->
+                                        <img src="img/delete.png" ng-click="removeTBPParticipant(participant.id)">
+                                    </div>
+                                        <!-- <button class="btn btn-default btn-xs">Show Details</button> -->
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 p-l-none" ng-if="tbp.participants.length  ==  0">
+                                    <div class="w-full text-center bg-white  m-b wrapper-xs">
+                                        <h4>No participants added</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="PopupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" data-modalFade="true">
+        <div class="modal-dialog" role="document" style="width: 70%;">
+            <div class="modal-content wrapper-xl">
+                <form class="form-horizontal" name="addForm" novalidate ng-submit="addData(addForm);">
+                    <div class="modal-header b-no text-center">
+                        <button type="button" class="close" ng-click="closeModal();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add New Batch</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label class="font-bold">Batch Name<code>*</code></label>
+                                    <small class="pull-right text-danger" ng-if="errorData.title_error">{{errorData.title_errorMsg}}</small>
+                                    <input type="text" name="title" class="form-control r-2x" ng-model="formData.title" placeholder="Name of Batch" required ng-change="inputchange()">
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-bold">Type</label>
+                                    <select name="type" class="form-control r-2x" ng-model="formData.type">
+                                        <option value="{{tbptype.id}}" ng-repeat="(num,tbptype) in tbptypes"> {{tbptype.type}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group m-t-sm">
+                                    <input type="hidden" name="invitations" ng-model="formData.checkinvitation" ng-required="!formData.invitations_data">
+                                    <label class="font-bold">Invitations<code>*</code></label>
+                                    <i class="fa fa-plus pull-right text-lg cursor" ng-click="addInvitation()"></i>
+                                    <small class="pull-right text-danger m-r-lg" ng-if="errorData.invitation_error">{{errorData.invitation_errorMsg}}</small>
+                                    <div class="line b-b line-lg m-t-none b-2x"></div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padder m-b-sm" ng-repeat="(no,invitation) in formData.invitations">
+                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 no-padder">
+                                            <input type="text" name="name" class="form-control r-2x" ng-model="invitation.name" placeholder="Enter Name" required ng-change="inputchange()">
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-r-none">
+                                            <a class="btn btn-danger r-2x pull-right m-l-sm" ng-click="removeInvitation(key,invitation);" ng-if="formData.invitations.length > 1"><i class="fa fa-trash"></i></a>
+                                            <button class="btn btn-warning r-2x btn-addon pull-right" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadInvitation(no,$files);"><i class="fa fa-upload"></i> {{invitation.filename ? invitation.filename : 'Upload'}}</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="font-bold">Survey Link</label>
+                                    <small class="pull-right text-danger" ng-if="errorData.survey_link_error">{{errorData.survey_link_errorMsg}}</small>
+                                    <input type="text" name="survey_link" class="form-control r-2x" ng-model="formData.survey_link" placeholder="Enter link address" ng-required="formData.survey_link" ng-pattern="/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/" ng-change="inputchange()">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label class="font-bold">Images and Videos</label>
+                                    <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addtbpfiles($files);" ngf-accept="'image/*,video/*'" ngf-maxfiles="6">
+                                        Upload Files
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-t-sm m-b-sm" ng-repeat="(key,data) in formData.tbp_files" ng-class-odd="'p-l-none'" ng-class-even="'p-r-none'">
+                                        <div class="mbit-img box-shadow b pos-rlt" ng-if="data.filetype == 'video'">
+                                            <video width="100%" height="100%" controls ng-if="!data.hasOwnProperty('isfile');">
+                                                <source ng-src="{{getVideoUrl(data.file)}}" type="video/{{data.file.substr(data.file.length - 3)}}">
+                                            </video>
+                                            <video width="100%" height="100%" controls ng-if="data.hasOwnProperty('isfile');" ngf-src="data.file">
+                                            </video>
+                                            <img class="item-img-delete" src="img/delete.png" ng-click="removeFile(key,data)">
+                                        </div>
+                                        <div class="mbit-img box-shadow b pos-rlt" ng-if="data.filetype == 'image'">
+                                            <div class="w-full h-full mbit-img" background-image="{{IMGURL}}{{data.file}}" ng-if="!data.hasOwnProperty('isfile');"></div>
+                                            <div class="w-full h-full mbit-img" ngf-background="data.file" ng-if="data.hasOwnProperty('isfile');"></div>
+                                            <img class="item-img-delete cursor" src="img/delete.png" ng-click="removeFile(key,data)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-center b-no">
+                        <div class="col-xs-12 text-center ">
+                            <button type="button" class="btn btn-primary no-border  m-auto bg-dark w-xs" ng-click="closeModal()" ng-disabled="loading">Cancel</button>
+                            <button type="submit" class="btn btn-primary no-border  m-auto bg-main1 w-xs" button-spinner="loading" ng-disabled="loading">Update</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ParticipantModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" data-modalFade="true">
+        <div class="modal-dialog" role="document" style="width: 70%;">
+            <div class="modal-content">
+                <div class="modal-header b-no text-center">
+                        <button type="button" class="close" ng-click="closeModal();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title m-t-md" id="myModalLabel">{{tbp.title}} - Participants</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-4  inner-addon right-addon">
+                                <i class="fa fa-search"></i>
+                                <input type="text" ng-model="filterData.keyword" class="form-control r-2x box-shadow" ng-change="getUsers();" placeholder="Search" aria-invalid="false">
+                            </div>
+
+                            <div class="col-sm-4">
+                                <select name="distributor" class="form-control r-2x" required ng-model="filterData.distributor" ng-options="distributor.id as distributor.name for distributor in distributors" ng-change="getDivisions();">
+                                    <option value="">Choose Distributor</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <select name="division " class="form-control r-2x" required ng-model="filterData.division" ng-disabled="!filterData.distributor" ng-options="division.id as division.division_name for division in divisions" ng-change="getUsers();">
+                                  <option value="">Choose Division</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-6 m-md">
+                                <label class="h5 font-bold">List of Distributor users</label>
+                                <div class="form-group">
+                                    <div class="checkbox" ng-repeat="(number,user) in users">
+                                      <label class="i-checks">
+                                        <input type="checkbox" ng-model="user.is_added" ng-true-value="1" ng-false-value="0" ng-change="addremoveMember(user.is_added,user.id)">
+                                        <i></i>
+                                        {{user.first_name}}
+                                      </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 p-l-none" ng-if="users.length  ==  0">
+                                        <div class="w-full text-center bg-white wrapper-lg b b-2x r-2x">
+                                            <h4>No recent users</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer text-center b-no">
+                        <div class="col-xs-12 text-center ">
+                        <button type="button" class="btn btn-primary no-border  m-auto bg-dark w-xs" ng-disabled="loading" ng-click="closeModal();">Cancel</button>
+                        <button type="button" class="btn btn-primary no-border  m-auto bg-main1 w-xs" button-spinner="loading" ng-disabled="loading || addedData.members.length == 0" ng-click="updateParticipants()">Update</button>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="container text-center flex" ng-controller="SignUpFormController" ng-init="app.settings.container = false;" ng-style="{'height': (screenHeight - height_to_reduce )+ 'px'}">
+    <toaster-container toaster-options="{'position-class': 'toast-top-center','time-out':3000, 'close-button':true}"></toaster-container>
+    <div class="auth-form r-3x b b-2x m-auto v-mid-align w-max-550 box-shadow bdr-gray">
+        <div class="wrapper text-center m-t-lg">
+            <img class="logo-img" src="img/logoLG.png">
+        </div>
+        <div class="wrapper-lg m-b-sm">
+            <form role="form" name="signupForm" novalidate ng-submit="register(signupForm)">
+                <div class="form-group">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12 m-b-md">
+                        <select name="distributor" class="form-control r-2x" name="distributor" ng-model="formData.distributor" required ng-options="distributor.id as distributor.name for distributor in distributors" ng-change="getDivisions()">
+                            <option value="">Select Distributor</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12 m-b-md">
+                        <select name="account" class="form-control r-2x" name="division" ng-model="formData.division" required ng-options="division.id as division.division_name for division in divisions">
+                            <option value="">Select Division</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12 m-b-md">
+                        <input type="first_name" class="form-control" placeholder="First Name" name="first_name" ng-model="formData.first_name" required>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12 m-b-md">
+                        <input type="last_name" class="form-control" placeholder="Last Name" name="last_name" ng-model="formData.last_name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12 m-b-md">
+                        <input type="email" class="form-control" placeholder="Enter Email" name="email" ng-model="formData.email" required>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12 m-b-md">
+                        <input type="text" class="form-control" placeholder="Enter Phone" name="phone" ng-model="formData.phone" valid-nmuber required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12 m-b-md inner-addon right-addon">
+                        <i class="fa p-event-auto {{formData.showpassword ? 'fa-eye-slash':'fa-eye'}}" ng-click="showhidepassword('password');"></i>
+                        <input type="{{formData.passwordtype}}" class="form-control" placeholder="Enter Password" name="password" ng-model="formData.password" required>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12 m-b-md inner-addon right-addon">
+                        <i class="fa p-event-auto {{formData.showconfirmpassword ? 'fa-eye-slash':'fa-eye'}}" ng-click="showhidepassword('confirm');"></i>
+                        <input type="{{formData.confirmtype}}" class="form-control" placeholder="Confirm Password" name="confirm_password" ng-model="formData.confirm_password" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 m-t-sm">
+                        <textarea class="form-control r-2x" placeholder="Comments" rows="3" name="phone" ng-model="formData.comments"></textarea>
+                    </div>
+                </div>
+                <div class="form-group m-b-none">
+                    <button type="submit" class="btn btn-md btn-warning m-t-xxl m-b-sm text-u-c r-3x" button-spinner="loading" ng-disabled="loading">Signup</button>
+                </div>
+                <div class="form-group m-b-none">
+                    <span class="text-muted text-xs">or</span>
+                </div>
+                <div class="form-group m-b-none">
+                    <button type="submit" class="btn btn-md btn-danger text-u-c r-3x m-t-sm" ui-sref="access.signin">Signin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

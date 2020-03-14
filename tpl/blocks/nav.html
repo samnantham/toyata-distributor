@@ -1,0 +1,47 @@
+<ul class="nav">
+
+    <li ng-class="{active: $state.includes('app.home') }">
+        <a ui-sref="app.home" class="auto">
+            <span class="pull-right text-muted">
+      </span>
+            <span class="icon-holder"><img class="menu-icon" ng-src="{{currentState == 'app.home' ? 'img/home_active.png' : 'img/home.png' }}"></span>
+            <span>Home</span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('app.events')  || $state.includes('app.viewevent') || $state.includes('app.editevent')}">
+        <a ui-sref="app.events({type:'upcoming'})" class="auto">
+            <span class="pull-sright text-muted">
+      </span>
+            <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.events') || (currentState == 'app.viewevent')  || (currentState == 'app.editevent') ? 'img/mebitevents_active.png' : 'img/mebitevents.png' }}"></span>
+            <span>MEBIT Events</span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('app.tbps') || $state.includes('app.viewtbp')}">
+        <a ui-sref="app.tbps({type:'1'})" class="auto">
+            <span class="pull-right text-muted">
+      </span>
+            <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.tbps') || (currentState == 'app.viewtbp') ? 'img/tbp_active.png' : 'img/tbp.png' }}"></span>
+            <span>TBP</span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('app.chatlist')}">
+        <a ui-sref="app.chatlist" class="auto">
+            <span class="pull-right text-muted">
+      </span>
+            <span class="icon-holder"><img class="menu-icon" ng-src="{{currentState == 'app.chatlist' ? 'img/chat_active.png' : 'img/chat.png' }}"></span>
+            <span>TBP</span>
+        </a>
+    </li>
+    
+    <li ng-class="{active: $state.includes('app.kaizens') || $state.includes('app.viewkaizen')}">
+        <a ui-sref="app.kaizens({type:'1'})" class="auto">
+            <span class="pull-right text-muted">
+      </span>
+            <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.kaizens') || (currentState == 'app.viewkaizen') ? 'img/kaizen_active.png' : 'img/kaizen.png' }}"></span>
+            <span>Reports</span>
+        </a>
+    </li>
+</ul>

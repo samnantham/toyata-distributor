@@ -1,0 +1,30 @@
+<div ng-controller='ChangePasswordController'>
+    <div class="wrapper-md p-t-none p-b-none m-t-md">
+        <div class="panel panel-default r-3x">
+            <div class="panel-heading r-3x r-b-none bg-main1 text-center">
+                <span class="font-bold ">Chats</span>
+            </div>
+            <div class="bg-white padder scroller">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padder-lg" ng-repeat="(key,data) in dummyarray" ui-sref="app.chatinfo({'id': key + 1})">
+                        <div class="bg-white col-lg-12 col-md-12 col-sm-12 col-xs-12 padder-v no-padder m-t">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-b wrapper-xs bg-tbcolor sm-padder-v">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <img src="img/profile.png" class="thumb-lg">
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-left text-justify p-l-none">
+                                    <div class="pull-right pos-abt dist-ico">
+                                        <img src="img/delete.png" ng-click="deleteData(data)">
+                                    </div>
+                                    <div class="h5 strong m-t-sm m-b-sm cursor">Message type</div>
+                                    <div class="text-muted m-b-lg small col-xs-10  p-l-none">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+                                    <div class="text-muted text-too-small col-xs-12 p-l-none">11-Oct-19 07:05 PM | Me </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

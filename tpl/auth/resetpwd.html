@@ -1,0 +1,30 @@
+<div class="container text-center flex" ng-controller="ResetPWDController" ng-init="app.settings.container = false;" ng-style="{'height': (screenHeight - height_to_reduce )+ 'px'}">
+    <toaster-container toaster-options="{'position-class': 'toast-top-center','time-out':3000, 'close-button':true}"></toaster-container>
+    <div class="auth-form w-xxl w-max-450 r-3x b b-2x m-auto v-mid-align box-shadow bdr-gray">
+        <div class="wrapper text-center m-t-lg">
+            <img class="logo-img" src="img/logoLG.png">
+        </div>
+        <div class="wrapper-lg m-b-sm">
+            <form role="form" name="forgotForm" novalidate ng-submit="addData(forgotForm)">
+                <input type="hidden" name="passwordmatch" ng-model="formData.passwordmatch" ng-required="formData.newpassword != formData.confirmpassword">
+                <div class="form-group m-t-sm inner-addon right-addon">
+                            <i class="fa p-event-auto right-none {{formData.shownewpassword ? 'fa-eye-slash':'fa-eye'}}" ng-click="showhidepassword('new');"></i>
+                            <input class="form-control" type="{{formData.newtype}}" placeholder="New Password" name="newpassword" ng-model='formData.newpassword' required>
+
+                        </div>
+                        <div class="form-group m-t-sm inner-addon right-addon">
+                            <i class="fa p-event-auto right-none {{formData.showconfirmpassword ? 'fa-eye-slash':'fa-eye'}}" ng-click="showhidepassword('confirm');"></i>
+                            <input class="form-control" type="{{formData.confirmtype}}" placeholder="Confirm Password" name="confirmpassword" ng-model='formData.confirmpassword' required ng-minlength="8">
+                        </div>
+                <div class="form-group">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                        <a class="pull-right text-muted text-xs" ui-sref="access.signin">Go to Login</a>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-md btn-warning m-t-xxl m-b-sm text-u-c r-3x" button-spinner="loading" ng-disabled="loading">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

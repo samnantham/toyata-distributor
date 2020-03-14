@@ -1,0 +1,58 @@
+<div ng-controller="EventsController">
+    <div class="wrapper-md p-t-none p-b-none m-t-md">
+        <div class="panel panel-default r-3x m-t-md">
+            <div class="panel-heading r-3x r-b-none bg-dark p-b-none">
+                <button class="btn no-shadow b-no  btn-default panel-tab" ng-class="{'active': activetab == 'upcoming'}" ng-click="changeActive('upcoming')">Upcoming Events</button>
+                <button class="btn no-shadow b-no  btn-default panel-tab" ng-class="{'active': activetab == 'past'}" ng-click="changeActive('past')">Past Events</button>
+                
+                <li class="dropdown pull-right list-none" dropdown ng-if="activetab!='create'">
+                    <a href class="dropdown-toggle clear" dropdown-toggle>
+                        <i class="fa fa-filter pull-right"></i>
+                    </a>
+                    <!-- dropdown -->
+                    <ul class="dropdown-menu animated fadeInRight">
+                        <li ng-if="filterData.sortkey"><a ng-click="sortData('','')"><i class="fa fa-repeat m-r-sm"></i> <small>Reset</small></a></li>
+                        <li><a ng-click="sortData('title','asc')"><i class="fa fa-sort-alpha-asc m-r-sm"></i> <small>Event Name ASC</small></a></li>
+                        <li><a ng-click="sortData('title','desc')"><i class="fa fa-sort-alpha-desc m-r-sm"></i> <small>Event Name DSC</small></a></li>
+                        <li><a ng-click="sortData('start_date','asc')"><i class="fa fa-sort-alpha-asc m-r-sm"></i> <small>Date ASC</small></a></li>
+                        <li><a ng-click="sortData('start_date','desc')"><i class="fa fa-sort-alpha-desc m-r-sm"></i> <small>Date DSC</small></a></li>
+                    </ul>
+                    <!-- / dropdown -->
+                </li>
+            </div>
+            <div class="padder scroller">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" dir-paginate="(key,data) in events.data | itemsPerPage: totalPerPage" total-items="events.total" current-page="pagination.current">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 m-t padder-v r-3x box-shadow bdr-bg1 cursor" ui-sref="app.viewevent({'id':data.id})">
+                            <div class="col-lg-5 col-md-4 col-sm-4 col-xs-4 p-l-none p-r-none">
+                                <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{data.cover_image}}"></div>
+                            </div>
+                            <div class="col-lg-7 col-md-8 col-sm-8 col-xs-8 p-r-none">
+                                <div class="m-b-xs">
+                                    <a class="h5 font-bold text-black">{{data.title}}</a>
+                                    <small class="block ev-des m-t-xs"> {{data.description | cut:true:180:'....'}} <b class="text-info m-l-md text-xs" ng-if="data.description.length > 180">Read More</b></small>
+                                </div>
+                                <div class="m-t-md">
+                                    <div class="mbit-dt text-left inline font-bold">{{convertDate(data.start_date) | date:'dd MMM yyyy'}}</div>
+                                    <div class="mbit-dt pull-right text-ellipsis inline m-t-xs font-bold">{{data.location}}</div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12" ng-if="events.total  ==  0">
+                        <div class="w-full text-center bg-white wrapper-lg m-t-md b b-2x r-2x">
+                            <h4>No Events Found</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-b-md">
+                    <div class="col-lg-12 col-md-12 col-sm-12" ng-if="events.last_page > 0 && !loading">
+                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" class="pagination-ctrl"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
