@@ -1,19 +1,8 @@
 'use strict';
 app.controller('DashboardCtrl', ['$scope', '$ngConfirm', 'webServices', '$rootScope', 'authServices', '$timeout', '$sessionStorage', 'NgMap', '$http', '$filter',
     function($scope, $ngConfirm, webServices, $rootScope, authServices, $timeout, $sessionStorage, NgMap, $http, $filter) {
-        $rootScope.slickConfig = {
-                    enabled: true,
-                    autoplay: false,
-                    draggable: true,
-                    slidesToShow: 5,//$rootScope.slidecount,
-                    slidesToScroll:5,// $rootScope.scrollslides,
-                    arrows: true,
-                    prevArrow: "<img class='slick-prev slick-arrow' src='img/sliderL.png'>",
-                    nextArrow: "<img class='slick-next slick-arrow' src='img/sliderR.png'>",
-                    method: {},
-                    infinite: false    
-        };
-
+        
+        $rootScope.$emit("setSliderConfig",{});
         $scope.eventSources = [];
 
         $scope.getData = function() {
