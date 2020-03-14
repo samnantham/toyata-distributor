@@ -45,6 +45,32 @@ var app =
                     id: 4,
                     type: 'Others'
                 }];
+
+                app.kaizen_upload_types = [{
+                    id: 1,
+                    type: 'Step 1filter'
+                }, {
+                    id: 2,
+                    type: 'Step 1 Revised'
+                }, {
+                    id: 3,
+                    type: 'Step 1-3'
+                },{
+                    id: 4,
+                    type: 'Step 1-3 Revised'
+                },{
+                    id: 5,
+                    type: 'Step 1-5'
+                }, {
+                    id: 6,
+                    type: 'Step 1-5 Revised'
+                }, {
+                    id: 7,
+                    type: 'Step 1-8'
+                },{
+                    id: 8,
+                    type: 'Step 1-8 Revised'
+                }];
             }
 
         ]).config(function (ScrollBarsProvider) {

@@ -59,6 +59,7 @@ angular.module('app')
             $rootScope.validfileextensions = angular.copy(app.validfileextensions);
             $rootScope.tbptypes = angular.copy(app.tbptypes);
             $rootScope.kaizentypes = angular.copy(app.kaizentypes);
+            $rootScope.kaizen_upload_types = angular.copy(app.kaizen_upload_types);
 
             $rootScope.dummyarray = [1,2,3,4,5,6,7,8,9,10];
 
