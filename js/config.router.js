@@ -97,7 +97,7 @@ angular.module('app')
               .state('app.notification', {
                   url: 'notifications',
                   templateUrl: 'tpl/profile/notification.html',
-                  resolve: load(['js/controllers/profile/changepassword.js'])
+                  resolve: load(['js/controllers/profile/notification.js'])
               })
 
               .state('app.chatlist', {

@@ -35,7 +35,7 @@
             <a class="dropdown-toggle" ui-sref="app.notification">
                 <i class="icon-bell fa-fw text-lg"></i>
                 <span class="visible-xs-inline">Notifications</span>
-                <span class="badge badge-sm up bg-danger pull-right-xs">2</span>
+                <span class="badge badge-sm up bg-danger pull-right-xs" ng-if="user.unread > 0">{{user.unread < 9 ? user.unread : '9+'}}</span>
             </a>
         </li>
         

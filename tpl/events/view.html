@@ -92,22 +92,22 @@
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm m-b-md">
-                            <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6">
-                                <div class="input-group pull-left">
-                                    <button class="btn btn-md btn-warning" ng-click="openaddModal();" ng-if="convertDate(event.start_date) > convertDate(now)"> {{event.travelinfo ? 'Change Your travel Details' : 'Add Your travel Details'}}</button>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-sm-6">
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 inner-addon right-addon">
-
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6">
+                            <div class="input-group pull-left">
+                                <button class="btn btn-md btn-warning" ng-click="openaddModal();" ng-if="convertDate(event.start_date) > convertDate(now)"> {{event.travelinfo ? 'Change Your travel Details' : 'Add Your travel Details'}}</button>
                             </div>
                         </div>
+                        <div class="col-md-6 col-lg-6 col-sm-6">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 inner-addon right-addon">
+
+                        </div>
+                    </div>
                     <div class="col-xs-12 padder-lg">
                         <div class="b-t m-b col-xs-12">
                             <div class="m-t">
-                                <div class="col-sm-2 color-main-1 p-l-none">
-                                    <i class="icon-like m-r-xs"></i> 23 Likes
+                                <div class="col-sm-2 color-main-1 p-l-none" ng-class="{'text-danger':event.isliked}">
+                                    <i class="fa m-r-xs" ng-click="changeLike();" ng-class=" event.isliked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'"></i> {{event.likes}} Likes
                                 </div>
                                 <div class="col-sm-2 color-main-1 p-l-none">
                                     <i class="fa fa-comment m-r-xs"></i> 8 Comments
@@ -115,14 +115,13 @@
                             </div>
                             <div class="m-t">
                                 <div class="comment p-b-none m-t">
-                            <div class="msg-text">
-                                
-                                <input type="text" placeholder="Write Comment" aria-invalid="false">
-                                <a class="small-btn"><i class="fa fa-smile-o"></i></a>
-                                <a class="small-btn"><i class="fa fa-paperclip"></i></a>
-                            </div>
-                            <div class="chat-btn" tabindex="0"><i class="fa fa-send"></i></div>
-                        </div>
+                                    <div class="msg-text">
+                                        <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="commentData.comment">
+                                        <a class="small-btn"><i class="fa fa-smile-o"></i></a>
+                                        <a class="small-btn" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
+                                    </div>
+                                    <button class="chat-btn" tabindex="0" ng-disabled="!commentData.comment" ng-click="addComment()"><i class="fa fa-send"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -131,7 +130,7 @@
         </div>
     </div>
 
-     <div class="modal fade" id="PopupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" data-modalFade="true">
+    <div class="modal fade" id="PopupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" data-modalFade="true">
         <div class="modal-dialog" role="document" style="width: 70%;">
             <div class="modal-content wrapper-md">
                 <form class="form-horizontal" name="addForm" novalidate ng-submit="addData(addForm);">
@@ -162,15 +161,15 @@
                             </div>
 
                             <div class="col-sm-6">
-                                            <label class="font-bold">Travle Date <code>*</code></label>
-                                            <small class="pull-right text-danger" ng-if="errorData.travel_date_error">{{errorData.travel_date_errorMsg}}</small>
-                                            <div class="input-group" ng-controller="DatepickerDemoCtrl">
-                                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="formData.travel_date" is-open="opened" datepicker-options="dateOptions" close-text="Close" placeholder="DD/MM/YYYY" name="travel_date" ng-click="open($event)" required readonly/>
-                                                <span class="input-group-btn">
+                                <label class="font-bold">Travle Date <code>*</code></label>
+                                <small class="pull-right text-danger" ng-if="errorData.travel_date_error">{{errorData.travel_date_errorMsg}}</small>
+                                <div class="input-group" ng-controller="DatepickerDemoCtrl">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="formData.travel_date" is-open="opened" datepicker-options="dateOptions" close-text="Close" placeholder="DD/MM/YYYY" name="travel_date" ng-click="open($event)" required readonly/>
+                                    <span class="input-group-btn">
                                                     <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                                 </span>
-                                            </div>
-                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -201,9 +200,9 @@
                     </div>
                     <div class="modal-footer text-center b-no">
                         <div class="col-xs-12 text-center ">
-                        <button type="button" class="btn btn-primary no-border  m-auto bg-dark w-xs" ng-click="closeModal()" ng-disabled="loading">Cancel</button>
-                        <button type="submit" class="btn btn-primary no-border  m-auto bg-main1 w-xs" button-spinner="loading" ng-disabled="loading">Add</button>
-                        
+                            <button type="button" class="btn btn-primary no-border  m-auto bg-dark w-xs" ng-click="closeModal()" ng-disabled="loading">Cancel</button>
+                            <button type="submit" class="btn btn-primary no-border  m-auto bg-main1 w-xs" button-spinner="loading" ng-disabled="loading">Add</button>
+
                         </div>
                     </div>
                 </form>

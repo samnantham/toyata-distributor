@@ -5,13 +5,14 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
     $scope.event = {};
     $rootScope.loading = true;
     $scope.now = new Date();
+    $scope.commentData = {};
+    $scope.commentData.isfile = 0;
 
     $scope.getData = function() {
         webServices.get('event/' + $stateParams.id).then(function(getData) {
             $rootScope.loading = false;
             if (getData.status == 200) {
                 $scope.event = getData.data;
-                console.log($scope.event)
                 $scope.event.videocount = $rootScope.getfileCounts($scope.event.event_files,'video'); 
                 $scope.event.imagecount = $rootScope.getfileCounts($scope.event.event_files,'image'); 
             } else {
@@ -37,9 +38,77 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
         });
     }
 
+    $scope.uploadFile = function(files) {
+        $scope.errors = [];
+        if (files && files.length) {
+            var extn = files[0].name.split(".").pop();
+            if ($rootScope.imgextensions.includes(extn.toLowerCase())) {
+                if (files[0].size <= $rootScope.maxUploadsize) {
+                    $scope.commentData.commentfile = files[0];
+                    $scope.commentData.isfile = 1;
+                    $scope.commentData.item = $stateParams.id;
+                    $scope.commentData.module = 1;
+                    $scope.sendComment();
+                } else {
+                    $scope.errors.push(files[0].name + ' size exceeds 2MB.')
+                }
+            } else {
+                $scope.errors.push(files[0].name + ' format unsupported.');
+            }
+        }
+        if ($scope.errors.length > 0) {
+            $rootScope.$emit("showErrors", $scope.errors);
+        }
+    }
+
+    $scope.addComment = function(){
+        $scope.commentData.commentfile = '';
+        $scope.commentData.isfile = 0;
+        $scope.commentData.item = $stateParams.id;
+        $scope.commentData.module = 1;
+        $scope.sendComment();
+    }
+
+    $scope.sendComment = function(){
+         webServices.upload('comment',$scope.commentData).then(function(getData) {
+            $rootScope.loading = false;
+            console.log(getData)
+            if (getData.status == 200) {
+                 $scope.commentData = {};
+            } else {
+                $rootScope.$emit("showISError",getData);
+            }
+        });
+    }
+
     $scope.inputchange = function() {
         $scope.errorData = {};
         $scope.seterrorMsg();
+    }
+
+    $scope.changeLike = function(){
+        var obj = {};
+        obj.module = 1;
+        obj.item = $stateParams.id;
+        if(parseInt($scope.event.isliked)){
+            obj.status = 0;
+        }else{
+            obj.status = 1;
+        }
+        webServices.post('like',obj).then(function(getData) {
+            $rootScope.loading = false;
+            if (getData.status == 200) {
+                $scope.event.isliked = obj.status;
+                if(obj.status){
+                    $scope.event.likes ++ ;
+                }else{
+                    $scope.event.likes -- ;
+                }
+                 
+            } else {
+                $rootScope.$emit("showISError",getData);
+            }
+        });
     }
 
     $scope.closeModal = function() {
