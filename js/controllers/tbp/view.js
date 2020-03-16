@@ -4,7 +4,7 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
 
     $scope.tbp = {};
     $scope.filterData = {};
-    $scope.kaizen_uploads = angular.copy($rootScope.kaizen_upload_types);
+    $scope.tbp_uploads = angular.copy($rootScope.tbp_upload_types);
 
     $scope.getData = function() {
         webServices.get('tbp/' + $stateParams.id).then(function(getData) {
@@ -14,18 +14,12 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
                 if(Object.keys($scope.tbp).length > 0){
                     $scope.tbp.videocount = $rootScope.getfileCounts($scope.tbp.tbp_files, 'video');
                     $scope.tbp.imagecount = $rootScope.getfileCounts($scope.tbp.tbp_files, 'image');
-                    angular.forEach($scope.kaizen_uploads, function(upload, no) {
-                        upload.isuploaded = 0;
-                        angular.forEach($scope.tbp.uploads, function(data, no) {
-                            if(data.type == upload.id){
-                                upload.isuploaded = 1;
-                                upload.fileurl = data.document;
-                            }
-                        });   
-                    });
-
-                    console.log($scope.kaizen_uploads)
-                    
+                    if($scope.tbp.uploads){
+                        angular.forEach($scope.tbp_uploads, function(upload, no) {
+                           upload.fileurl =  $scope.tbp.uploads[upload.typename];
+                        });
+                    }
+                    console.log($scope.tbp)
                 }else{
                     $state.go('app.tbps',{'type':1});
                 }
@@ -41,7 +35,7 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
             var extn = files[0].name.split(".").pop();
             if ($rootScope.validfileextensions.includes(extn.toLowerCase())) {
                 if (files[0].size <= $rootScope.maxUploadsize) {
-                    $scope.fileData = {};
+                    $scope.fileData = angular.copy($scope.tbp);
                     $scope.fileData.tbp = $stateParams.id;
                     $scope.fileData.newdocument = files[0];
                     $scope.fileData.type = type;
