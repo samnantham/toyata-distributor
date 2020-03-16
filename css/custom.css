@@ -903,3 +903,62 @@
     color: #FFF !important;
     font-size: 20px;
 }
+.comment-img {
+    border-radius: 50%;
+    width: 80px;
+    max-width: 40px;
+    min-width: 40px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    float: left;
+    background: #fff;
+    margin-right: 15px;
+} 
+.comment-img img {
+    width: 42px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    max-width: 100%;
+}
+.comments {
+    position: relative;
+    width: auto;
+    max-width: 80%;
+    float: left;
+    font-size: 14px;
+    display: flex;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+.comment-info {
+    margin: 0;
+    width: 100%;
+    float: left;
+    color: #333;
+    padding: 25px 15px;
+    position: relative;
+    background: #dfe4e8;
+    border-radius: 7.5px;
+    -webkit-border-radius: 7.5px;
+    -moz-border-radius: 7.5px;
+    text-align: justify;
+}
+.reply_holder
+{
+
+    position: relative;
+    width: 80%;
+    float: left;
+    display: block;
+}
+.comment-ico {
+    right: 5px;
+    top: 5px;
+    z-index: 10;
+    cursor: pointer;
+}
+.dist-ico i {
+   font-size: 12px;
+}
