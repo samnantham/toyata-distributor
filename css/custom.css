@@ -862,8 +862,8 @@
      padding: 0 15px;
 }
  .comment .msg-text .small-btn {
-     width: 24px;
-     height: 24px;
+     width: 22px;
+     height: 22px;
      float: left;
 }
  .comment input[type=text], .sender input[type=password], .sender textarea {
@@ -896,8 +896,8 @@
      -moz-border-radius: 6px;
 }
 .comment .msg-text .small-btn i {
-    color: #7E8EA4;
-    font-size: 22px;
+    color: #c4c5c7;
+    font-size: 24px;
 }
 .comment .chat-btn i {
     color: #FFF !important;
