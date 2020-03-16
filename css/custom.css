@@ -837,3 +837,69 @@
     display: block;
     overflow-y: scroll;
 }
+
+ .comment {
+     width: 100%;
+     float: left;
+     background: #fff;
+     z-index: 99999;
+     overflow: hidden;
+     padding: 0px;
+}
+ .comment .msg-text {
+     width: calc(100% - 48px);
+     float: left;
+     height: 100%;
+     position: relative;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     border: 1px solid #dfe4e8;
+     border-radius: 4px;
+     -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+     height: 40px;
+     padding: 0 15px;
+}
+ .comment .msg-text .small-btn {
+     width: 24px;
+     height: 24px;
+     float: left;
+}
+ .comment input[type=text], .sender input[type=password], .sender textarea {
+     background: #fff;
+     border: 0;
+     outline: none;
+     width: 90%;
+     max-height: 51px;
+     position: relative;
+     float: left;
+     font-size: 14px;
+     margin-bottom: 0px;
+     -moz-appearance: none;
+     -webkit-appearance: none;
+     resize: none;
+     word-wrap: break-word;
+}
+ .comment .chat-btn {
+     width: 40px;
+     height: 40px;
+     float: right;
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     border: 1px solid #dfe4e8;
+     background-color:#fa9f34; 
+     color: #fff !important;
+     border-radius: 6px;
+     -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+}
+.comment .msg-text .small-btn i {
+    color: #7E8EA4;
+    font-size: 22px;
+}
+.comment .chat-btn i {
+    color: #FFF !important;
+    font-size: 20px;
+}
