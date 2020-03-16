@@ -15,6 +15,19 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
                 $scope.event = getData.data;
                 $scope.event.videocount = $rootScope.getfileCounts($scope.event.event_files,'video'); 
                 $scope.event.imagecount = $rootScope.getfileCounts($scope.event.event_files,'image'); 
+                $scope.getComments();
+            } else {
+                $rootScope.$emit("showISError",getData);
+            }
+        });
+    }
+
+    $scope.getComments = function() {
+        webServices.get('comments/' + $stateParams.id).then(function(getData) {
+            $rootScope.loading = false;
+            console.log(getData)
+            if (getData.status == 200) {
+                $scope.comments = getData.data;
             } else {
                 $rootScope.$emit("showISError",getData);
             }

@@ -103,13 +103,13 @@ angular.module('app')
               .state('app.chatlist', {
                   url: 'chats',
                   templateUrl: 'tpl/profile/chatlist.html',
-                  resolve: load(['js/controllers/profile/changepassword.js'])
+                  resolve: load(['js/controllers/profile/chats.js'])
               })
 
               .state('app.chatinfo', {
                   url: 'chat/info/:id?',
                   templateUrl: 'tpl/profile/chatinfo.html',
-                  resolve: load(['js/controllers/profile/changepassword.js'])
+                  resolve: load(['js/controllers/profile/chats.js'])
               })
 
               .state('app.calendar', {

@@ -7,6 +7,18 @@ app.controller('KaizenInfoController', ['$scope', '$http', '$state', '$statePara
 
     $scope.getData = function() {
         webServices.get('kaizen/' + $stateParams.id).then(function(getData) {
+            if (getData.status == 200) {
+                $scope.kaizen = getData.data;
+                $scope.kaizen.videocount = $rootScope.getfileCounts($scope.kaizen.kaizen_files,'video'); 
+                $scope.kaizen.imagecount = $rootScope.getfileCounts($scope.kaizen.kaizen_files,'image'); 
+            } else {
+                $rootScope.$emit("showISError",getData);
+            }
+        });
+    }
+
+    $scope.getComments = function(){
+         webServices.get('kaizen/' + $stateParams.id).then(function(getData) {
             $rootScope.loading = false;
             if (getData.status == 200) {
                 $scope.kaizen = getData.data;
@@ -16,6 +28,7 @@ app.controller('KaizenInfoController', ['$scope', '$http', '$state', '$statePara
                 $rootScope.$emit("showISError",getData);
             }
         });
+
     }
 
     $scope.removeFile = function(key,data){

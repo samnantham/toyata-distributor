@@ -1,10 +1,10 @@
-<div ng-controller='ChangePasswordController'>
+<div ng-controller='ChatController'>
     <div class="wrapper-md">
         <div class="chat-wrap bg-white box-shadow b b-2x">
                     <div class="message-head b b-3x bdrc-bg1">
                         <h2>Chat Board </h2>
                         <div class="option">
-                            <img src="img/profile.png"><img src="img/profile.png">
+                            <img ng-src="{{IMGURL}}{{RoomData.user1info.avatar}}"><img ng-src="{{IMGURL}}{{RoomData.user2info.avatar}}">
                         </div>
                     </div>
                     <div class="col-xs-4 p-l-none bg-white scroller">
@@ -14,83 +14,29 @@
                         <div class="col-xs-12 text-right p-r-none m-t-xs">
                             <div class="form-group m-t-sm inner-addon right-addon">
                                 <i class="fa fa-search sm-padder sm-padder-v"></i>
-                                <input class="form-control r-3x chatsearch" type="text" placeholder="search" required="" ng-minlength="8">
+                                <input class="form-control r-3x chatsearch" ng-model="filterData.keyword" type="text" placeholder="search" ng-change="getusers();">
                             </div>
                         </div>
                         <div class="col-xs-12 p-r-none p-l-none sm-padder-v">
-                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v bg-chat-active">
-                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
-                                <div class="col-xs-6 p-l-none padder-v font-bold"> user name</div>
-                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
-                            </div>
-                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
-                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
-                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
-                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
-                            </div>
-                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
-                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
-                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
-                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
-                            </div>
-                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
-                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
-                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
-                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
-                            </div>
-                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
-                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
-                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
-                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
-                            </div>
-                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
-                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
-                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
-                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
-                            </div>
-                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
-                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
-                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
-                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
-                            </div>
-                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
-                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
-                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
-                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
-                            </div>
-                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
-                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
-                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
-                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
-                            </div>
-                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v ">
-                                <div class="col-sm-3"> <img class="chat-search-img" src="img/profile.png"></div>
-                                <div class="col-xs-6 p-l-none padder-v "> user name</div>
-                                <div class="col-xs-3 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger ">2</span></div>
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-class="{'bg-chat-active': key == filterData.active}" ng-repeat="(key,data) in users" ng-click="changeActive(key,data)">
+                                <div class="col-sm-3"> <img class="chat-search-img" ng-src="{{IMGURL}}{{data.avatar}}"></div>
+                                <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name}}</div>
+                                <div class="col-xs-3 p-l-none padder-v text-right"> <!-- <span class="badge badge-sm bg-danger ">2</span> --></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-8">
                         <div class="messenger private-chat ng-isolate-scope" scroll-to-bottom="chatData">
-                            <div class="message-wrap ng-scope">
-                                <div class="message">
-                                    <div class="other-img ng-scope">
-                                        <img src="img/profile.png">
+                            <div class="message-wrap" ng-repeat="message in chatData">
+                                <div class="message" ng-class="{ 'me' : user.id == message.user_id , 'option-content' : message.isfile }">
+                                    <div class="other-img">
+                                        <img src="{{IMGURL}}{{message.avatar}}">
                                     </div>
                                     <div class="info">
-                                        James Park Woods (1886–1963) was an Australian recipient of the Victoria Cross, the highest award for gallantry in the face of the enemy that could be awarded to members of the Australian armed forces at the time. Woods enlisted in the Australian Imperial Force in September 1916, and joined the 48th Battalion in France in September 1917. He participated in the First Battle of
+                                        {{message.message}}
+                                        <img ng-src="{{IMGURL}}{{message.fileurl}}" ng-click="viewChatImg(message.fileurl);" alt="Chat" ng-if="message.isfile">
                                         <div class="time-left">
-                                            <span>18-Sep-19 08:03 pm</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="message-wrap">
-                                <div class="message me">
-                                    <div class="info">
-                                        James Park Woods (1886–1963) was an Australian recipient of the Victoria Cross, the highest award for gallantry in the face of the enemy that could be awarded to members of the Australian armed forces at the time. Woods enlisted in the Australian Imperial Force in September 1916, and joined the 48th Battalion in France in September 1917. He participated in the First Battle of
-                                        <div class="time-left">
-                                            <span>18-Sep-19 08:03 pm</span>
+                                            <span>{{ message.created_at | amDateFormat: 'DD-MMM-YY hh:mm a' }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -99,10 +45,10 @@
                         <div class="sender p-b-none m-t">
                             <div class="msg-text">
                                 <a class="small-btn"><i class="fa fa-smile-o"></i></a>
-                                <input type="text" placeholder="Send something..." aria-invalid="false">
-                                <a class="small-btn"><i class="fa fa-paperclip"></i></a>
+                                <input type="text" placeholder="Send something..." aria-invalid="false"  ng-model="chatMessage.message" my-enter="sendReplymessage()">
+                                <a class="small-btn" ngf-select ngf-drop ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-allow-dir="allowDir" class="drop-box1" ngf-drop-available="dropAvailable" ngf-change="sendchatattachment($files);"><i class="fa fa-paperclip"></i></a>
                             </div>
-                            <div class="chat-btn" tabindex="0"><i class="fa fa-send"></i></div>
+                            <div class="chat-btn" tabindex="0" ng-click="sendReplymessage()"><i class="fa fa-send"></i></div>
                         </div>
                     </div>
         </div>

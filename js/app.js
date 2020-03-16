@@ -29,5 +29,6 @@ angular.module('app', [
     'ismobile',
     'ui.calendar',
     'slickCarousel',
-    'ngScrollbars'
+    'ngScrollbars',
+    'firebase'
 ]);

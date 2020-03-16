@@ -90,4 +90,15 @@ var app =
                 axis: 'y',
                 scrollInertia: 800, // enable 2 axis scrollbars by default
             };
-        });
+        })
+        var firebaseConfig = {
+            apiKey: "AIzaSyC7RGp_m2veGMkx45dYXCtF3zZQdhifR14",
+            authDomain: "toyotamebit.firebaseapp.com",
+            databaseURL: "https://toyotamebit.firebaseio.com",
+            projectId: "toyotamebit",
+            storageBucket: "toyotamebit.appspot.com",
+            messagingSenderId: "773088280208",
+            appId: "1:773088280208:web:ccce0591dae7c25e902215",
+            measurementId: "G-E55C5BHMBH"
+        }
+        firebase.initializeApp(firebaseConfig);
