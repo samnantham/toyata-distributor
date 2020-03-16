@@ -824,3 +824,16 @@
 .slick-disabled{
      opacity: 0.5;
 }
+.dash-2-div {
+    min-height: 444px;
+    max-height: 444px;
+    height: 444px;
+    overflow-y: scroll;
+}
+.dash-3-div {
+    min-height: 444px;
+    max-height: 444px;
+    height: 444px;
+    display: block;
+    overflow-y: scroll;
+}

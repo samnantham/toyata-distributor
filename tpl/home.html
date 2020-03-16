@@ -41,7 +41,7 @@
                 <div class="panel-heading r-3x r-b-none bg-main2">
                     Calendar
                 </div>
-                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 bg-white m-b-md" ng-if="!loading">
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 bg-white m-b-md " ng-if="!loading">
                     <div class="calendar" ng-model="eventSources" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <div class="panel-heading r-3x r-b-none bg-main2">
                     Upcomming TBP <span class="pull-right cursor" ui-sref="app.tbps({type:'1'})">Show All</span>
                 </div>
-                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 bg-white vbox">
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 bg-white  dash-2-div">
                     <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 bg-white r-3x" ng-class="{'m-b-md': $last }" ng-repeat="(key,data) in homeData.tbps track by $index">
                         <div class="panel panel-default r-3x m-t-md">
                             <div class="panel-heading r-3x r-b-none bg-main1 tex-center">
@@ -85,7 +85,7 @@
                     Top kaizen
                     <span class="pull-right cursor" ui-sref="app.kaizens({type:'1'})"> Show All</span>
                 </div>
-                <div class="bg-white padder-v padder vbox">
+                <div class="bg-white padder-v padder dash-2-div">
                     <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12" ng-repeat="(key,data) in homeData.kaizens">
                         <div class="col-xs-12 m-b sm-padder sm-padder-v bg-white r-3x box-shadow b">
                             <div class="col-xs-4 sm-padder">
