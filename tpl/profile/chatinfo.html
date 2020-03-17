@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-xs-12 p-r-none p-l-none sm-padder-v">
                             <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-class="{'bg-chat-active': key == filterData.active}" ng-repeat="(key,data) in users" ng-click="changeActive(key,data)">
-                                <div class="col-xs-5">  <div class="chat-search-img" background-image="{{IMGURL}}{{data.avatar}}"></div></div>
+                                 <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.avatar}}"></div>
                                 <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name}}</div>
                                 <div class="col-xs-1 p-l-none padder-v text-right"> <!-- <span class="badge badge-sm bg-danger ">2</span> --></div>
                             </div>
