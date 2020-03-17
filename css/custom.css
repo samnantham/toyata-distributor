@@ -991,3 +991,10 @@
     max-width: 100%;
         background-position: top center;
 }
+.i-checks input:checked + i {
+    border-color: #FA9F34;
+}
+.i-checks input:checked + i:before
+{
+background-color: #F1592A;
+}

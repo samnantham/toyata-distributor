@@ -66,59 +66,40 @@
             <form class="form-horizontal" name="addForm" novalidate ng-submit="addData(addForm);">
                <div class="modal-header b-no text-center">
                   <button type="button" class="close" ng-click="closeModal();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title m-t-md" id="myModalLabel">Add Your Travel Details</h4>
+                  <h4 class="modal-title m-t-md" id="myModalLabel">Create Group Chat</h4>
                </div>
                <div class="modal-body">
+             
                   <div class="form-group">
-                     <div class="col-sm-6">
-                        <label>Traveller Full Name<code>*</code></label>
+                     <div class="col-sm-4 text-center">
+                                <label>Group Avatar<code>*</code></label>
+                                <small class="pull-right text-danger" ng-if="errorData.avatar_error">{{errorData.avatar_errorMsg}}</small>
+                                <div class="Pf-img box-shadow b " background-image="{{!formData.newavatar && isedit ? IMGURL : ''}}{{!formData.newavatar && !isedit ? 'img/dummypf.png' : formData.avatar}}" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" dropAvailable" ngf-change="uploadAvatar($files);" ng-if="!formData.newavatar"><ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="img class="Pf-img-edit" src="img/changeprofile.png"></div>
+                                <div class="Pf-img box-shadow b" ngf-background="formData.newavatar" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadAvatar($files);" ng-if="formData.newavatar"><img class="Pf-img-edit" src="img/changeprofile.png" ng-if="!loading"></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Group Name<code>*</code></label>
                         <small class="pull-right text-danger" ng-if="errorData.name_error">{{errorData.name_errorMsg}}</small>
                         <input type="text" name="name" class="form-control r-2x" ng-model="formData.name" placeholder="Enter Full Name" required ng-change="inputchange()">
                      </div>
-                     <div class="col-sm-6">
-                        <label>Phone Number<code>*</code></label>
-                        <small class="pull-right text-danger" ng-if="errorData.phone_number_error">{{errorData.phone_number_errorMsg}}</small>
-                        <input type="text" name="phone_number" class="form-control r-2x" ng-model="formData.phone_number" valid-number placeholder="Enter Phone Number" required ng-change="inputchange()">
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <div class="col-sm-6">
-                        <label>Email <code>*</code></label>
-                        <small class="pull-right text-danger" ng-if="errorData.email_error">{{errorData.email_errorMsg}}</small>
-                        <input type="email" name="email" class="form-control r-2x" ng-model="formData.email" placeholder="Enter Email ID" required ng-change="inputchange()">
-                     </div>
-                     <div class="col-sm-6">
-                        <label class="font-bold">Travle Date <code>*</code></label>
-                        <small class="pull-right text-danger" ng-if="errorData.travel_date_error">{{errorData.travel_date_errorMsg}}</small>
-                        <div class="input-group" ng-controller="DatepickerDemoCtrl">
-                           <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="formData.travel_date" is-open="opened" datepicker-options="dateOptions" close-text="Close" placeholder="DD/MM/YYYY" name="travel_date" ng-click="open($event)" required readonly/>
-                           <span class="input-group-btn">
-                           <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                           </span>
+                     <div class="col-xs-12  sm-padder-v scroller">
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-class="{'bg-chat-active': key == filterData.active}" ng-repeat="(key,data) in recentchats" ng-click="changeActive(key,data)">
+                                <div class="col-xs-1">
+                                <div class="checkbox">
+              <label class="i-checks">
+                <input type="checkbox" value="">
+                <i></i>
+               &nbsp;
+              </label>
+            </div>
+                                </div>
+                                 <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.first_user == user.id ? data.user2info.avatar : '' }}{{data.second_user == user.id ? data.user1info.avatar : '' }}"></div>
+                                <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_user == user.id ? data.user2info.first_name : '' }}{{data.second_user == user.id ? data.user1info.first_name : '' }}</div>
+                            </div>
                         </div>
-                     </div>
                   </div>
-                  <div class="form-group">
-                     <div class="col-sm-6">
-                        <label>Flight Name<code>*</code></label>
-                        <small class="pull-right text-danger" ng-if="errorData.flight_name_error">{{errorData.flight_name_errorMsg}}</small>
-                        <input type="text" name="flight_name" class="form-control r-2x" ng-model="formData.flight_name" placeholder="Enter Flight Name" required ng-change="inputchange()">
-                     </div>
-                     <div class="col-sm-6 form-time-picker" ng-controller="TimepickerDemoCtrl">
-                        <label>Arrival Time</label>
-                        <timepicker ng-model="formData.arrival_time" hour-step="hstep" minute-step="mstep" min="min" max="max" show-meridian="true"></timepicker>
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <div class="col-sm-6">
-                        <label>Restriction Food</label>
-                        <input type="text" name="restriction_food" class="form-control r-2x" ng-model="formData.restriction_food" placeholder="Enter Restriction Food">
-                     </div>
-                     <div class="col-sm-6">
-                        <label>Comments</label>
-                        <textarea class="form-control r-2x" rows="3" name="comments" ng-model="formData.comments"></textarea>
-                     </div>
-                  </div>
+                  
+                  
                </div>
                <div class="modal-footer text-center b-no">
                   <div class="col-xs-12 text-center ">
