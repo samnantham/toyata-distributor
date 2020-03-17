@@ -556,6 +556,8 @@
      -webkit-border-radius: 7.5px;
      -moz-border-radius: 7.5px;
      text-align: justify;
+     display: flex;
+     flex-direction: column;
 }
  .message .other-img img {
      width: 42px;
