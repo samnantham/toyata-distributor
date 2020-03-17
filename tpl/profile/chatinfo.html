@@ -6,7 +6,6 @@
                         <div class="option">
                             <div class="chatter-img box-shadow b"  background-image="{{IMGURL}}{{RoomData.user1info.avatar}}"></div>
                             <div class="chatter-img box-shadow b"  background-image="{{IMGURL}}{{RoomData.user2info.avatar}}"></div>
-                            <!-- <img ng-src="{{IMGURL}}{{RoomData.user1info.avatar}}"><img ng-src="{{IMGURL}}{{RoomData.user2info.avatar}}"> -->
                         </div>
                     </div>
                     <div class="col-xs-4 p-l-none bg-white scroller">
@@ -20,10 +19,11 @@
                             </div>
                         </div>
                         <div class="col-xs-12 p-r-none p-l-none sm-padder-v">
-                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-class="{'bg-chat-active': key == filterData.active}" ng-repeat="(key,data) in users" ng-click="changeActive(key,data)">
-                                 <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.avatar}}"></div>
-                                <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name}}</div>
-                                <div class="col-xs-1 p-l-none padder-v text-right"> <!-- <span class="badge badge-sm bg-danger ">2</span> --></div>
+                            <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-class="{'bg-chat-active': key == filterData.active}" ng-repeat="(key,data) in recentchats" ng-click="changeActive(key,data)">
+                                 <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.first_user == user.id ? data.user2info.avatar : '' }}{{data.second_user == user.id ? data.user1info.avatar : '' }}"></div>
+                                <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_user == user.id ? data.user2info.first_name : '' }}{{data.second_user == user.id ? data.user1info.first_name : '' }}</div>
+                                <div class="col-xs-1 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger" ng-if="(data.first_user == user.id && data.first_user_unread > 0) || (data.second_user == user.id && data.second_user_unread > 0)">{{data.first_user == user.id ? data.first_user_unread : '' }}
+                                {{data.second_user == user.id ? data.second_user_unread : ''}}</span></div>
                             </div>
                         </div>
                     </div>

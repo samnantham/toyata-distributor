@@ -2,6 +2,7 @@
 app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '$sessionStorage', 'webServices', 'utility', '$rootScope', '$stateParams', '$timeout', 'toaster', '$firebaseArray', function($scope, $http, $state, authServices, $sessionStorage, webServices, utility, $rootScope, $stateParams, $timeout, toaster, $firebaseArray) {
 
     $scope.chatid = $stateParams.chatid;
+    $rootScope.chatData = [];
     $scope.filterData = {};
     $scope.filterData.active = 0;
     $scope.chatMessage = {};
@@ -81,14 +82,16 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     $scope.updateroom = function() {
         webServices.put('chat/room/'+ $scope.RoomData.id).then(function(getData) {
             if (getData.status == 200) {
-                $scope.getusers();
             } else {
 
             }
         });
     }
 
-    $rootScope.$watch('chatData', function (newVal, oldVal) {  $scope.getusers(); }, true);
+    $rootScope.$watch('chatData', function (newVal, oldVal) {  
+        console.log('watched')
+        $scope.getusers(); 
+    }, true);
 
     $scope.getChatContent = function() {
         firebase.auth().onAuthStateChanged(function(user) {
@@ -116,7 +119,6 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                     $scope.chatMessage.message = '';
                     $scope.chatMessage.isfile = 0;
                     $scope.chatMessage.fileurl = '-';
-                    $scope.getusers();
                     $scope.filterData.active = 0;
                     $scope.updateroom();
                 }, 200);
