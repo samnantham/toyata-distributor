@@ -12,6 +12,7 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
         webServices.get('event/' + $stateParams.id).then(function(getData) {
             $rootScope.loading = false;
             if (getData.status == 200) {
+                console.log(getData)
                 $scope.event = getData.data;
                 $scope.event.videocount = $rootScope.getfileCounts($scope.event.event_files,'video'); 
                 $scope.event.imagecount = $rootScope.getfileCounts($scope.event.event_files,'image'); 
@@ -75,19 +76,22 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
     }
 
     $scope.addComment = function(){
-        $scope.commentData.commentfile = '';
-        $scope.commentData.isfile = 0;
-        $scope.commentData.item = $stateParams.id;
-        $scope.commentData.module = 1;
-        $scope.sendComment();
+        if($scope.commentData.comment){
+            $scope.commentData.commentfile = '';
+            $scope.commentData.isfile = 0;
+            $scope.commentData.item = $stateParams.id;
+            $scope.commentData.module = 1;
+            $scope.sendComment();
+        }
     }
 
     $scope.sendComment = function(){
          webServices.upload('comment',$scope.commentData).then(function(getData) {
-            $rootScope.loading = false;
             console.log(getData)
+            $rootScope.loading = false;
             if (getData.status == 200) {
                  $scope.commentData = {};
+                 $scope.getComments();
             } else {
                 $rootScope.$emit("showISError",getData);
             }

@@ -28,6 +28,13 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         });
     }
 
+    $scope.openModal = function() {
+        $('#PopupModal').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    }
+
     $scope.changeActive = function(key, user) {
         if (key != $scope.filterData.active) {
             $scope.filterData.active = key;
