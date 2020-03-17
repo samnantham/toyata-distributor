@@ -973,6 +973,7 @@
     -moz-border-radius: 7.5px;
     text-align: justify;
     min-width: 340px;
+    max-width: 80%;
 }
 .reply_holder
 {
