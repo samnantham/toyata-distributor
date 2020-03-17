@@ -121,10 +121,10 @@
                            <div class="col-xs-12">
                               <div class="comment-container">
                                  <div class="comments" ng-repeat="comment in comments">
-                                    <!-- <div class="pull-right pos-abt comment-ico ng-scope c-bg-1" >
+                                    <div class="pull-right pos-abt comment-ico ng-scope c-bg-1" ng-if="comment.user == user.id">
                                        <i class="icon-note m-r-xs"></i>
                                        <i class="glyphicon glyphicon-trash m-r-xs"></i>
-                                    </div> -->
+                                    </div>
                                     <div class="comment-img ng-scope">
                                        <img ng-src="{{IMGURL}}{{comment.owner.avatar}}">
                                     </div>
@@ -132,13 +132,12 @@
                                        {{comment.comment}}
                                     </div>
                                  </div>
-                                 <!-- <div class="m-t-xs m-l-xl  col-xs-12">
+                                 <div class="m-t-xs m-l-xl  col-xs-12">
                                     <div class="col-xs-12 c-bg-1">Reply</div>
                                     <div class="reply_holder ">
                                        <div class="comment p-b-none m-t">
                                           <div class="msg-text">
                                              <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="commentData.comment">
-                                             <a class="small-btn"><i class="fa fa-smile-o"></i></a>
                                              <a class="small-btn" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
                                           </div>
                                           <button class="chat-btn" tabindex="0" ng-disabled="!commentData.comment" ng-click="addComment()"><i class="fa fa-send"></i></button>
@@ -156,7 +155,7 @@
                                           </div>
                                        </div>
                                     </div>
-                                 </div> -->
+                                 </div>
                               </div>
                            </div>
                         </div>
