@@ -86,7 +86,6 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
 
     $scope.sendReplymessage = function() {
         if ($scope.chatMessage.message) {
-            console.log($scope.chatMessage)
             firebase.auth().onAuthStateChanged(function(user) {
                 $rootScope.ref.push({
                     user_id: $rootScope.user.id,
@@ -101,6 +100,8 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                     $scope.chatMessage.message = '';
                     $scope.chatMessage.isfile = 0;
                     $scope.chatMessage.fileurl = '-';
+                    $scope.getusers();
+                    $scope.filterData.active = 0;
                 }, 200);
             });
         }
@@ -137,16 +138,17 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     $scope.getusers = function() {
         webServices.post('users/' + $scope.totalPerPage + '?page=' + $scope.pageno, $scope.filterData).then(function(getData) {
             if (getData.status == 200) {
-                $scope.users = getData.data.data;
-                if (!$rootScope.user.firebaseid) {
-                    $scope.createFirebaseauth();
-                } else {
-                    $scope.loginFirebaseauth();
-                }
+                $scope.users = getData.data;
             } else {
                 //$rootScope.logout();
             }
         });
+    }
+
+    if (!$rootScope.user.firebaseid) {
+        $scope.createFirebaseauth();
+    } else {
+        $scope.loginFirebaseauth();
     }
 
     $scope.getusers();
