@@ -54,25 +54,41 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         webServices.put('profile/update/firebaseid', obj).then(function(getData) {
             if (getData.status == 200) {
                 $scope.checkroom();
-            } else {
-
             }
         });
     }
 
     $scope.checkroom = function() {
-        webServices.post('chat/room/'+ $scope.users[$scope.filterData.active].id).then(function(getData) {
+        if($scope.recentchats.length > 0){
+            if($scope.recentchats[$scope.filterData.active].first_user == $rootScope.user.id){
+                var userid = $scope.recentchats[$scope.filterData.active].second_user;
+            }else if($scope.recentchats[$scope.filterData.active].second_user == $rootScope.user.id){
+                var userid = $scope.recentchats[$scope.filterData.active].first_user;
+            }
+            webServices.post('chat/room/'+ userid).then(function(getData) {
+                if (getData.status == 200) {
+                    $scope.RoomData = getData.data;
+                    $scope.chattype = 'privatechat';
+                    $scope.firebaseurl = '/'+ $scope.RoomData.id +'/';
+                    $scope.getChatContent();
+                }
+            });
+        }else{
+            $rootScope.loading = false;
+        }
+    }
+
+    $scope.updateroom = function() {
+        webServices.put('chat/room/'+ $scope.RoomData.id).then(function(getData) {
             if (getData.status == 200) {
-                $scope.RoomData = getData.data;
-                $scope.chattype = 'privatechat';
-                $scope.firebaseurl = '/'+ $scope.RoomData.id +'/';
-                $scope.getChatContent();
+                $scope.getusers();
             } else {
 
             }
         });
     }
 
+    $rootScope.$watch('chatData', function (newVal, oldVal) {  $scope.getusers(); }, true);
 
     $scope.getChatContent = function() {
         firebase.auth().onAuthStateChanged(function(user) {
@@ -102,6 +118,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                     $scope.chatMessage.fileurl = '-';
                     $scope.getusers();
                     $scope.filterData.active = 0;
+                    $scope.updateroom();
                 }, 200);
             });
         }
@@ -138,7 +155,8 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     $scope.getusers = function() {
         webServices.post('users/' + $scope.totalPerPage + '?page=' + $scope.pageno, $scope.filterData).then(function(getData) {
             if (getData.status == 200) {
-                $scope.users = getData.data;
+                $scope.recentchats = getData.data.recentchats;
+                $scope.users = getData.data.users;
             } else {
                 //$rootScope.logout();
             }
