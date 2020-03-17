@@ -35,6 +35,10 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         });
     }
 
+    $scope.closeModal = function() {
+        $('#PopupModal').modal('hide');
+    }
+
     $scope.changeActive = function(key, user) {
         if (key != $scope.filterData.active) {
             $scope.filterData.active = key;
