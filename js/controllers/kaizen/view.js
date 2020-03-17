@@ -3,10 +3,10 @@
 app.controller('KaizenInfoController', ['$scope', '$http', '$state', '$stateParams', 'webServices', 'utility', '$rootScope', '$timeout', '$filter', '$ngConfirm', '$sce', function($scope, $http, $state, $stateParams, webServices, utility, $rootScope, $timeout, $filter, $ngConfirm, $sce) {
 
     $scope.kaizen = {};
-    $rootScope.loading = true;
-
+    
     $scope.getData = function() {
         webServices.get('kaizen/' + $stateParams.id).then(function(getData) {
+            $rootScope.loading = false;
             if (getData.status == 200) {
                 $scope.kaizen = getData.data;
                 $scope.kaizen.videocount = $rootScope.getfileCounts($scope.kaizen.kaizen_files,'video'); 
@@ -29,6 +29,25 @@ app.controller('KaizenInfoController', ['$scope', '$http', '$state', '$statePara
             }
         });
 
+    }
+
+    $scope.removeVideoLink = function(key){
+        $scope.formData.video_links.splice(key,1);
+    }
+
+    $scope.uploadvideo = function() {
+        if (($rootScope.validURL($scope.videoData.link))&&($rootScope.validvideo($scope.videoData.link))) {
+            if(!$scope.formData.video_links.includes($scope.videoData.link)){
+                $scope.formData.video_links.push($scope.videoData.link);
+                $scope.videoData = {};
+            }else{
+                $rootScope.$emit("showErrorMsg", 'Video already added');
+                $scope.videoData.link = '';
+            }
+        }else{
+            $rootScope.$emit("showErrorMsg", 'Please upload valid video url.');
+            $scope.videoData.link = '';
+        }  
     }
 
     $scope.removeFile = function(key,data){
