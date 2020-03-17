@@ -8,11 +8,15 @@
                             <div class="chatter-img box-shadow b"  background-image="{{IMGURL}}{{RoomData.user2info.avatar}}"></div>
                         </div>
                     </div>
-                    <div class="col-xs-4 p-l-none bg-white scroller">
+                    <div class="col-xs-4  bg-white scroller">
                         <div class="col-xs-12 text-right p-r-none">
                             <button class="btn btn-default btn-xs  m-r-xs r-2x m-t">Create New Group</button>
                         </div>
-                        <div class="col-xs-12 text-right p-r-none m-t-xs">
+                        <div class="col-xs-12 p-r-none p-l-none m-t">
+                          <div class="col-xs-6 p-r-none p-l-none"><button class="btn bg-main2 no-radius col-xs-12">Recent</button></div>
+                          <div class="col-xs-6 p-l-none p-r-none"><button class="btn bg-main1 no-radius col-xs-12">Search</button></div>
+                        </div> 
+                        <div class="col-xs-12 text-right p-l-none p-r-none m-t-xs">
                             <div class="form-group m-t-sm inner-addon right-addon">
                                 <i class="fa fa-search sm-padder sm-padder-v"></i>
                                 <input class="form-control r-3x chatsearch" ng-model="filterData.keyword" type="text" placeholder="search" ng-change="getusers();">
