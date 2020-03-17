@@ -30,5 +30,6 @@ angular.module('app', [
     'ui.calendar',
     'slickCarousel',
     'ngScrollbars',
-    'firebase'
+    'firebase',
+    'anguvideo',
 ]);
