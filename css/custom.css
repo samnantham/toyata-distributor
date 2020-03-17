@@ -535,6 +535,8 @@
      width: 80px;
      max-width: 40px;
      min-width: 40px;
+     max-height: 40px;
+     min-height: 40px;
      height: 35px;
      line-height: 35px;
      text-align: center;
@@ -636,7 +638,7 @@
  .message-head .option {
      width: auto;
      float: right;
-     height: 30px;
+     height: 32px;
 }
  .message-head .option img {
      width: 30px;
@@ -773,8 +775,13 @@
 }
  .chat-search-img {
      width: 50px;
-     border-radius: 50%;
-     -webkit-border-radius: 50%;
+     height: 50px;
+       border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-width: 100%;
+        background-position: top center;
 }
  .bg-chat-active {
      background-color: #e4dede52;
@@ -961,4 +968,24 @@
 }
 .dist-ico i {
    font-size: 12px;
+}
+.chatter-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    float:left;
+}
+ .chat-info-img {
+     width: 40px;
+     height: 40px;
+       border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-width: 100%;
+        background-position: top center;
 }

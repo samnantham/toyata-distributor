@@ -4,7 +4,9 @@
                     <div class="message-head b b-3x bdrc-bg1">
                         <h2>Chat Board </h2>
                         <div class="option">
-                            <img ng-src="{{IMGURL}}{{RoomData.user1info.avatar}}"><img ng-src="{{IMGURL}}{{RoomData.user2info.avatar}}">
+                            <div class="chatter-img box-shadow b"  background-image="{{IMGURL}}{{RoomData.user1info.avatar}}"></div>
+                            <div class="chatter-img box-shadow b"  background-image="{{IMGURL}}{{RoomData.user2info.avatar}}"></div>
+                            <!-- <img ng-src="{{IMGURL}}{{RoomData.user1info.avatar}}"><img ng-src="{{IMGURL}}{{RoomData.user2info.avatar}}"> -->
                         </div>
                     </div>
                     <div class="col-xs-4 p-l-none bg-white scroller">
@@ -19,9 +21,9 @@
                         </div>
                         <div class="col-xs-12 p-r-none p-l-none sm-padder-v">
                             <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-class="{'bg-chat-active': key == filterData.active}" ng-repeat="(key,data) in users" ng-click="changeActive(key,data)">
-                                <div class="col-sm-3"> <img class="chat-search-img" ng-src="{{IMGURL}}{{data.avatar}}"></div>
+                                <div class="col-xs-5">  <div class="chat-search-img" background-image="{{IMGURL}}{{data.avatar}}"></div></div>
                                 <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name}}</div>
-                                <div class="col-xs-3 p-l-none padder-v text-right"> <!-- <span class="badge badge-sm bg-danger ">2</span> --></div>
+                                <div class="col-xs-1 p-l-none padder-v text-right"> <!-- <span class="badge badge-sm bg-danger ">2</span> --></div>
                             </div>
                         </div>
                     </div>
@@ -29,8 +31,9 @@
                         <div class="messenger private-chat ng-isolate-scope" scroll-to-bottom="chatData">
                             <div class="message-wrap" ng-repeat="message in chatData">
                                 <div class="message" ng-class="{ 'me' : user.id == message.user_id , 'option-content' : message.isfile }">
+
                                     <div class="other-img">
-                                        <img src="{{IMGURL}}{{message.avatar}}">
+                                        <div class="chat-info-img" background-image="{{IMGURL}}{{message.avatar}}"></div>
                                     </div>
                                     <div class="info">
                                         {{message.message}}
@@ -38,6 +41,9 @@
                                         <div class="time-left">
                                             <span>{{ message.created_at | amDateFormat: 'DD-MMM-YY hh:mm a' }}</span>
                                         </div>
+                                    </div>
+                                    <div class="other-img">
+                                        <div class="chat-info-img" background-image="{{IMGURL}}{{message.avatar}}"></div>
                                     </div>
                                 </div>
                             </div>
