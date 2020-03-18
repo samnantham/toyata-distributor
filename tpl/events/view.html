@@ -130,11 +130,11 @@
                                                      <div class="chat-info-img" background-image="{{IMGURL}}{{comment.admin.avatar}}" ng-if="comment.is_admin"></div>
                                                 </div>
                                                 <div class="comment-info">
-                                                   <strong class="strong c-bg-2 m-r-xs"> Userame</strong> {{comment.comment}}
+                                                   <strong class="strong c-bg-2 m-r-xs"> {{comment.is_admin ? comment.admin.username : comment.owner.first_name}}</strong> {{comment.comment}}
                                                 </div>
                                             </div>
                                             <div class="m-t-xs m-l-xl col-xs-12">
-                                                <div class="col-xs-12 c-bg-1" ng-click="showHidecomment(key);">{{comment.showreply ? 'Cancel' : 'Reply'}}<span class="m-l"> time</span></div>
+                                                <div class="col-xs-12 c-bg-1" ng-click="showHidecomment(key);">{{comment.showreply ? 'Cancel' : 'Reply'}}<span class="m-l mbit-dt"> {{convertDate(comment.created_at) | date:'dd MMM yyyy HH:mm'}}</span></div>
                                                 <div class="reply_holder" ng-show="comment.showreply">
                                                     <div class="comment p-b-none m-t">
                                                         <div class="msg-text">
@@ -154,10 +154,10 @@
                                                                <div class="chat-info-img" background-image="{{IMGURL}}{{subcomment.owner.avatar}}"></div>
                                                             </div>
                                                             <div class="comment-info">
-                                                              <strong class="strong c-bg-1 m-r-xs"> Userame</strong>  {{subcomment.comment}}
+                                                              <strong class="strong c-bg-1 m-r-xs"> {{subcomment.is_admin ? subcomment.admin.username : subcomment.owner.first_name}}</strong>  {{subcomment.comment}}
                                                             </div>
                                                     </div>
-                                                    <div class="col-xs-12 c-bg-2 m-l-xxl" ng-click="showHideSubCommentcomment(key,no);">{{subcomment.showreply ? 'Cancel' : 'Reply'}} <span class="m-l"> time</span></div>
+                                                    <div class="col-xs-12 c-bg-2 m-l-xxl" ng-click="showHideSubCommentcomment(key,no);">{{subcomment.showreply ? 'Cancel' : 'Reply'}} <span class="m-l mbit-dt"> {{convertDate(subcomment.created_at) | date:'dd MMM yyyy HH:mm:ss'}}</span></div>
                                                     <div class="reply_holder" ng-show="subcomment.showreply">
                                                     <div class="comment p-b-none m-t">
                                                         <div class="msg-text">
