@@ -965,7 +965,7 @@
     width: 100%;
     float: left;
     color: #333;
-    padding: 25px 15px;
+    padding: 10px;
     position: relative;
     background: #dfe4e8;
     border-radius: 7.5px;
@@ -974,6 +974,7 @@
     text-align: justify;
     min-width: 340px;
     max-width: 80%;
+    font-size: 12px;
 }
 .reply_holder
 {

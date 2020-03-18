@@ -119,43 +119,56 @@
                                 </div>
                                 <div class="comment-holder m-t">
                                     <div class="col-xs-12">
-                                        <div class="comment-container" ng-repeat="comment in comments">
+                                        <div class="comment-container" ng-repeat="(key,comment) in comments">
                                             <div class="comments">
-                                                <div class="pull-right pos-abt comment-ico ng-scope c-bg-1" ng-if="comment.user == user.id">
-                                                    <i class="icon-note m-r-xs"></i>
-                                                    <i class="glyphicon glyphicon-trash m-r-xs"></i>
+                                                <div class="pull-right pos-abt comment-ico c-bg-1" ng-if="comment.user == user.id">
+                                                    <!-- <i class="icon-note m-r-xs"></i> -->
+                                                    <i class="glyphicon glyphicon-trash m-r-xs" ng-click="removeComment(comment.id)"></i>
                                                 </div>
-                                                <div class="comment-img ng-scope">
-                                                     <div class="chat-info-img" background-image="{{IMGURL}}{{comment.owner.avatar}}"></div>
-                                                   <!--  <img ng-src="{{IMGURL}}{{comment.owner.avatar}}"> -->
+                                                <div class="comment-img">
+                                                     <div class="chat-info-img" background-image="{{IMGURL}}{{comment.owner.avatar}}" ng-if="!comment.is_admin"></div>
+                                                     <div class="chat-info-img" background-image="{{IMGURL}}{{comment.admin.avatar}}" ng-if="comment.is_admin"></div>
                                                 </div>
                                                 <div class="comment-info">
                                                     {{comment.comment}}
                                                 </div>
                                             </div>
-                                            <div class="m-t-xs m-l-xl  col-xs-12">
-                                                <div class="col-xs-12 c-bg-1">Reply</div>
-                                                <div class="reply_holder ">
+                                            <div class="m-t-xs m-l-xl col-xs-12">
+                                                <div class="col-xs-12 c-bg-1" ng-click="showHidecomment(key);">{{comment.showreply ? 'Cancel' : 'Reply'}}</div>
+                                                <div class="reply_holder" ng-show="comment.showreply">
                                                     <div class="comment p-b-none m-t">
                                                         <div class="msg-text">
-                                                            <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="commentData.comment">
+                                                            <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="comment.replycomment"> 
                                                             <a class="small-btn" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
                                                         </div>
-                                                        <button class="chat-btn" tabindex="0" ng-disabled="!commentData.comment" ng-click="addComment()"><i class="fa fa-send"></i></button>
-                                                    </div>
-                                                    <div class="comments">
-                                                        <div class="pull-right pos-abt comment-ico ng-scope c-bg-1">
-                                                            <i class="icon-note m-r-xs"></i>
-                                                            <i class="glyphicon glyphicon-trash m-r-xs"></i>
-                                                        </div>
-                                                        <div class="comment-img ng-scope">
-                                                           <div class="chat-info-img" background-image="img/profile.png"></div>
-                                                        </div>
-                                                        <div class="comment-info">
-                                                            James Park Woods (1886–1963) was an Australian recipient of the Victoria Cross, the highest award for gallantry in the face of the enemy that could be awarded to members of the Australian armed forces at the time. Woods enlisted in the Australian Imperial Force in September 1916, and joined the 48th Battalion in France in September 1917. He participated in the First Battle of
-                                                        </div>
+                                                        <button class="chat-btn" tabindex="0" ng-disabled="!comment.replycomment" ng-click="sendCommentReply(comment.replycomment)"><i class="fa fa-send"></i></button>
                                                     </div>
                                                 </div>
+                                                <div class="m-t-xs m-l-xl col-xs-12" ng-if="comment.subcomments.length > 0" ng-repeat="(no,subcomment) in comment.subcomments">
+                                                    <div class="comments">
+                                                            <div class="pull-right pos-abt comment-ico c-bg-1" ng-if="subcomment.user == user.id">
+                                                                <!-- <i class="icon-note m-r-xs"></i> -->
+                                                                <i class="glyphicon glyphicon-trash m-r-xs" ng-click="removeComment(subcomment.id)"></i>
+                                                            </div>
+                                                            <div class="comment-img">
+                                                               <div class="chat-info-img" background-image="{{IMGURL}}{{subcomment.owner.avatar}}"></div>
+                                                            </div>
+                                                            <div class="comment-info">
+                                                                {{subcomment.comment}}
+                                                            </div>
+                                                    </div>
+                                                    <div class="col-xs-12 c-bg-1" ng-click="showHideSubCommentcomment(key,no);">{{subcomment.showreply ? 'Cancel' : 'Reply'}}</div>
+                                                    <div class="reply_holder" ng-show="subcomment.showreply">
+                                                    <div class="comment p-b-none m-t">
+                                                        <div class="msg-text">
+                                                            <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="subcomment.replycomment">
+                                                            <a class="small-btn" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
+                                                        </div>
+                                                        <button class="chat-btn" tabindex="0" ng-disabled="!subcomment.replycomment" ng-click="sendsubCommentReply(subcomment.replycomment)"><i class="fa fa-send"></i></button>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                    
                                             </div>
                                         </div>
                                     </div>

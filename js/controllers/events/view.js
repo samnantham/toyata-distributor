@@ -12,10 +12,42 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
         webServices.get('event/' + $stateParams.id).then(function(getData) {
             $rootScope.loading = false;
             if (getData.status == 200) {
-                console.log(getData)
                 $scope.event = getData.data;
                 $scope.event.videocount = $rootScope.getfileCounts($scope.event.event_files,'video'); 
                 $scope.event.imagecount = $rootScope.getfileCounts($scope.event.event_files,'image'); 
+                $scope.getComments();
+            } else {
+                $rootScope.$emit("showISError",getData);
+            }
+        });
+    }
+
+    $scope.removeComment = function(id){
+        $ngConfirm({
+            title: 'Are you sure want to remove?',
+            content: '',
+            type: 'red',
+            typeAnimated: true,
+            buttons: {
+                tryAgain: {
+                    text: 'Yes',
+                    btnClass: 'btn-red',
+                    action: function() {
+                        $scope.deleteComment(id);
+                    }
+                },
+                cancel: {
+                    text: 'No',
+                    action: function () {
+                    }
+                }
+            }
+        });
+    }
+
+    $scope.deleteComment = function(id){
+        webServices.delete('comment/' + id).then(function(getData) {
+            if (getData.status == 200) {
                 $scope.getComments();
             } else {
                 $rootScope.$emit("showISError",getData);
@@ -33,6 +65,52 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
                 $rootScope.$emit("showISError",getData);
             }
         });
+    }
+
+    $scope.showHidecomment = function(key){
+        if($scope.comments[key].showreply){
+            $scope.commentData = {};
+        }else{
+            $scope.comments[key].replycomment = '';
+        }
+        $scope.comments[key].showreply = !$scope.comments[key].showreply;
+        $scope.commentData.parent = $scope.comments[key].id;
+        $scope.commentData.isfile = 0;
+        $scope.commentData.item = $stateParams.id;
+        $scope.commentData.module = 1;
+        $scope.commentData.is_admin = 0;
+        $scope.commentData.is_reply = 1;
+        $scope.commentData.reply_for = $scope.comments[key].id;
+    }
+
+    $scope.sendCommentReply = function(comment){
+        if(comment){
+            $scope.commentData.comment = comment;
+            $scope.sendComment();
+        }
+    }
+
+    $scope.sendsubCommentReply = function(comment){
+        if(comment){
+            $scope.commentData.comment = comment;
+            $scope.sendComment();
+        }
+    }
+
+    $scope.showHideSubCommentcomment = function(key,no){
+        if($scope.comments[key].subcomments[no].showreply){
+            $scope.commentData = {};
+        }else{
+            $scope.comments[key].subcomments[no].replycomment = '';
+        }
+        $scope.commentData.isfile = 0;
+        $scope.commentData.item = $stateParams.id;
+        $scope.commentData.module = 1;
+        $scope.comments[key].subcomments[no].showreply = !$scope.comments[key].subcomments[no].showreply;
+        $scope.commentData.parent = $scope.comments[key].id;
+        $scope.commentData.is_admin = 0
+        $scope.commentData.is_reply = 1
+        $scope.commentData.reply_for = $scope.comments[key].subcomments[no].id;
     }
 
     $scope.openaddModal = function() {
@@ -87,7 +165,6 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
 
     $scope.sendComment = function(){
          webServices.upload('comment',$scope.commentData).then(function(getData) {
-            console.log(getData)
             $rootScope.loading = false;
             if (getData.status == 200) {
                  $scope.commentData = {};
