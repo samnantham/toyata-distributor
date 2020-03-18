@@ -732,6 +732,7 @@
  .scroller {
      height: calc(100vh - 213px);
      overflow-y: scroll;
+     overflow-x: hidden;
 }
  .scroller::-webkit-scrollbar-track, .messenger::-webkit-scrollbar-track {
      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
