@@ -130,7 +130,7 @@
                                                      <div class="chat-info-img" background-image="{{IMGURL}}{{comment.admin.avatar}}" ng-if="comment.is_admin"></div>
                                                 </div>
                                                 <div class="comment-info">
-                                                   <strong class="strong c-bg-2 m-r-xs"> {{comment.is_admin ? comment.admin.username : comment.owner.first_name}}</strong> {{comment.comment}}
+                                                   <strong class="strong c-bg-2 m-r-xs"> {{comment.is_admin ? comment.admin.username : comment.owner.first_name}} {{comment.is_admin ? '(Admin)':''}} </strong> {{comment.comment}}
                                                 </div>
                                             </div>
                                             <div class="m-t-xs m-l-xl col-xs-12">
@@ -154,7 +154,7 @@
                                                                <div class="chat-info-img" background-image="{{IMGURL}}{{subcomment.owner.avatar}}"></div>
                                                             </div>
                                                             <div class="comment-info">
-                                                              <strong class="strong c-bg-1 m-r-xs"> {{subcomment.is_admin ? subcomment.admin.username : subcomment.owner.first_name}}</strong>  {{subcomment.comment}}
+                                                              <strong class="strong c-bg-1 m-r-xs"> {{subcomment.is_admin ? subcomment.admin.username : subcomment.owner.first_name}} {{subcomment.is_admin ? '(Admin)':''}}</strong>  {{subcomment.comment}}
                                                             </div>
                                                     </div>
                                                     <div class="col-xs-12 c-bg-2 m-l-xxl" ng-click="showHideSubCommentcomment(key,no);">{{subcomment.showreply ? 'Cancel' : 'Reply'}} <span class="m-l mbit-dt"> {{convertDate(subcomment.created_at) | date:'dd MMM yyyy HH:mm:ss'}}</span></div>
