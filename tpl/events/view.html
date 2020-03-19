@@ -126,11 +126,10 @@
                                                     <i class="glyphicon glyphicon-trash m-r-xs" ng-click="removeComment(comment.id)"></i>
                                                 </div>
                                                 <div class="comment-img">
-                                                     <div class="chat-info-img" background-image="{{IMGURL}}{{comment.owner.avatar}}" ng-if="!comment.is_admin"></div>
-                                                     <div class="chat-info-img" background-image="{{IMGURL}}{{comment.admin.avatar}}" ng-if="comment.is_admin"></div>
+                                                     <div class="chat-info-img" background-image="{{IMGURL}}{{comment.ownerprofile.avatar}}"></div>
                                                 </div>
                                                 <div class="comment-info">
-                                                   <strong class="strong c-bg-2 m-r-xs"> {{comment.is_admin ? comment.admin.username : comment.owner.first_name}} {{comment.is_admin ? '(Admin)':''}} </strong> {{comment.comment}}
+                                                   <strong class="strong c-bg-2 m-r-xs"> {{comment.is_admin ? comment.ownerprofile.username : comment.ownerprofile.first_name}} {{comment.is_admin ? '(Admin)':''}} </strong> {{comment.comment}}
                                                 </div>
                                             </div>
                                             <div class="m-t-xs m-l-xl col-xs-12">
@@ -138,7 +137,7 @@
                                                 <div class="reply_holder" ng-show="comment.showreply">
                                                     <div class="comment p-b-none m-t">
                                                         <div class="msg-text">
-                                                            <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="comment.replycomment"> 
+                                                            <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="comment.replycomment" my-enter="sendCommentReply(comment.replycomment)"> 
                                                             <a class="small-btn" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
                                                         </div>
                                                         <button class="chat-btn" tabindex="0" ng-disabled="!comment.replycomment" ng-click="sendCommentReply(comment.replycomment)"><i class="fa fa-send"></i></button>
@@ -151,17 +150,17 @@
                                                                 <i class="glyphicon glyphicon-trash m-r-xs" ng-click="removeComment(subcomment.id)"></i>
                                                             </div>
                                                             <div class="comment-img">
-                                                               <div class="chat-info-img" background-image="{{IMGURL}}{{subcomment.owner.avatar}}"></div>
+                                                               <div class="chat-info-img" background-image="{{IMGURL}}{{subcomment.ownerprofile.avatar}}"></div>
                                                             </div>
                                                             <div class="comment-info">
-                                                              <strong class="strong c-bg-1 m-r-xs"> {{subcomment.is_admin ? subcomment.admin.username : subcomment.owner.first_name}} {{subcomment.is_admin ? '(Admin)':''}}</strong>  {{subcomment.comment}}
+                                                              <strong class="strong c-bg-1 m-r-xs"> {{subcomment.is_admin ? subcomment.ownerprofile.username : subcomment.ownerprofile.first_name}} {{subcomment.is_admin ? '(Admin)':''}}</strong>  {{subcomment.comment}}
                                                             </div>
                                                     </div>
                                                     <div class="col-xs-12 c-bg-2 m-l-xxl" ng-click="showHideSubCommentcomment(key,no);">{{subcomment.showreply ? 'Cancel' : 'Reply'}} <span class="m-l mbit-dt"> {{convertDate(subcomment.created_at) | date:'dd MMM yyyy HH:mm:ss'}}</span></div>
                                                     <div class="reply_holder" ng-show="subcomment.showreply">
                                                     <div class="comment p-b-none m-t">
                                                         <div class="msg-text">
-                                                            <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="subcomment.replycomment">
+                                                            <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="subcomment.replycomment" my-enter="sendsubCommentReply(subcomment.replycomment)">
                                                             <a class="small-btn" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
                                                         </div>
                                                         <button class="chat-btn" tabindex="0" ng-disabled="!subcomment.replycomment" ng-click="sendsubCommentReply(subcomment.replycomment)"><i class="fa fa-send"></i></button>

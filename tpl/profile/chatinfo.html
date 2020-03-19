@@ -3,35 +3,75 @@
         <div class="chat-wrap bg-white box-shadow b b-2x">
             <div class="message-head b b-3x bdrc-bg1">
                 <h2>Chat Board </h2>
-                <div class="option">
-                    <div class="chatter-img box-shadow b" background-image="{{IMGURL}}{{RoomData.user1info.avatar}}"></div>
-                    <div class="chatter-img box-shadow b" background-image="{{IMGURL}}{{RoomData.user2info.avatar}}"></div>
+                <div class="option m-r-xxl" ng-if="RoomData.chat_type == 1">
+                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.userprofile.avatar}}" tooltip-html="RoomData.is_admin ? RoomData.userprofile.username : RoomData.userprofile.first_name" tooltip-append-to-body="true" tooltip-placement="top"></div>
+
+                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{user.avatar}}" tooltip="Me"></div>
+                </div>
+
+                <div class="option m-r-xxl" ng-if="RoomData.chat_type == 2">
+                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.groupinfo.ownerprofile.avatar}}" tooltip-html="(RoomData.groupinfo.ownerprofile.id == user.id) ? 'Me - Group Admin' : (RoomData.is_admin ? RoomData.groupinfo.ownerprofile.username : RoomData.groupinfo.ownerprofile.first_name) + ' - Group Admin'" tooltip-append-to-body="true" tooltip-placement="top"></div>
+
+                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{member.memberprofile.avatar}}" tooltip-html="member.is_admin ? member.memberprofile.username : member.memberprofile.first_name" tooltip-append-to-body="true" tooltip-placement="top" ng-repeat="(num,member) in RoomData.groupinfo.members"></div>
+
+                    
                 </div>
             </div>
             <div class="col-xs-4  bg-white scroller">
                 <div class="col-xs-12 text-right p-r-none">
                     <button class="btn btn-default btn-xs  m-r-xs r-2x m-t" ng-click="openModal();">Create New Group</button>
                 </div>
-                <div class="col-xs-12 p-r-none p-l-none m-t">
+                <!-- <div class="col-xs-12 p-r-none p-l-none m-t">
                     <div class="col-xs-6 p-r-none p-l-none">
                         <button class="btn bg-main2 no-radius col-xs-12">Recent</button>
                     </div>
                     <div class="col-xs-6 p-l-none p-r-none">
                         <button class="btn bg-main1 no-radius col-xs-12">Search</button>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-xs-12 text-right p-l-none p-r-none m-t-xs">
                     <div class="form-group m-t-sm inner-addon right-addon">
                         <i class="fa fa-search sm-padder sm-padder-v"></i>
                         <input class="form-control r-3x chatsearch" ng-model="filterData.keyword" type="text" placeholder="search" ng-change="getusers();">
                     </div>
                 </div>
+
                 <div class="col-xs-12 p-r-none p-l-none sm-padder-v">
-                    <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-class="{'bg-chat-active': key == filterData.active}" ng-repeat="(key,data) in recentchats" ng-click="changeActive(key,data)">
-                        <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.first_user == user.id ? data.user2info.avatar : '' }}{{data.second_user == user.id ? data.user1info.avatar : '' }}"></div>
-                        <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_user == user.id ? data.user2info.first_name : '' }}{{data.second_user == user.id ? data.user1info.first_name : '' }}</div>
-                        <div class="col-xs-1 p-l-none padder-v text-right"> <span class="badge badge-sm bg-danger" ng-if="(data.first_user == user.id && data.first_user_unread > 0) || (data.second_user == user.id && data.second_user_unread > 0)">{{data.first_user == user.id ? data.first_user_unread : '' }}
-                                {{data.second_user == user.id ? data.second_user_unread : ''}}</span></div>
+                    <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-repeat="(key,data) in userslist.recentchats" ng-click="gotoRoom(data)" ng-if="!filterData.keyword || (filterData.keyword.toLowerCase().length > 0 && (data.chat_type == 2 && data.groupinfo.group_name.toLowerCase().includes(filterData.keyword.toLowerCase())) || (data.chat_type == 1 && data.is_admin_chat == 0 && (data.userprofile.first_name.toLowerCase().includes(filterData.keyword.toLowerCase()))) || (data.chat_type == 1 && (data.is_admin_chat == 1 && data.is_admin == 1 && data.userprofile.username.toLowerCase().includes(filterData.keyword.toLowerCase())) || (data.is_admin_chat == 1 && data.is_admin == 0 && data.userprofile.username.toLowerCase().includes(filterData.keyword.toLowerCase()))))">
+                        <div class="chat-user-data">
+                            <div ng-if="data.chat_type == 1">
+                                <div class="chatinfo-div">
+                                    <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.userprofile.avatar}}"></div>
+                                    <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.is_admin ? data.userprofile.username + '(Admin)' : (data.is_admin_chat ? data.userprofile.username : data.userprofile.first_name)}} <small></small></div>
+                                    <div class="col-xs-1 p-l-none padder-v text-right">
+                                        <span class="badge badge-sm bg-danger" ng-if="data.unread > 0">{{data.unread}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="data.chat_type == 2">
+                                <div class="chatinfo-div">
+                                    <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.groupinfo.group_icon}}"></div>
+                                    <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.groupinfo.group_name}} <small>(Group Chat)</small></div>
+                                    <div class="col-xs-1 p-l-none padder-v text-right">
+                                        <span class="badge badge-sm bg-danger" ng-if="data.unread > 0">{{data.unread}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-repeat="(key,data) in userslist.adminusers" ng-click="createRoom(key,data)">
+                        <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.avatar}}"></div>
+                        <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.username}}</div>
+                        <div class="col-xs-1 p-l-none padder-v text-right">
+                            <!-- <span class="badge badge-sm bg-danger">{{data.status}}</span> -->
+                        </div>
+                    </div>
+                    <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-repeat="(key,data) in userslist.users" ng-click="createRoom(key,data)">
+                        <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.avatar}}"></div>
+                        <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name}}</div>
+                        <div class="col-xs-1 p-l-none padder-v text-right">
+                            <!-- <span class="badge badge-sm bg-danger">{{data.status}}</span> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -53,12 +93,12 @@
                     </div>
                 </div>
                 <div class="sender p-b-none m-t">
-                    <div class="msg-text">
+                    <div class="msg-text" tooltip="Please select a chat on your left" tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-enable="RoomData.show_tooltip">
                         <a class="small-btn"><i class="fa fa-smile-o"></i></a>
-                        <input type="text" placeholder="Send something..." aria-invalid="false" ng-model="chatMessage.message" my-enter="sendReplymessage()">
-                        <a class="small-btn" ngf-select ngf-drop ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-allow-dir="allowDir" class="drop-box1" ngf-drop-available="dropAvailable" ngf-change="sendchatattachment($files);"><i class="fa fa-paperclip"></i></a>
+                        <input type="text" placeholder="Send something..." aria-invalid="false" ng-model="chatMessage.message" my-enter="sendReplymessage()" ng-disabled="!RoomData.id">
+                        <a class="small-btn" ngf-select ngf-drop ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-allow-dir="allowDir" class="drop-box1" ngf-drop-available="dropAvailable" ngf-change="sendchatattachment($files);" ng-disabled="!RoomData.id"><i class="fa fa-paperclip"></i></a>
                     </div>
-                    <div class="chat-btn" tabindex="0" ng-click="sendReplymessage()"><i class="fa fa-send"></i></div>
+                    <button class="chat-btn" tabindex="0" ng-click="sendReplymessage()" type="button"><i class="fa fa-send"></i></button>
                 </div>
             </div>
         </div>
@@ -67,7 +107,7 @@
     <div class="modal fade" id="PopupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" data-modalFade="true">
         <div class="modal-dialog" role="document" style="width: 35%;">
             <div class="modal-content wrapper-md">
-                <form class="form-horizontal" name="addForm" novalidate ng-submit="addData(addForm);">
+                <form class="form-horizontal" name="addForm" novalidate ng-submit="createGroup(addForm);">
                     <div class="modal-header b-no text-center">
                         <button type="button" class="close" ng-click="closeModal();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title m-t-md" id="myModalLabel">Create Group Chat</h4>
@@ -76,37 +116,51 @@
 
                         <div class="form-group">
                             <div class="col-sm-4 text-center">
-                                <label>Group Avatar<code>*</code></label>
-                                <small class="pull-right text-danger" ng-if="errorData.avatar_error">{{errorData.avatar_errorMsg}}</small>
-                                <div class="gp-img box-shadow b " background-image="{{!formData.newavatar && isedit ? IMGURL : ''}}{{!formData.newavatar && !isedit ? 'img/dummypf.png' : formData.avatar}}" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" dropAvailable " ngf-change="uploadAvatar($files); " ng-if="!formData.newavatar "><ngf-ignore-invalid="ignoreInvalid " ngf-allow-dir="allowDir " ngf-drop-available="img class="gp-img-edit" src="img/changeprofile.png"></div>
-                                <div class="Pf-img box-shadow b" ngf-background="formData.newavatar" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadAvatar($files);" ng-if="formData.newavatar"><img class="gp-img-edit" src="img/changeprofile.png" ng-if="!loading"></div>
+                                <input type="hidden" name="icon" ng-model="groupData.isfile" ng-required="!groupData.newicon && !isedit">
+                                <input type="hidden" name="members" ng-model="groupData.members" ng-required="groupData.group_members.length == 0">
+                                <label>Icon<code>*</code> <small class="pull-right text-danger" ng-if="errorData.icon_error">Required</small></label>
+                                <div class="gp-img box-shadow b" background-image="{{!groupData.newicon && isedit ? IMGURL : ''}}{{!groupData.newicon && !isedit ? 'img/dummypf.png' : groupData.avatar}}" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadIcon($files);" ng-if="!groupData.newicon"><img class="gp-img-edit" src="img/changeprofile.png"></div>
+                                <div class="gp-img box-shadow b" ngf-background="groupData.newicon" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadAvatar($files);" ng-if="groupData.newicon"><img class="gp-img-edit" src="img/changeprofile.png" ng-if="!loading"></div>
                             </div>
                             <div class="col-sm-6">
-                                <label>Group Name<code>*</code></label>
-                                <small class="pull-right text-danger" ng-if="errorData.name_error">{{errorData.name_errorMsg}}</small>
-                                <input type="text" name="name" class="form-control r-2x" ng-model="formData.name" placeholder="Enter Full Name" required ng-change="inputchange()">
+                                <label>Group Name<code>*</code> <small class="pull-right text-danger" ng-if="errorData.group_name_error">Required</small></label>
+                                <input type="text" name="group_name" class="form-control r-2x" ng-model="groupData.group_name" placeholder="Enter Name" required>
                             </div>
                             <div class="col-xs-12  sm-padder-v scroller m-t" style="height: 200px !important;">
-                                <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-class="{'bg-chat-active': key == filterData.active}" ng-repeat="(key,data) in recentchats" ng-click="changeActive(key,data)">
+                                <label>Group Members<code>*</code> <small class="pull-right text-danger" ng-if="errorData.members_error">Required</small></label>
+                                <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-repeat="(key,data) in groupuserslist.adminusers">
                                     <div class="col-xs-2">
                                         <div class="checkbox">
                                             <label class="i-checks">
-                                                <input type="checkbox" value="">
+                                                <input type="checkbox" ng-model="data.ischecked" ng-true-value="1" ng-false-value="0" ng-change="addgroupadminMember(data.ischecked,data)">
                                                 <i></i> &nbsp;
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="chat-info-img  pull-left m-r-lg m-t-xs" background-image="{{IMGURL}}{{data.first_user == user.id ? data.user2info.avatar : '' }}{{data.second_user == user.id ? data.user1info.avatar : '' }}"></div>
-                                    <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_user == user.id ? data.user2info.first_name : '' }}{{data.second_user == user.id ? data.user1info.first_name : '' }}</div>
+                                    <div class="chat-info-img  pull-left m-r-lg m-t-xs" background-image="{{IMGURL}}{{data.avatar}}"></div>
+                                    <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.username}}</div>
+                                </div>
+
+                                <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-repeat="(key,data) in groupuserslist.users">
+                                    <div class="col-xs-2">
+                                        <div class="checkbox">
+                                            <label class="i-checks">
+                                                <input type="checkbox" ng-model="data.ischecked" ng-true-value="1" ng-false-value="0" ng-change="addgroupMember(data.ischecked,data)">
+                                                <i></i> &nbsp;
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="chat-info-img  pull-left m-r-lg m-t-xs" background-image="{{IMGURL}}{{data.avatar}}"></div>
+                                    <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name}}</div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
-                    <div class="modal-footer text-center b-no">
-                        <div class="col-xs-12 text-center ">
-                            <button type="button" class="btn btn-primary no-border  m-auto bg-dark w-xs" ng-click="closeModal()" ng-disabled="loading">Cancel</button>
-                            <button type="submit" class="btn btn-primary no-border  m-auto bg-main1 w-xs" button-spinner="loading" ng-disabled="loading">Add</button>
+                        </div>
+                        <div class="modal-footer text-center b-no">
+                            <div class="col-xs-12 text-center ">
+                                <button type="button" class="btn btn-primary no-border  m-auto bg-dark w-xs" ng-click="closeModal()" ng-disabled="loading">Cancel</button>
+                                <button type="submit" class="btn btn-primary no-border  m-auto bg-main1 w-xs" button-spinner="loading" ng-disabled="loading">Add</button>
+                            </div>
                         </div>
                     </div>
                 </form>

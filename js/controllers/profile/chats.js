@@ -11,6 +11,9 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     $scope.pageno = 1;
     $scope.totalData = 0;
     $scope.totalPerPage = $rootScope.pagelimits[0];
+    $scope.userslist = {};
+    $scope.RoomData = {};
+    $scope.RoomData.show_tooltip = true;
 
     $scope.createFirebaseauth = function() {
         firebase.auth().createUserWithEmailAndPassword($rootScope.user.email, $rootScope.user.firebasepassword).then(function() {
@@ -29,14 +32,110 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     }
 
     $scope.openModal = function() {
+        $scope.searchData = {};
+        $scope.groupData = {};
+        $scope.groupData.group_members = [];
+        $scope.getgroupusers();
         $('#PopupModal').modal({
             backdrop: 'static',
             keyboard: false
         });
     }
 
+    $scope.setservererrorMsg = function(errors){
+        $scope.errorData = {};
+        angular.forEach(errors, function(error, no) {
+            $scope.errorData[no.replace('new','')+'_errorMsg'] = error[0];
+            $scope.errorData[no.replace('new','')+'_error'] = true;
+        });
+    }
+
+     $scope.createGroup = function(form) {
+        $scope.errorData = {};
+        $scope.errors = [];
+        if (form.$valid) {
+            $rootScope.loading = true;
+                webServices.upload('group/chat', $scope.groupData).then(function(getData) {
+                    console.log(getData)
+                    $rootScope.loading = false;
+                    if (getData.status == 200) {
+                        $rootScope.$emit("showSuccessMsg", getData.data.message);
+                        $scope.closeModal();
+                        $scope.getusers();
+                    } else if (getData.status == 401) {
+                        $scope.setservererrorMsg(getData.data.message);
+                        $rootScope.loading = false;
+                    } else {
+                        $rootScope.$emit("showISError", getData);
+                    }
+                });
+        } else {
+            if (!form.icon.$valid) {
+                $scope.errorData.icon_error = true;
+            }if (!form.members.$valid) {
+                $scope.errorData.members_error = true;
+            }if (!form.group_name.$valid) {
+                $scope.errorData.group_name_error = true;
+            }
+        }
+    }
+
+    $scope.addgroupadminMember = function(status,user){
+        if(status){
+            $scope.groupData.group_members.push(user);
+        }else{
+            $scope.removeMember(user);
+        }
+    }
+    $scope.addgroupMember = function(status,user){
+        if(status){
+            $scope.groupData.group_members.push(user);
+        }else{
+            $scope.removeMember(user);
+        }
+    }
+
+    $scope.removeMember = function(member){
+        angular.forEach($scope.groupData.group_members, function(groupmember, no) {
+            if((member.id == groupmember.id) && (member.is_admin == groupmember.is_admin)){
+                $scope.groupData.group_members.splice(no,1);
+            }
+        });
+    }
+
+    $scope.uploadIcon =  function(files) {
+    $scope.errors = [];
+        if (files && files.length) {
+            var extn = files[0].name.split(".").pop();
+            if ($rootScope.imgextensions.includes(extn.toLowerCase())) {
+                if (files[0].size <= $rootScope.maxUploadsize) {
+                    $scope.groupData.newicon = files[0];
+                } else {
+                    $scope.errors.push(files[0].name + ' size exceeds 2MB.')
+                }
+            } else {
+                $scope.errors.push(files[0].name + ' format unsupported.');
+            }
+        }
+        if ($scope.errors.length > 0) {
+            $rootScope.$emit("showErrors", $scope.errors);
+        }
+    }
+
+    $scope.getgroupusers = function() {
+        webServices.post('group/users', $scope.searchData).then(function(getData) {
+            $rootScope.loading = false;
+            if (getData.status == 200) {
+                $scope.groupuserslist = getData.data;
+            } else {
+                //$rootScope.logout();
+            }
+        });
+    }
+
     $scope.closeModal = function() {
         $('#PopupModal').modal('hide');
+        $scope.groupData = {};
     }
 
     $scope.changeActive = function(key, user) {
@@ -54,7 +153,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                 $rootScope.loading = false;
                 $scope.updatefirebaseid(user.uid)
             } else {
-                $scope.checkroom();
+                $scope.gotoRoom($scope.RoomData);
             }
         });
     }
@@ -65,33 +164,14 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         };
         webServices.put('profile/update/firebaseid', obj).then(function(getData) {
             if (getData.status == 200) {
-                $scope.checkroom();
+                $scope.gotoRoom($scope.RoomData);
             }
         });
     }
-
-    $scope.checkroom = function() {
-        if($scope.recentchats.length > 0){
-            if($scope.recentchats[$scope.filterData.active].first_user == $rootScope.user.id){
-                var userid = $scope.recentchats[$scope.filterData.active].second_user;
-            }else if($scope.recentchats[$scope.filterData.active].second_user == $rootScope.user.id){
-                var userid = $scope.recentchats[$scope.filterData.active].first_user;
-            }
-            webServices.post('chat/room/'+ userid).then(function(getData) {
-                if (getData.status == 200) {
-                    $scope.RoomData = getData.data;
-                    $scope.chattype = 'privatechat';
-                    $scope.firebaseurl = '/'+ $scope.RoomData.id +'/';
-                    $scope.getChatContent();
-                }
-            });
-        }else{
-            $rootScope.loading = false;
-        }
-    }
-
+    
     $scope.updateroom = function() {
-        webServices.put('chat/room/'+ $scope.RoomData.id).then(function(getData) {
+        webServices.put('chat/room/'+ $scope.RoomData.chatroom_id + '/' + $scope.RoomData.chat_type).then(function(getData) {
+            console.log(getData)
             if (getData.status == 200) {
             } else {
 
@@ -100,16 +180,23 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     }
 
     $rootScope.$watch('chatData', function (newVal, oldVal) {  
-        console.log('watched')
         $scope.getusers(); 
     }, true);
 
     $scope.getChatContent = function() {
         firebase.auth().onAuthStateChanged(function(user) {
             $rootScope.loading = false;
-            if (user.uid == $rootScope.user.firebaseid) {
-                $rootScope.ref = firebase.database().ref().child($scope.chattype).child($scope.firebaseurl);
-                $rootScope.chatData = $firebaseArray($rootScope.ref);
+            if (user) {
+                if(user.uid == $rootScope.user.firebaseid){
+                    $rootScope.ref = firebase.database().ref().child($scope.chattype).child($scope.firebaseurl);
+                    $rootScope.chatData = $firebaseArray($rootScope.ref);
+                }
+            }else{
+                if (!$rootScope.user.firebaseid) {
+                    $scope.createFirebaseauth();
+                } else {
+                    $scope.loginFirebaseauth();
+                }
             }
         });
     }
@@ -126,12 +213,12 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                     fileurl: $scope.chatMessage.fileurl,
                     created_at: firebase.database.ServerValue.TIMESTAMP,
                 });
+                $scope.updateroom();
                 $timeout(function() {
                     $scope.chatMessage.message = '';
                     $scope.chatMessage.isfile = 0;
                     $scope.chatMessage.fileurl = '-';
                     $scope.filterData.active = 0;
-                    $scope.updateroom();
                 }, 200);
             });
         }
@@ -166,21 +253,54 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     }
 
     $scope.getusers = function() {
+        $scope.userslist = {};
         webServices.post('users/' + $scope.totalPerPage + '?page=' + $scope.pageno, $scope.filterData).then(function(getData) {
+            $rootScope.loading = false;
             if (getData.status == 200) {
-                $scope.recentchats = getData.data.recentchats;
-                $scope.users = getData.data.users;
+                $scope.userslist = getData.data;
+                console.log($scope.userslist)
             } else {
                 //$rootScope.logout();
             }
         });
     }
 
-    if (!$rootScope.user.firebaseid) {
+    $scope.createRoom = function(key,data){
+            var obj = {};
+            obj.is_admin_chat = data.is_admin;
+            obj.chatuser = data.id;
+            webServices.post('chat/room',obj).then(function(getData) {
+                if (getData.status == 200) {
+                    $scope.RoomData = getData.data;
+                    $scope.gotoRoom(getData.data);
+                }
+            });
+
+    }
+
+    $scope.gotoRoom = function(data){
+        $rootScope.loading = true;
+        $scope.RoomData = data;
+        console.log($scope.RoomData)
+        $scope.RoomData.show_tooltip = false;
+        if($scope.RoomData.chat_type == 1){
+            if($scope.RoomData.is_admin_chat){
+                $scope.chattype = 'admin-user';
+            }else{
+                $scope.chattype = 'user-user';
+            }
+        }else if($scope.RoomData.chat_type == 2){
+            $scope.chattype = 'groupchat';
+        }
+        $scope.firebaseurl = '/'+ $scope.RoomData.chatroom_id +'/';
+        $scope.getChatContent();
+    }
+
+    /*if (!$rootScope.user.firebaseid) {
         $scope.createFirebaseauth();
     } else {
         $scope.loginFirebaseauth();
-    }
+    }*/
 
     $scope.getusers();
 
