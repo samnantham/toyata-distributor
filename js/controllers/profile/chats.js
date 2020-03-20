@@ -153,7 +153,9 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                 $rootScope.loading = false;
                 $scope.updatefirebaseid(user.uid)
             } else {
-                $scope.gotoRoom($scope.RoomData);
+                if(Object.keys($scope.RoomData).length > 1){
+                    $scope.gotoRoom($scope.RoomData);
+                }
             }
         });
     }
@@ -164,7 +166,9 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         };
         webServices.put('profile/update/firebaseid', obj).then(function(getData) {
             if (getData.status == 200) {
-                $scope.gotoRoom($scope.RoomData);
+                if(Object.keys($scope.RoomData).length > 1){
+                    $scope.gotoRoom($scope.RoomData);
+                }
             }
         });
     }
@@ -207,6 +211,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                 $rootScope.ref.push({
                     user_id: $rootScope.user.id,
                     username: $rootScope.user.first_name,
+                    isadmin: 0,
                     message: $scope.chatMessage.message,
                     avatar: $rootScope.user.avatar,
                     isfile: $scope.chatMessage.isfile,
@@ -281,7 +286,6 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     $scope.gotoRoom = function(data){
         $rootScope.loading = true;
         $scope.RoomData = data;
-        console.log($scope.RoomData)
         $scope.RoomData.show_tooltip = false;
         if($scope.RoomData.chat_type == 1){
             if($scope.RoomData.is_admin_chat){
@@ -294,13 +298,14 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         }
         $scope.firebaseurl = '/'+ $scope.RoomData.chatroom_id +'/';
         $scope.getChatContent();
+        console.log($scope.RoomData)
     }
 
-    /*if (!$rootScope.user.firebaseid) {
+    if ($rootScope.user.firebaseid == '') {
         $scope.createFirebaseauth();
-    } else {
+    }else{
         $scope.loginFirebaseauth();
-    }*/
+    }
 
     $scope.getusers();
 
