@@ -100,15 +100,9 @@ angular.module('app')
                   resolve: load(['js/controllers/profile/notification.js'])
               })
 
-              .state('app.chatlist', {
-                  url: 'chats',
-                  templateUrl: 'tpl/profile/chatlist.html',
-                  resolve: load(['js/controllers/profile/chats.js'])
-              })
-
               .state('app.chatinfo', {
-                  url: 'chat/info/:id?',
-                  templateUrl: 'tpl/profile/chatinfo.html',
+                  url: 'chats',
+                  templateUrl: 'tpl/profile/chats.html',
                   resolve: load(['js/controllers/profile/chats.js'])
               })
 
