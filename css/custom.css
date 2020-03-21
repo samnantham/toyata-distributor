@@ -684,7 +684,7 @@
      width: 100%;
      float: left;
      background: #fff;
-     height: calc(100vh - 260px) !important;
+     height: calc(100vh - 270px) !important;
      overflow-x: hidden;
      overflow-y: auto;
      -moz-appearance: none !important;
@@ -1022,11 +1022,12 @@ max-width: 80%;
  
 .mCustomScrollbar
 {
-     height: calc(100vh - 172px) !important;
+     height: calc(100vh - 187px) !important;
 }
 .app-content-body
 {
-    padding-bottom: 20px;
+    padding-bottom: 41px;
+        padding-top: 22px;
 }
 .panel
 {
@@ -1037,11 +1038,11 @@ max-width: 80%;
 border-bottom: 10px solid #fff;
 }
 .height_page {
-    height: calc(100vh - 128px) !important;
+    height: calc(100vh - 143px) !important;
 }
 .margin_mid
 {
-  margin-top: calc(100vh - 128px)/2 !important;   
+  margin-top: calc(100vh - 200px)/2 !important;   
 }
 .img-full
 {
@@ -1055,4 +1056,11 @@ border-bottom: 10px solid #fff;
     background-position: top center;
     margin: auto;
     margin-top: 20px !important;
+}
+.wrapper-md {
+    padding: 15px;
+}
+.chat-wrap .mCustomScrollbar
+{
+     height: calc(100vh - 184px) !important;
 }

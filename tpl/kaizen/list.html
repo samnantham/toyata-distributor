@@ -1,5 +1,5 @@
 <div ng-controller="KaizenController">
-    <div class="wrapper-md p-t-none p-b-none m-t-sm">
+    <div class="wrapper-md p-t-none p-b-none m-t">
         <div class="panel panel-default r-3x">
             <div class="panel-heading r-3x r-b-none bg-main2 p-b-none">
                 <button class="btn no-shadow b-no  btn-default panel-tab" ng-class="{'active': activetab == kaizen.id}" ng-click="changeActive(kaizen.id)" ng-repeat="(num,kaizen) in kaizentypes">{{kaizen.type}}</button>

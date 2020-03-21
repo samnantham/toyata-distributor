@@ -1,6 +1,6 @@
 <div ng-controller='ChatController'>
-    <div class="wrapper-md p-t-none p-b-none m-t-sm">
-        <div class="chat-wrap col-xs-12 p-l-none p-r-none  bg-white box-shadow b b-2x r-b-6x">
+    <div class="wrapper-md p-t-none p-b-none m-t">
+        <div class="chat-wrap col-xs-12 p-l-none p-r-none  bg-white box-shadow r-b-6x">
             <div class="message-head b b-3x bdrc-bg1 r-3x r-b-none">
                 <h2>Chat Board </h2>
                 <div class="option m-r-xxl" ng-if="RoomData.chat_type == 1">
@@ -17,7 +17,7 @@
                     
                 </div>
             </div>
-            <div class="col-xs-12 col-lg-4 col-md-4 col-sm-12 bg-white b-r b-2x r-bl-6x" ng-scrollbars ng-scrollbars-config="scrollconfig">
+            <div class="col-xs-12 col-lg-4 col-md-4 col-sm-12 bg-white b-r b-2x r-bl-6x padder-v" ng-scrollbars ng-scrollbars-config="scrollconfig">
                 <div class="col-xs-12 text-right p-r-none">
                     <button class="btn btn-default btn-xs  m-r-xs r-2x m-t" ng-click="openModal();">Create New Group</button>
                 </div>
