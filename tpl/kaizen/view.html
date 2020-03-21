@@ -1,11 +1,11 @@
 <div ng-controller="KaizenInfoController">
-    <div class="wrapper-md p-t-none p-b-none m-t-md">
-        <div class="panel panel-default r-3x m-t-md">
+    <div class="wrapper-md p-t-none p-b-none m-t">
+        <div class="panel panel-default r-3x">
             <div class="panel-heading r-3x r-b-none bg-main2 text-center">
-                <span class="font-bold">Kaizen Preview</span>
+                <span class="font-normal">Kaizen Preview</span>
             </div>
 
-            <div class="bg-white  padder scroller">
+            <div class="bg-white padder r-b-6x" ng-scrollbars ng-scrollbars-config="scrollconfig">
                 <div class="row m-t m-b">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 m-b" ng-if="kaizen.user == user.id">
                         <div class="pull-right dist-ico">
@@ -112,7 +112,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label class="font-bold">Cover Image</label>
-                                            <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj"
+                                            <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj"
                                                 ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadCover($files);">
                                                 Upload Image
                                             </div>
@@ -127,7 +127,7 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label class="font-bold">Images and Videos</label>
-                                            <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-accept="'image/*,video/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj"
+                                            <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-accept="'image/*,video/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj"
                                                 ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addkaizenfiles($files);" ngf-maxfiles="6">
                                                 Upload Files
                                             </div>

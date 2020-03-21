@@ -2,9 +2,9 @@
     <div class="wrapper-md p-t-none p-b-none m-t-sm">
         <div class="panel panel-default r-3x ">
             <div class="panel-heading r-3x r-b-none bg-main2 text-center">
-                <span class="font-bold">Event Details</span>
+                <span class="font-normal">Event Details</span>
             </div>
-            <div class="bg-white  padder r-b-6x " ng-scrollbars ng-scrollbars-config="scrollconfig">
+            <div class="bg-white  padder r-b-6x" ng-scrollbars ng-scrollbars-config="scrollconfig">
                 <div class="row m-t m-b">
                     <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 wrapper-md p-t-none m-t-sm">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -113,7 +113,7 @@
                                     <div class="msg-text">
                                         <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="commentData.comment" my-enter="addComment();">
                                         <a class="small-btn"><i class="fa fa-smile-o"></i></a>
-                                        <a class="small-btn" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
+                                        <a class="small-btn" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
                                     </div>
                                     <button class="chat-btn" tabindex="0" ng-disabled="!commentData.comment" ng-click="addComment()"><i class="fa fa-send"></i></button>
                                 </div>
@@ -138,7 +138,7 @@
                                                     <div class="comment p-b-none m-t">
                                                         <div class="msg-text">
                                                             <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="comment.replycomment" my-enter="sendCommentReply(comment.replycomment)"> 
-                                                            <a class="small-btn" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
+                                                            <a class="small-btn" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
                                                         </div>
                                                         <button class="chat-btn" tabindex="0" ng-disabled="!comment.replycomment" ng-click="sendCommentReply(comment.replycomment)"><i class="fa fa-send"></i></button>
                                                     </div>
@@ -161,7 +161,7 @@
                                                     <div class="comment p-b-none m-t">
                                                         <div class="msg-text">
                                                             <input type="text" placeholder="Write Comment" aria-invalid="false" ng-model="subcomment.replycomment" my-enter="sendsubCommentReply(subcomment.replycomment)">
-                                                            <a class="small-btn" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
+                                                            <a class="small-btn" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadFile($files);"><i class="fa fa-paperclip"></i></a>
                                                         </div>
                                                         <button class="chat-btn" tabindex="0" ng-disabled="!subcomment.replycomment" ng-click="sendsubCommentReply(subcomment.replycomment)"><i class="fa fa-send"></i></button>
                                                     </div>

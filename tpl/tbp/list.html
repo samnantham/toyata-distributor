@@ -82,7 +82,7 @@
                                         </div>
                                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-r-none">
                                             <a class="btn btn-danger r-2x pull-right m-l-sm" ng-click="removeInvitation(key);" ng-if="formData.invitations.length > 1"><i class="fa fa-trash"></i></a>
-                                            <button class="btn btn-warning r-2x btn-addon pull-right" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadInvitation(no,$files);"><i class="fa fa-upload"></i> {{invitation.filename ? invitation.filename : 'Upload'}}</button>
+                                            <button class="btn btn-warning r-2x btn-addon pull-right" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadInvitation(no,$files);"><i class="fa fa-upload"></i> {{invitation.filename ? invitation.filename : 'Upload'}}</button>
 
                                         </div>
                                     </div>
@@ -97,7 +97,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label class="font-bold">Images and Videos</label>
-                                    <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-accept="'image/*,video/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addtbpfiles($files);" ngf-accept="'image/*,video/*'" ngf-maxfiles="6">
+                                    <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-accept="'image/*,video/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addtbpfiles($files);" ngf-accept="'image/*,video/*'" ngf-maxfiles="6">
                                         Upload Files
                                     </div>
                                 </div>

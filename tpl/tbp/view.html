@@ -2,7 +2,7 @@
     <div class="wrapper-md p-t-none p-b-none m-t-sm">
         <div class="panel panel-default r-3x">
             <div class="panel-heading r-3x r-b-none bg-main2 text-center">
-                <span class="font-bold">{{tbp.title}}</span>
+                <span class="font-normal">{{tbp.title}}</span>
             </div>
             <div class="bg-white padder r-b-6x " ng-scrollbars ng-scrollbars-config="scrollconfig">
                 <div class="row">
@@ -10,7 +10,7 @@
                         <div class="bg-white sm-padder-v sm-padder col-md-12 col-lg-12 col-sm-12  col-xs-12 ">
                             <div class="col-md-12 col-lg-12 col-sm-12 padder-v bg-white b-light b b-2x r-3x">
                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padder">
-                                    <h5 class="font-bold"> Invitation </h5>
+                                    <h5 class="font-normal"> Invitation </h5>
                                 </div>
                                 <div class="line b-b line-lg m-t-none m-b-none b-2x"></div>
                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-b b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,invitation) in tbp.invitations track by $index"> {{invitation.name}} <a class="btn btn-warning r-2x padd-xs pull-right b-no" ng-href="{{IMGURL}}{{invitation.file}}" download="{{invitation.file.split('/').pop()}}" target="_blank"><i class="fa fa-download"></i></a>
@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="line b-b line-lg m-t-none m-b-none b-2x"></div>
                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-b b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,type) in tbp_uploads"> {{type.type}} 
-                                    <a class="btn btn-default bdrc-bg2 padd-xs pull-right b-no" ngf-select ngf-drop ngf-max-size="2MB" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadReport(type.id,$files);">Upload</i></a>
+                                    <a class="btn btn-default bdrc-bg2 padd-xs pull-right b-no" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadReport(type.id,$files);">Upload</i></a>
 
                                     <a class="btn btn-warning r-2x padd-xs pull-right b-no m-r-xxl" ng-if="type.fileurl" ng-href="{{IMGURL}}{{type.fileurl}}" download="{{type.fileurl.split('/').pop()}}" target="_blank"><i class="fa fa-download"></i></a>
                                     
