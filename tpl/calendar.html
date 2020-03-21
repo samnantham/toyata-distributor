@@ -1,7 +1,8 @@
 <div class="hbox hbox-auto-xs hbox-auto-sm">
     <!-- main -->
     <div ng-controller="CalendarCtrl">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-md">
+        <div class="wrapper-md p-t-none p-b-none m-t-sm">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 r-b-6x no-padder" >
             <div class="panel panel-default r-3x">
                 <div class="panel-heading r-3x r-b-none bg-main2">
                     Calendar
@@ -10,6 +11,7 @@
                     <div class="calendar" ng-model="eventSources" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </div>

@@ -1,16 +1,16 @@
 <div ng-controller='ChatController'>
     <div class="wrapper-md p-t-none p-b-none m-t-sm">
-        <div class="chat-wrap col-xs-12 p-l-none p-r-none  bg-white box-shadow b b-2x r-b-6x">
+        <div class="chat-wrap col-xs-12 p-l-none p-r-none  bg-white box-shadow b b-2x">
             <div class="message-head b b-3x bdrc-bg1 r-3x r-b-none">
                 <h2>Chat Board </h2>
                 <div class="option m-r-xxl" ng-if="RoomData.chat_type == 1">
-                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.userprofile.avatar}}" tooltip-html="RoomData.is_admin_chat ? RoomData.userprofile.username + ' (Admin) ': RoomData.userprofile.first_name" tooltip-append-to-body="true" tooltip-placement="top"></div>
+                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.userprofile.avatar}}" tooltip-html="RoomData.is_admin ? RoomData.userprofile.username : RoomData.userprofile.first_name" tooltip-append-to-body="true" tooltip-placement="top"></div>
 
                     <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{user.avatar}}" tooltip="Me"></div>
                 </div>
 
                 <div class="option m-r-xxl" ng-if="RoomData.chat_type == 2">
-                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.groupinfo.ownerprofile.avatar}}" tooltip-html="((RoomData.groupinfo.ownerprofile.id == user.id) ? 'Me' : (RoomData.is_admin ? RoomData.groupinfo.ownerprofile.username : RoomData.groupinfo.ownerprofile.first_name)) + ' - Group Admin'" tooltip-append-to-body="true" tooltip-placement="top"></div>
+                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.groupinfo.ownerprofile.avatar}}" tooltip-html="(RoomData.groupinfo.ownerprofile.id == user.id) ? 'Me - Group Admin' : (RoomData.is_admin ? RoomData.groupinfo.ownerprofile.username : RoomData.groupinfo.ownerprofile.first_name) + ' - Group Admin'" tooltip-append-to-body="true" tooltip-placement="top"></div>
 
                     <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{member.memberprofile.avatar}}" tooltip-html="member.is_admin ? member.memberprofile.username : member.memberprofile.first_name" tooltip-append-to-body="true" tooltip-placement="top" ng-repeat="(num,member) in RoomData.groupinfo.members"></div>
 
@@ -37,9 +37,8 @@
                 </div>
 
                 <div class="col-xs-12 p-r-none p-l-none sm-padder-v">
-                    <div class="col-xs-12 m-b-sm c-bg-1 font-bold no-border p-l-none box-shadow sm-padder-v" ng-if="userslist.recentchats.length > 0">Recent Chats</div>
-                    <div class="col-xs-12 p-l-none sm-padder-v" ng-class="{ 'box-shadow' : !$last }" ng-repeat="(key,data) in userslist.recentchats track by $index" ng-click="gotoRoom(data)" ng-if="!filterData.keyword || (filterData.keyword.toLowerCase().length > 0 && (data.chat_type == 2 && data.groupinfo.group_name.toLowerCase().includes(filterData.keyword.toLowerCase())) || (data.chat_type == 1 && data.is_admin_chat == 0 && (data.userprofile.first_name.toLowerCase().includes(filterData.keyword.toLowerCase()))) || (data.chat_type == 1 && (data.is_admin_chat == 1 && data.is_admin == 1 && data.userprofile.username.toLowerCase().includes(filterData.keyword.toLowerCase())) || (data.is_admin_chat == 1 && data.is_admin == 0 && data.userprofile.username.toLowerCase().includes(filterData.keyword.toLowerCase()))))">
-                         
+                    <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-repeat="(key,data) in userslist.recentchats" ng-click="gotoRoom(data)" ng-if="!filterData.keyword || (filterData.keyword.toLowerCase().length > 0 && (data.chat_type == 2 && data.groupinfo.group_name.toLowerCase().includes(filterData.keyword.toLowerCase())) || (data.chat_type == 1 && data.is_admin_chat == 0 && (data.userprofile.first_name.toLowerCase().includes(filterData.keyword.toLowerCase()))) || (data.chat_type == 1 && (data.is_admin_chat == 1 && data.is_admin == 1 && data.userprofile.username.toLowerCase().includes(filterData.keyword.toLowerCase())) || (data.is_admin_chat == 1 && data.is_admin == 0 && data.userprofile.username.toLowerCase().includes(filterData.keyword.toLowerCase()))))">
+                         <div class="col-xs-12 m-b-sm c-bg-1 font-bold no-border p-l-none box-shadow sm-padder-v">Groupchat </div>
                         <div class="chat-user-data">
                             <div ng-if="data.chat_type == 1">
                                 <div class="chatinfo-div">
@@ -61,16 +60,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 m-b-sm c-bg-1 font-bold no-border p-l-none box-shadow sm-padder-v" ng-if="userslist.adminusers.length > 0">Admin Users </div>
-                    <div class="col-xs-12 p-l-none sm-padder-v p-r-none" ng-repeat="(key,data) in userslist.adminusers track by $index" ng-click="createRoom(key,data)" ng-class="{ 'box-shadow' : !$last }">
+                    <div class="col-xs-12 p-l-none box-shadow sm-padder-v p-r-none" ng-repeat="(key,data) in userslist.adminusers" ng-click="createRoom(key,data)">
                         <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.avatar}}"></div>
                         <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.username}}</div>
                         <div class="col-xs-1 p-l-none padder-v text-right">
                             <!-- <span class="badge badge-sm bg-danger">{{data.status}}</span> -->
                         </div>
                     </div>
-                    <div class="col-xs-12 m-b-sm c-bg-1 font-bold no-border p-l-none box-shadow sm-padder-v" ng-if="userslist.users.length > 0">Distributor Users </div>
-                    <div class="col-xs-12 p-l-none sm-padder-v" ng-repeat="(key,data) in userslist.users track by $index" ng-click="createRoom(key,data)" ng-class="{ 'box-shadow' : !$last }">
+                    <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-repeat="(key,data) in userslist.users" ng-click="createRoom(key,data)">
                         <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.avatar}}"></div>
                         <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name}}</div>
                         <div class="col-xs-1 p-l-none padder-v text-right">

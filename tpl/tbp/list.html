@@ -1,10 +1,10 @@
 <div ng-controller="TBPController">
-    <div class="wrapper-md p-t-none p-b-none m-t-md">
-        <div class="panel panel-default r-3x m-t-md bg-white ">
+    <div class="wrapper-md p-t-none p-b-none m-t-sm">
+        <div class="panel panel-default r-3x m- bg-white ">
             <div class="panel-heading r-3x r-b-none bg-main2 p-b-none">
                 <button class="btn no-shadow b-no  btn-default panel-tab" ng-class="{'active': activetab == tbp.id}" ng-click="changeActive(tbp.id)" ng-repeat="(num,tbp) in tbptypes">{{tbp.type}}</button>
             </div>
-            <div class="scroller padder">
+            <div class="bg-white padder r-b-6x " ng-scrollbars ng-scrollbars-config="scrollconfig">
                 <div class="row m-t">
                     <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6 inner-addon right-addon">
                         <i class="fa fa-search"></i>

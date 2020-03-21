@@ -1,6 +1,6 @@
 <div ng-controller="EventsController">
-    <div class="wrapper-md p-t-none p-b-none m-t-md">
-        <div class="panel panel-default r-3x m-t-md panel-remover">
+    <div class="wrapper-md p-t-none p-b-none">
+        <div class="panel panel-default r-3x panel-remover m-t-sm bg-white">
             <div class="panel-heading r-3x r-b-none bg-main2 p-b-none">
                 <button class="btn no-shadow b-no btn-default panel-tab" ng-class="{'active': activetab == 'upcoming'}" ng-click="changeActive('upcoming')">Upcoming Events</button>
                 <button class="btn no-shadow b-no btn-default panel-tab" ng-class="{'active': activetab == 'past'}" ng-click="changeActive('past')">Past Events</button>
@@ -20,8 +20,8 @@
                     <!-- / dropdown -->
                 </li>
             </div>
-            <div class="no-padder">
-                <div class="row">
+            <div class="bg-white padder r-b-6x " ng-scrollbars ng-scrollbars-config="scrollconfig">
+                <div class=" row m-t">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  " dir-paginate="(key,data) in events.data | itemsPerPage: totalPerPage" total-items="events.total" current-page="pagination.current">
                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 m-t wrapper-lg  box-shadow bg-white cursor r-3x" ui-sref="app.viewevent({'id':data.id})">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 p-r-none">

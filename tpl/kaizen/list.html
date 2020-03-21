@@ -1,6 +1,6 @@
 <div ng-controller="KaizenController">
-    <div class="wrapper-md p-t-none p-b-none m-t-md">
-        <div class="panel panel-default r-3x m-t-md">
+    <div class="wrapper-md p-t-none p-b-none m-t-sm">
+        <div class="panel panel-default r-3x">
             <div class="panel-heading r-3x r-b-none bg-main2 p-b-none">
                 <button class="btn no-shadow b-no  btn-default panel-tab" ng-class="{'active': activetab == kaizen.id}" ng-click="changeActive(kaizen.id)" ng-repeat="(num,kaizen) in kaizentypes">{{kaizen.type}}</button>
                 <li class="dropdown pull-right list-none" dropdown>
@@ -18,7 +18,7 @@
                     <!-- / dropdown -->
                 </li>
             </div>
-            <div class="padder scroller">
+            <div class="bg-white  padder r-b-6x " ng-scrollbars ng-scrollbars-config="scrollconfig">
                 <div class="row m-t">
 
                     <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6">

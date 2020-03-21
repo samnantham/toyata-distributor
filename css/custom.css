@@ -163,6 +163,16 @@
      border-bottom-left-radius: 0px;
      border-bottom-right-radius: 0px;
 }
+.r-b-6x {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius:6px;
+}
+.r-bl-6x {
+    border-bottom-left-radius: 6px;
+}
+.r-br-6x {
+        border-bottom-right-radius:6px;
+}
  .bg-dark {
      background-color: #3a3f51 !important;
      color: #fff!important;
@@ -674,7 +684,7 @@
      width: 100%;
      float: left;
      background: #fff;
-     height: calc(100vh - 300px) !important;
+     height: calc(100vh - 260px) !important;
      overflow-x: hidden;
      overflow-y: auto;
      -moz-appearance: none !important;
@@ -812,14 +822,12 @@
      min-height: 444px;
      max-height: 444px;
      height: 444px;
-     overflow-y: scroll;
 }
  .dash-3-div {
      min-height: 444px;
      max-height: 444px;
      height: 444px;
      display: block;
-     overflow-y: scroll;
 }
  .slide-item {
      max-width: 250px;
@@ -853,20 +861,6 @@
 .slick-disabled{
      opacity: 0.5;
 }
-.dash-2-div {
-    min-height: 444px;
-    max-height: 444px;
-    height: 444px;
-    overflow-y: scroll;
-}
-.dash-3-div {
-    min-height: 444px;
-    max-height: 444px;
-    height: 444px;
-    display: block;
-    overflow-y: scroll;
-}
-
  .comment {
      width: 100%;
      float: left;
@@ -1024,4 +1018,37 @@ background-color: #F1592A;
 .reply_holder .comment
 {
 max-width: 80%;
+}
+ 
+.mCustomScrollbar
+{
+     height: calc(100vh - 172px) !important;
+}
+.app-content-body
+{
+    padding-bottom: 20px;
+}
+.panel
+{
+    margin-bottom: 0px;
+}
+.panel-heading.p-b-none
+{
+border-bottom: 10px solid #fff;
+}
+.height_page {
+    height: calc(100vh - 128px) !important;
+}
+.img-full
+{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    background-position: top center;
+    margin: auto;
+    margin-top: 20px !important;
 }

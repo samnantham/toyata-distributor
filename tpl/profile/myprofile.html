@@ -1,7 +1,7 @@
 <div ng-controller="ProfileController">
-    <div ng-class="isMobile ? 'flex' : 'wrapper-md' ">
-        <div class="panel panel-default r-3x">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center bg-white" ng-style="{'height': (screenHeight - (height_to_reduce + 50) )+ 'px'}">
+    <div ng-class="isMobile ? 'flex' : 'wrapper-md' " class="m-t-sm p-t-none p-b-none">
+        <div class="panel panel-default height_page r-3x">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center bg-white r-3x" ng-style="{'height': (screenHeight - (height_to_reduce + 50) )+ 'px'}">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padder-v" ng-if="!isedit">
                         <img src="img/edit.png" class="pull-right img-ico" ng-click="showEdit();">
                     </div>
@@ -9,7 +9,8 @@
                         <h3 class="h3 m-b m-t-lg">My Profile</h3>
                         <div class="auth-form w-xl r-3x b b-2x box-shadow bdr-gray m-b-lg" ng-if="!isedit">
                             <div class="wrapper text-center m-t">
-                                <img ng-src="{{IMGURL}}{{user.avatar}}" class="thumb-xl rounded">
+                                <div  background-image="{{IMGURL}}{{user.avatar}}" class="img-full m-t-xl" alt="..."></div>
+                               <!--  <img ng-src="{{IMGURL}}{{user.avatar}}" class="thumb-xl rounded"> -->
                             </div>
                             <div class="wrapper-lg m-b-sm p-t-none">
                                 <div class="form-group">
