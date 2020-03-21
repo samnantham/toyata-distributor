@@ -1039,6 +1039,10 @@ border-bottom: 10px solid #fff;
 .height_page {
     height: calc(100vh - 128px) !important;
 }
+.margin_mid
+{
+  margin-top: calc(100vh - 128px)/2 !important;   
+}
 .img-full
 {
     width: 150px;
