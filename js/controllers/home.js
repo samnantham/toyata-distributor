@@ -1,6 +1,6 @@
 'use strict';
-app.controller('DashboardCtrl', ['$scope', '$ngConfirm', 'webServices', '$rootScope', 'authServices', '$timeout', '$sessionStorage', 'NgMap', '$http', '$filter',
-    function($scope, $ngConfirm, webServices, $rootScope, authServices, $timeout, $sessionStorage, NgMap, $http, $filter) {
+app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope', 'authServices', '$timeout', '$sessionStorage', 'NgMap', '$http', '$filter',
+    function($scope, $state, webServices, $rootScope, authServices, $timeout, $sessionStorage, NgMap, $http, $filter) {
         
         $rootScope.$emit("setSliderConfig",{});
         $scope.eventSources = [];
@@ -21,6 +21,28 @@ app.controller('DashboardCtrl', ['$scope', '$ngConfirm', 'webServices', '$rootSc
             });
         }
 
+        $scope.viewItem = function(data){
+            $rootScope.formData = {};
+            $rootScope.formData = data;
+            if(data.type == 2){
+                $state.go('app.viewevent',{id:data.id});
+            }else{
+                $rootScope.openModal();
+            }
+        }
+
+        $rootScope.openModal = function() {
+            console.log($rootScope.formData)
+            $('#PopupModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        }
+
+        $rootScope.closeModal = function() {
+            $rootScope.formData = {};
+            $('#PopupModal').modal('hide');
+        }
     
         $scope.getData();
 

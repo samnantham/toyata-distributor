@@ -17,7 +17,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
 
     $scope.createFirebaseauth = function() {
         firebase.auth().createUserWithEmailAndPassword($rootScope.user.email, $rootScope.user.firebasepassword).then(function() {
-            $scope.loginFirebaseauth();
+            $scope.getFirebaseUser();
         }).catch(function(error) {
             console.log(error);
         });
@@ -29,6 +29,81 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         }).catch(function(error) {
             console.log(error);
         });
+    }
+
+    $scope.getFirebaseUser = function() {
+        firebase.auth().onAuthStateChanged(function(user) {
+            console.log(user)
+            if (!$rootScope.user.firebaseid) {
+                $rootScope.loading = false;
+                $scope.updatefirebaseid(user.uid)
+            } else {
+                if(Object.keys($scope.RoomData).length > 1){
+                    $scope.gotoRoom($scope.RoomData);
+                }
+            }
+        });
+    }
+
+    $scope.updatefirebaseid = function(firebaseid) {
+        var obj = {
+            firebaseid: firebaseid
+        };
+        webServices.put('profile/update/firebaseid', obj).then(function(getData) {
+            if (getData.status == 200) {
+                $rootScope.getUserInfo();
+                if(Object.keys($scope.RoomData).length > 1){
+                    $scope.gotoRoom($scope.RoomData);
+                }
+            }
+        });
+    }
+
+    $scope.createRoom = function(key,data){
+        var obj = {};
+        obj.is_admin_chat = data.is_admin;
+        obj.chatuser = data.id;
+        webServices.post('chat/room',obj).then(function(getData) {
+            if (getData.status == 200) {
+                $scope.RoomData = getData.data;
+                $scope.gotoRoom(getData.data);
+            }
+        });
+    }
+
+    $scope.getChatContent = function() {
+        firebase.auth().onAuthStateChanged(function(user) {
+            $rootScope.loading = false;
+            if (user) {
+                if(user.uid == $rootScope.user.firebaseid){
+                    $rootScope.ref = firebase.database().ref().child($scope.chattype).child($scope.firebaseurl);
+                    $rootScope.chatData = $firebaseArray($rootScope.ref);
+                }
+            }else{
+                if (!$rootScope.user.firebaseid) {
+                    $scope.createFirebaseauth();
+                } else {
+                    $scope.loginFirebaseauth();
+                }
+            }
+        });
+    }
+
+    $scope.gotoRoom = function(data){
+        $rootScope.loading = true;
+        $scope.RoomData = data;
+        $scope.RoomData.show_tooltip = false;
+        if($scope.RoomData.chat_type == 1){
+            if($scope.RoomData.is_admin_chat){
+                $scope.chattype = 'admin-user';
+            }else{
+                $scope.chattype = 'user-user';
+            }
+        }else if($scope.RoomData.chat_type == 2){
+            $scope.chattype = 'groupchat';
+        }
+        $scope.firebaseurl = '/'+ $scope.RoomData.chatroom_id +'/';
+        $scope.getChatContent();
     }
 
     $scope.openModal = function() {
@@ -56,7 +131,6 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         if (form.$valid) {
             $rootScope.loading = true;
                 webServices.upload('group/chat', $scope.groupData).then(function(getData) {
-                    console.log(getData)
                     $rootScope.loading = false;
                     if (getData.status == 200) {
                         $rootScope.$emit("showSuccessMsg", getData.data.message);
@@ -146,32 +220,6 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
             $scope.checkroom();
         }
     }
-
-    $scope.getFirebaseUser = function() {
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (!$rootScope.user.firebaseid) {
-                $rootScope.loading = false;
-                $scope.updatefirebaseid(user.uid)
-            } else {
-                if(Object.keys($scope.RoomData).length > 1){
-                    $scope.gotoRoom($scope.RoomData);
-                }
-            }
-        });
-    }
-
-    $scope.updatefirebaseid = function(firebaseid) {
-        var obj = {
-            firebaseid: firebaseid
-        };
-        webServices.put('profile/update/firebaseid', obj).then(function(getData) {
-            if (getData.status == 200) {
-                if(Object.keys($scope.RoomData).length > 1){
-                    $scope.gotoRoom($scope.RoomData);
-                }
-            }
-        });
-    }
     
     $scope.updateroom = function() {
         webServices.put('chat/room/'+ $scope.RoomData.chatroom_id + '/' + $scope.RoomData.chat_type).then(function(getData) {
@@ -186,24 +234,6 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     $rootScope.$watch('chatData', function (newVal, oldVal) {  
         $scope.getusers(); 
     }, true);
-
-    $scope.getChatContent = function() {
-        firebase.auth().onAuthStateChanged(function(user) {
-            $rootScope.loading = false;
-            if (user) {
-                if(user.uid == $rootScope.user.firebaseid){
-                    $rootScope.ref = firebase.database().ref().child($scope.chattype).child($scope.firebaseurl);
-                    $rootScope.chatData = $firebaseArray($rootScope.ref);
-                }
-            }else{
-                if (!$rootScope.user.firebaseid) {
-                    $scope.createFirebaseauth();
-                } else {
-                    $scope.loginFirebaseauth();
-                }
-            }
-        });
-    }
 
     $scope.sendReplymessage = function() {
         if ($scope.chatMessage.message) {
@@ -270,41 +300,14 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         });
     }
 
-    $scope.createRoom = function(key,data){
-            var obj = {};
-            obj.is_admin_chat = data.is_admin;
-            obj.chatuser = data.id;
-            webServices.post('chat/room',obj).then(function(getData) {
-                if (getData.status == 200) {
-                    $scope.RoomData = getData.data;
-                    $scope.gotoRoom(getData.data);
-                }
-            });
-
-    }
-
-    $scope.gotoRoom = function(data){
-        $rootScope.loading = true;
-        $scope.RoomData = data;
-        $scope.RoomData.show_tooltip = false;
-        if($scope.RoomData.chat_type == 1){
-            if($scope.RoomData.is_admin_chat){
-                $scope.chattype = 'admin-user';
-            }else{
-                $scope.chattype = 'user-user';
-            }
-        }else if($scope.RoomData.chat_type == 2){
-            $scope.chattype = 'groupchat';
-        }
-        $scope.firebaseurl = '/'+ $scope.RoomData.chatroom_id +'/';
-        $scope.getChatContent();
-        console.log($scope.RoomData)
-    }
-
     if ($rootScope.user.firebaseid == '') {
-        $scope.createFirebaseauth();
+        $timeout(function() {
+            $scope.createFirebaseauth();
+        }, 2000);
     }else{
-        $scope.loginFirebaseauth();
+        $timeout(function() {
+            $scope.loginFirebaseauth();
+        }, 2000);
     }
 
     $scope.getusers();
