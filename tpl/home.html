@@ -16,7 +16,7 @@
                                 </div>
                                 <div class="col-xs-12 sm-padder">
                                     <div class="m-t-xs"  ng-click="viewItem(data)">
-                                        <a class="h5 font-bold">{{data.title}}</a>
+                                        <a class="h5 font-bold">{{data.title  | cut:true:20:''}}</a>
                                     </div>
                                     <div class="m-t-xs">
                                         <div class="mbit-dt text-left inline" ng-if="data.type == 1">{{convertDate(data.created_at) | date:'dd MMM yyyy HH:mm'}}</div>
