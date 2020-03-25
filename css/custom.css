@@ -104,7 +104,7 @@
 /* .app-aside-fixed .aside-wrap {
      top: 80px;
 }
-*/
+ */
  .tl0 {
      top: 0;
      left: 0;
@@ -426,7 +426,7 @@
      color: #fff;
      border-radius: 5px;
      max-width: 100%;
-     min-width: 100%; 
+     min-width: 100%;
 }
  .bdr-bg1 {
      border: 1px solid #F1592A;
@@ -608,7 +608,7 @@
      float: left;
      background: #fff;
      z-index: 99999;
-     overflow: hidden;
+     /*overflow: hidden;*/
      padding: 0px 15px;
 }
  .sender .msg-text {
@@ -1059,41 +1059,34 @@
      .app-aside-folded .navbar-header {
          width: 260px;
     }
-    .app-aside-folded .navbar-collapse
-    {
-        margin-left: 260px !important;
+     .app-aside-folded .navbar-collapse {
+         margin-left: 260px !important;
     }
-    .app-aside-fixed .aside-wrap .navi-wrap{
-    width: 280px;
-        }
-        .mobile-visible
-        {
-            display: none;
-        }
+     .app-aside-fixed .aside-wrap .navi-wrap{
+         width: 280px;
     }
-.mCustomScrollbar
-{
+     .mobile-visible {
+         display: none;
+    }
+}
+ .mCustomScrollbar {
      height: calc(100vh - 196px) !important;
 }
-.app-content-body
-{
-    padding-bottom: 41px;
-    padding-top:33px;
+ .app-content-body {
+     padding-bottom: 41px;
+     padding-top:33px;
 }
-.panel
-{
-    margin-bottom: 0px;
+ .panel {
+     margin-bottom: 0px;
 }
-.panel-heading.p-b-none
-{
-border-bottom: 7px solid #fff;
+ .panel-heading.p-b-none {
+     border-bottom: 7px solid #fff;
 }
-.height_page {
-    height: calc(100vh - 156px) !important;
+ .height_page {
+     height: calc(100vh - 156px) !important;
 }
-.margin_mid
-{
-  margin-top: calc((100vh - 200px)/3) !important;   
+ .margin_mid {
+     margin-top: calc((100vh - 200px)/3) !important;
 }
  .wrapper-md {
      padding: 15px;
@@ -1101,78 +1094,65 @@ border-bottom: 7px solid #fff;
  .chat-wrap .mCustomScrollbar {
      height: calc(100vh - 184px) !important;
 }
-menu-icon {
-  -webkit-transition: -webkit-transform .8s ease-in-out;
-          transition:         transform .8s ease-in-out;
+ menu-icon {
+     -webkit-transition: -webkit-transform .8s ease-in-out;
+     transition: transform .8s ease-in-out;
 }
-.menu-icon:hover {
-  -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
+ .menu-icon:hover {
+     -webkit-transform: rotate(360deg);
+     transform: rotate(360deg);
 }
-@media only screen and (max-width: 768px) {
-.mCSB_scrollTools a+.mCSB_draggerContainer {
-    margin-left: 28px !important;
-}
-.m-p-r
-{
-    padding-right: 15px !important;
-}
-.m-p-l
-{
-    padding-left: 15px !important;
-}
-.m-p-n
-{
-    padding: 0px !important;
-}
-.m-f-n
-{
-    float: none !important; 
-}
-.mCSB_inside>.mCSB_container
-{
-    margin-right: 0px !important;
-}
-.chat-wrap 
-{
-height: auto !important;
-}
-.m-n-b
-{
-    border:0px none !important;  
-}
-.web-visible
-        {
-            display: none;
-        }
-        .logo-area {
-            margin: auto;
-        }
-        .comment .msg-text .small-btn i {
-
-    font-size: 20px;
-}
-.modal-dialog {
-    width: 92% !important;
-    margin: 4%;
-}
-.event-info-b .btn-sm
-{
+ @media only screen and (max-width: 768px) {
+     .mCSB_scrollTools a+.mCSB_draggerContainer {
+         margin-left: 28px !important;
+    }
+     .m-p-r {
+         padding-right: 15px !important;
+    }
+     .m-p-l {
+         padding-left: 15px !important;
+    }
+     .m-p-n {
+         padding: 0px !important;
+    }
+     .m-f-n {
+         float: none !important;
+    }
+     .mCSB_inside>.mCSB_container {
+         margin-right: 0px !important;
+    }
+     .chat-wrap {
+         height: auto !important;
+    }
+     .m-n-b {
+         border:0px none !important;
+    }
+     .web-visible {
+         display: none;
+    }
+     .logo-area {
+         margin: auto;
+    }
+     .comment .msg-text .small-btn i {
+         font-size: 20px;
+    }
+     .modal-dialog {
+         width: 92% !important;
+         margin: 4%;
+    }
+     .event-info-b .btn-sm {
          font-size: 8px;
+    }
+     .gpm.mCustomScrollbar {
+         height: 200px !important;
+    }
 }
-.gpm.mCustomScrollbar {
-    height: 200px !important;
+ .aside-wrap .mCSB_inside>.mCSB_container {
+     margin-right: 0px !important;
 }
+ .aside-wrap.mCustomScrollbar {
+     height: calc(100vh - 134px) !important;
 }
-.aside-wrap .mCSB_inside>.mCSB_container
-{
-    margin-right: 0px !important;
-}
-.aside-wrap.mCustomScrollbar {
-    height: calc(100vh - 134px) !important;
-}
-.text-capt
-{
+ .text-capt {
      text-transform: capitalize;
-}  
- 
+}

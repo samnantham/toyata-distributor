@@ -20,6 +20,7 @@ var app =
                 app.imgextensions = ['jpeg', 'png', 'jpg', 'gif'];
                 app.maxUploadsize = 1073741824;
                 app.maxFilesize = '1024MB';
+                app.maxUploadFiles = 12;
                 app.validextensions = ['jpeg', 'png', 'jpg', 'gif', '3gp', 'mp4'];
                 app.validfileextensions = ['pdf', 'xls', 'xlsx', 'csv', 'doc', 'docx'];
                 app.tbptypes = [{

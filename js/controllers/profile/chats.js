@@ -254,9 +254,16 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                     $scope.chatMessage.isfile = 0;
                     $scope.chatMessage.fileurl = '-';
                     $scope.filterData.active = 0;
+                    $(".in").removeClass("in");
+                    document.getElementById("chatText").focus();
                 }, 200);
             });
         }
+    }
+
+    $scope.messageUpdated = function(){
+        //$(".in").removeClass("in");
+        document.getElementById("chatText").focus();
     }
 
     $scope.sendchatattachment = function(files) {

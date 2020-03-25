@@ -87,8 +87,14 @@
                             <div class="other-img" ng-if="user.id != message.user_id">
                                 <div class="chat-info-img" background-image="{{IMGURL}}{{message.avatar}}"></div>
                             </div>
-                            <div class="info">
-                                {{message.message}}
+                            <div class="info" ng-if="!message.isfile">
+                                <span ng-bind-html="message.message | imagify"></span>
+                                <div class="time-left">
+                                    <span>{{ message.created_at | amDateFormat: 'DD-MMM-YY hh:mm a' }}</span>
+                                </div>
+                            </div>
+                            <div class="info" ng-if="message.isfile">
+                                <span ng-bind-html="message.message | imagify"></span>
                                 <img ng-src="{{IMGURL}}{{message.fileurl}}" ng-click="viewChatImg(message.fileurl);" alt="Chat" ng-if="message.isfile">
                                 <div class="time-left">
                                     <span>{{ message.created_at | amDateFormat: 'DD-MMM-YY hh:mm a' }}</span>
@@ -99,8 +105,8 @@
                 </div>
                 <div class="sender p-b-none  m-t m-p-n" >
                     <div class="msg-text" tooltip="Please select a chat on your left" tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-enable="RoomData.show_tooltip">
-                        <a class="small-btn"><i class="fa fa-smile-o"></i></a>
                         <input type="text" placeholder="Send something..." aria-invalid="false" ng-model="chatMessage.message" my-enter="sendReplymessage()" ng-disabled="!RoomData.id">
+                        <a class="small-btn" emoji-picker="chatMessage.message" placement="top" title="Emoji" recent-limit="12" ng-if="!RoomData.show_tooltip" on-change-func="messageUpdated"></a>
                         <a class="small-btn" ngf-select ngf-drop ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-allow-dir="allowDir" class="drop-box1" ngf-drop-available="dropAvailable" ngf-change="sendchatattachment($files);" ng-disabled="!RoomData.id"><i class="fa fa-paperclip"></i></a>
                     </div>
                     <button class="chat-btn" tabindex="0" ng-click="sendReplymessage()" type="button"><i class="fa fa-send"></i></button>

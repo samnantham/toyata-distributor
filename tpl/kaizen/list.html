@@ -3,15 +3,15 @@
         <div class="panel panel-default r-3x">
             <div class="panel-heading r-3x r-b-none bg-main2 p-b-none">
                 <div class="btn-group dropdown mobile-visible">
-          <button type="button" class="btn no-shadow b-no  btn-default text-capt active" data-toggle="dropdown" aria-expanded="false">
-            {{activetab}}
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu"  ng-if="!loading">
-            <li ng-repeat="(num,kaizen) in kaizentypes"><a ng-click="changeActive(kaizen.id)">{{kaizen.type}}</a></li>
-        
-          </ul>
-        </div>
+                    <button type="button" class="btn no-shadow b-no  btn-default text-capt active" data-toggle="dropdown" aria-expanded="false">
+                        {{activetab}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" ng-if="!loading">
+                        <li ng-repeat="(num,kaizen) in kaizentypes"><a ng-click="changeActive(kaizen.id)">{{kaizen.type}}</a></li>
+
+                    </ul>
+                </div>
 
                 <button class="btn no-shadow b-no  btn-default panel-tab web-visible" ng-class="{'active': activetab == kaizen.id}" ng-click="changeActive(kaizen.id)" ng-repeat="(num,kaizen) in kaizentypes">{{kaizen.type}}</button>
                 <li class="dropdown pull-right list-none" dropdown>
@@ -46,22 +46,22 @@
                 </div>
                 <div class="row m-t">
                     <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12" dir-paginate="(key,data) in kaizenlist.data | itemsPerPage: totalPerPage" total-items="kaizenlist.total" current-page="pagination.current">
-                        <div class="col-xs-12 m-b wrapper bg-white r-3x box-shadow b b-2x m-p-n " >
+                        <div class="col-xs-12 m-b wrapper bg-white r-3x box-shadow b b-2x m-p-n ">
 
-                                <div class="col-xs-12 col-lg-4 col-sm-4 col-md-4 sm-padder" ng-class="{'m-p-l m-p-r  m-t' : isMobile}">
-                                    <div class="mbit-img box-shadow b r-3x" background-image="{{IMGURL}}{{data.cover_image}}"></div>
+                            <div class="col-xs-12 col-lg-4 col-sm-4 col-md-4 sm-padder" ng-class="{'m-p-l m-p-r  m-t' : isMobile}">
+                                <div class="mbit-img box-shadow b r-3x" background-image="{{IMGURL}}{{data.cover_image}}"></div>
+                            </div>
+                            <div class="col-xs-12 sm-padder col-lg-8 col-sm-8 col-md-8" ng-class="{'m-p-l m-p-r m-b' : isMobile}">
+                                <div class="col-xs-12 no-padder text-right text-danger text-too-small m-t-xs" ng-class="{'m-b' : isMobile}">{{convertDate(data.created_at) | date:'dd MMM yyyy HH:mm:ss'}} </div>
+                                <a href="" class="h6 font-bold m-t">{{data.title}}</a>
+
+                                <small class="block dist-desc m-t-xs text-justify"> {{data.description | cut:true:180:'....'}}</small>
+                                <div class="m-b m-t-xs">
+
+                                    <button class="btn btn-default btn-xs w-xs btn-danger r-2x read_more pull-left text-u-c" ui-sref="app.viewkaizen({'id':data.id})">Know More</button>
                                 </div>
-                                <div class="col-xs-12 sm-padder col-lg-8 col-sm-8 col-md-8" ng-class="{'m-p-l m-p-r m-b' : isMobile}">
-                                    <div class="col-xs-12 no-padder text-right text-danger text-too-small m-t-xs" ng-class="{'m-b' : isMobile}">{{convertDate(data.created_at) | date:'dd MMM yyyy HH:mm:ss'}} </div>
-                                    <a href="" class="h6 font-bold m-t">{{data.title}}</a>
 
-                                    <small class="block dist-desc m-t-xs text-justify"> {{data.description | cut:true:180:'....'}}</small>
-                                    <div class="m-b m-t-xs">
-
-                                        <button class="btn btn-default btn-xs w-xs btn-danger r-2x read_more pull-left text-u-c" ui-sref="app.viewkaizen({'id':data.id})">Know More</button>
-                                    </div>
-
-                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -82,7 +82,7 @@
 
     <div class="modal fade" id="PopupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" data-modalFade="true">
         <div class="modal-dialog" role="document" style="width: 70%;">
-            <div class="modal-content "  ng-class="{'wrapper-xl' : !isMobile}">
+            <div class="modal-content " ng-class="{'wrapper-xl' : !isMobile}">
                 <form class="form-horizontal" name="addForm" novalidate ng-submit="addData(addForm);">
                     <div class="modal-header b-no text-center">
                         <button type="button" class="close" ng-click="closeModal();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -102,16 +102,6 @@
                                         <option value="{{kaizen.id}}" ng-repeat="(num,kaizen) in kaizentypes"> {{kaizen.type}}</option>
                                     </select>
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label class="font-bold">Date Time <code>*</code></label>
-                                    <small class="pull-right text-danger" ng-if="errorData.travel_date_error">{{errorData.travel_date_errorMsg}}</small>
-                                    <div class="input-group" ng-controller="DatepickerDemoCtrl">
-                                        <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy hh:mm:ss" ng-model="formData.travel_date" is-open="opened" datepicker-options="dateOptions" close-text="Close" placeholder="DD/MM/YYYY" name="travel_date" ng-click="open($event)" required readonly/>
-                                        <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                                </span>
-                                    </div>
-                                </div> -->
                                 <div class="form-group">
                                     <label class="font-bold">Kaizen Study </label>
                                     <small class="pull-right text-danger" ng-if="errorData.description_error">{{errorData.description_errorMsg}}</small>
@@ -139,8 +129,8 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n" ng-class="{'m-t' : isMobile}">
                                         <div class="form-group">
                                             <label class="font-bold">Images and Videos</label>
-                                            <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-accept="'image/*,video/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj"
-                                                ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addkaizenfiles($files);" ngf-maxfiles="6">
+                                            <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-accept="'image/*,video/*'" ngf-capture="capture"
+                                                ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addkaizenfiles($files);" ngf-maxfiles="6">
                                                 Upload Files
                                             </div>
                                         </div>
@@ -167,25 +157,25 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
                                         <div class="form-group">
-                                    <div class="col-sm-12  p-l-none m-p-n">
-                                        <label class="font-bold">Video Links</label>
-                                        <div class="input-group">
-                                          <input type="text" name="link" class="form-control r-3x b-2x" ng-model="videoData.link" ng-required="videoData.link">
-                                          <span class="input-group-btn">
+                                            <div class="col-sm-12  p-l-none m-p-n">
+                                                <label class="font-bold">Video Links</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="link" class="form-control r-3x b-2x" ng-model="videoData.link" ng-required="videoData.link">
+                                                    <span class="input-group-btn">
                                             <button class="btn btn-warning r-3x" type="button" ng-disabled="!videoData.link" ng-click="uploadvideo();">Add</button>
                                           </span>
-                                        </div>
-                                    </div>
+                                                </div>
+                                            </div>
 
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padder m-p-n">
-                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 m-b-sm m-t-sm p-l-none m-p-n    " ng-repeat="(key,data) in formData.video_links">
-                                            <div class="mbit-img box-shadow b pos-rlt">
-                                                <anguvideo ng-model="data" width="100%" height="100%"></anguvideo>
-                                                <img class="item-img-delete cursor" src="img/delete.png" ng-click="removeVideoLink(key)">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padder m-p-n">
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 m-b-sm m-t-sm p-l-none m-p-n    " ng-repeat="(key,data) in formData.video_links">
+                                                    <div class="mbit-img box-shadow b pos-rlt">
+                                                        <anguvideo ng-model="data" width="100%" height="100%"></anguvideo>
+                                                        <img class="item-img-delete cursor" src="img/delete.png" ng-click="removeVideoLink(key)">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
                                     </div>
                                 </div>
                             </div>

@@ -10,6 +10,7 @@ angular.module('app', [
     'ngSanitize',
     'ngTouch',
     'ngStorage',
+    'ngMaterial',
     'ui.router',
     'ui.bootstrap',
     'ui.utils',
@@ -32,4 +33,5 @@ angular.module('app', [
     'ngScrollbars',
     'firebase',
     'anguvideo',
+    'vkEmojiPicker'
 ]);
