@@ -2,17 +2,27 @@
     <div class="wrapper-md p-t-none p-b-none m-t">
         <div class="panel panel-default r-3x  bg-white ">
             <div class="panel-heading r-3x r-b-none bg-main2 p-b-none">
-                <button class="btn no-shadow b-no  btn-default panel-tab" ng-class="{'active': activetab == tbp.id}" ng-click="changeActive(tbp.id)" ng-repeat="(num,tbp) in tbptypes">{{tbp.type}}</button>
+                <div class="btn-group dropdown mobile-visible">
+          <button type="button" class="btn no-shadow b-no  btn-default text-capt active" data-toggle="dropdown" aria-expanded="false">
+            {{activetab}} Events
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu"  ng-if="!loading">
+            <li ng-repeat="(num,tbp) in tbptypes"><a ng-click="changeActive(tbp.id)">{{tbp.type}}</a></li>
+            
+          </ul>
+        </div>
+                <button class="btn no-shadow b-no  btn-default panel-tab web-visible" ng-class="{'active': activetab == tbp.id}" ng-click="changeActive(tbp.id)" ng-repeat="(num,tbp) in tbptypes">{{tbp.type}}</button>
             </div>
             <div class="bg-white padder r-b-6x " ng-scrollbars ng-scrollbars-config="scrollconfig">
                 <div class="row m-t">
-                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6 inner-addon right-addon">
+                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 inner-addon right-addon">
                         <i class="fa fa-search"></i>
                         <input type="text" ng-model="filterData.keyword" class="form-control r-2x box-shadow" ng-change="getResults();" placeholder="Search" aria-invalid="false">
                     </div>
-                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6">
+                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6 web-visible" >
                     </div>
-                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 web-visible">
                     </div>
                     
                 </div>

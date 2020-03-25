@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 m-b p-r-none">
+        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 m-b p-r-none m-p-r">
             <div class="panel panel-default r-3x">
                 <div class="panel-heading r-3x r-b-none bg-main2">
                     Calendar
@@ -49,12 +49,12 @@
             </div>
         </div>
 
-        <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 m-b">
+        <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 m-b ">
             <div class="panel panel-default r-3x">
                 <div class="panel-heading r-3x r-b-none bg-main2">
                     Upcomming TBP <span class="pull-right cursor" ui-sref="app.tbps({type:'1'})">Show All</span>
                 </div>
-                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 bg-white  dash-2-div r-b-6x" ng-scrollbars ng-scrollbars-config="scrollconfig">
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 bg-white  dash-2-div r-b-6x m-p-n" ng-scrollbars ng-scrollbars-config="scrollconfig">
                     <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 bg-white r-3x" ng-class="{'m-b-md': $last }" ng-repeat="(key,data) in homeData.tbps track by $index">
                         <div class="panel panel-default r-3x m-t-md">
                             <div class="panel-heading r-3x r-b-none bg-main1 tex-center">
@@ -88,13 +88,13 @@
                     <span class="pull-right cursor" ui-sref="app.kaizens({type:'1'})"> Show All</span>
                 </div>
                 <div class="bg-white padder-v padder dash-2-div r-b-6x" ng-scrollbars ng-scrollbars-config="scrollconfig">
-                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12" ng-repeat="(key,data) in homeData.kaizens">
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 m-p-n" ng-repeat="(key,data) in homeData.kaizens">
                         <div class="col-xs-12 m-b sm-padder sm-padder-v bg-white r-3x box-shadow b">
-                            <div class="col-xs-4 sm-padder">
+                            <div class="col-xs-12 col-lg-4 col-md-4 col-sm-4 sm-padder">
                                 <div class="mbit-img box-shadow b r-3x" background-image="{{IMGURL}}{{data.cover_image}}"></div>
                             </div>
-                            <div class="col-xs-8 sm-padder">
-                                <div class="col-xs-12 no-padder text-right text-muted text-too-small m-b">{{convertDate(data.created_at) | date:'dd MMM yyyy HH:mm:ss'}}</div>
+                            <div class="col-xs-12 col-lg-8 col-md-8 col-sm-8 sm-padder">
+                                <div class="col-xs-12 no-padder text-right text-muted text-too-small m-b" ng-class="{'m-t-xs' : isMobile}">{{convertDate(data.created_at) | date:'dd MMM yyyy HH:mm:ss'}}</div>
                                 <a href="" class="h6 font-bold m-t">{{data.title}}</a>
                                 <small class="block dist-desc m-t-xs text-justify">{{data.description | cut:true:180:'....'}}</small>
                                 <div class="m-b m-t-xs">

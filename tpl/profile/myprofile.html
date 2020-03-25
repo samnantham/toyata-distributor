@@ -1,13 +1,13 @@
 <div ng-controller="ProfileController">
-    <div ng-class="isMobile ? 'flex' : 'wrapper-md' " class="m-t p-t-none p-b-none">
-        <div class="panel panel-default height_page r-3x">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center bg-white r-3x" ng-style="{'height': (screenHeight - (height_to_reduce + 50) )+ 'px'}">
+    <div  class="m-t p-t-none p-b-none wrapper-md">
+        <div class="panel panel-default  r-3x">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center bg-white r-3x" >
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padder-v" ng-if="!isedit">
                         <img src="img/edit.png" class="pull-right img-ico" ng-click="showEdit();">
                     </div>
-                    <div class="w-xl v-mid-align text-center m-auto">
+                    <div class=" v-mid-align text-center m-auto" ng-class="{'w-xl' : !isMobile}">
                         <h3 class="h3 m-b m-t-lg">My Profile</h3>
-                        <div class="auth-form w-xl r-3x b b-2x box-shadow bdr-gray m-b-lg" ng-if="!isedit">
+                        <div class="auth-form  r-3x b b-2x box-shadow bdr-gray m-b-lg" ng-if="!isedit" ng-class="{'w-xl' : !isMobile}">
                             <div class="wrapper text-center m-t">
                                 <div  background-image="{{IMGURL}}{{user.avatar}}" class="img-full m-t-xl" alt="..."></div>
                                <!--  <img ng-src="{{IMGURL}}{{user.avatar}}" class="thumb-xl rounded"> -->
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <form name="addForm" novalidate ng-submit="editData(addForm)" ng-if="isedit">
-                            <div class="auth-form w-xl r-3x b b-2x   box-shadow bdr-gray">
+                            <div class="auth-form r-3x b b-2x   box-shadow bdr-gray" ng-class="{'w-xl' : !isMobile}">
                                 <div class="wrapper text-center m-t">
                                     <div class="Pf-img box-shadow b " background-image="{{!formData.newavatar && isedit ? IMGURL : ''}}{{!formData.newavatar && !isedit ? 'img/dummypf.png' : formData.avatar}}" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadAvatar($files);" ng-if="!formData.newavatar"><img class="Pf-img-edit" src="img/changeprofile.png"></div>
                                     <div class="Pf-img box-shadow b" ngf-background="formData.newavatar" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadAvatar($files);" ng-if="formData.newavatar"><img class="Pf-img-edit" src="img/changeprofile.png" ng-if="!loading"></div>
@@ -54,9 +54,9 @@
                                         </div>
                                 </div>
                             </div>
-                            <div class="form-group m-t-lg text-center">
-                                <button type="submit" class="r-3x btn m-b-xs w-sm btn-danger " ng-disabled="loading">Update</button>
-                                <button type="button" class="r-3x btn m-b-xs w-sm bg-dark" ng-disabled="loading" ng-click="showEdit();">Cancel</button>
+                            <div class="form-group m-t-lg text-center m-b">
+                                <button type="submit" class="r-3x btn m-b-xs  btn-danger " ng-class="{'w-sm' : !isMobile}" ng-disabled="loading">Update</button>
+                                <button type="button" class="r-3x btn m-b-xs  bg-dark" ng-class="{'w-sm' : !isMobile}" ng-disabled="loading" ng-click="showEdit();">Cancel</button>
                             </div>
                         </form>
                     </div>

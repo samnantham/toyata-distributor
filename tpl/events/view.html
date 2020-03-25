@@ -7,7 +7,7 @@
             <div class="bg-white  padder r-b-6x" ng-scrollbars ng-scrollbars-config="scrollconfig">
                 <div class="row m-t m-b">
                     <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 wrapper-md p-t-none m-t-sm">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
                             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-l-none p-r-none">
                                 <div class="m-b-sm">
                                     <a class="h5 font-bold text-black">{{event.title}}</a>
@@ -15,38 +15,38 @@
                                 <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{event.cover_image}}"></div>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-md" ng-if="event.survey_link">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-md m-p-n" ng-if="event.survey_link">
                             <div class="m-b-sm">
                                 <a class="h6 font-bold text-black" ng-href="{{event.survey_link}}" target="_blank">Survey Link : <span class="text-info font-bold text-xs">{{event.survey_link}}</span></a>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm m-p-n">
                             <div class="btn-group btn-group-justified event-info-b">
                                 <a class="btn btn-sm m-sm btn-warning b-r">{{convertDate(event.start_date) | date:'dd MMMM yyyy'}}</a>
                                 <a class="btn btn-sm m-sm btn-warning b-l b-r">{{convertDate(event.start_date) | date:'EEEE'}}</a>
                                 <a class="btn btn-sm m-sm btn-warning b-l">{{convertDate(event.start_time) | date:'hh:mm a'}} to {{convertDate(event.end_time) | date:'hh:mm a'}}</a>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm" ng-if="event.end_date">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm m-p-n" ng-if="event.end_date">
                             <div class="btn-group btn-group-justified  event-info-b">
                                 <a class="btn btn-sm m-sm btn-warning b-r">{{convertDate(event.end_date) | date:'dd MMMM yyyy'}}</a>
                                 <a class="btn btn-sm m-sm btn-warning b-l b-r">{{convertDate(event.end_date) | date:'EEEE'}}</a>
                                 <a class="btn btn-sm m-sm btn-warning b-l">{{convertDate(event.start_time) | date:'hh:mm a'}} to {{convertDate(event.end_time) | date:'hh:mm a'}}</a>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm" ng-if="event.location">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm m-p-n" ng-if="event.location">
                             <div class="btn-group btn-group-justified event-info-b">
                                 <a class="btn btn-sm m-sm btn-warning bg-main2">{{event.location}}</a>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm m-p-n">
                             <ng-map center="{{event.latitude}},{{event.longitude}}" map-type-control="false" zoom="10" draggable="false" class="m-t-sm">
                                 <marker position="{{event.latitude}},{{event.longitude}}" animation="BOUNCE">
                                 </marker>
                             </ng-map>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 wrapper-md p-t-none m-t-sm">
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 wrapper-md p-t-none m-t-sm m-p-n">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="m-b-sm">
                                 <a class="h5 font-bold text-black">About Event</a>
@@ -59,41 +59,41 @@
                             <div class="m-b-sm m-t-sm">
                                 <a class="h5 font-bold text-black">Watch Videos</a>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none" ng-repeat="(key,data) in event.event_files" ng-if="data.filetype == 'video'">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none m-p-n" ng-repeat="(key,data) in event.event_files" ng-if="data.filetype == 'video'">
                                 <div class="mbit-img box-shadow b pos-rlt">
                                     <video width="100%" height="100%" controls>
                                         <source ng-src="{{getVideoUrl(data.file)}}" type="video/{{data.file.substr(data.file.length - 3)}}">
                                     </video>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none" ng-repeat="(key,data) in event.video_links">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none " ng-repeat="(key,data) in event.video_links">
                                 <div class="mbit-img box-shadow b pos-rlt">
                                     <anguvideo ng-model="data" width="100%" height="100%"></anguvideo>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="event.imagecount > 0">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " ng-if="event.imagecount > 0">
                             <div class="m-b-sm m-t-sm">
                                 <a class="h5 font-bold text-black">Images</a>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none" ng-repeat="(key,data) in event.event_files" ng-if="data.filetype == 'image'">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none m-p-n" ng-repeat="(key,data) in event.event_files" ng-if="data.filetype == 'image'">
                                 <div class="mbit-img box-shadow b pos-rlt">
                                     <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{data.file}}"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="event.event_documents.length > 0">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " ng-if="event.event_documents.length > 0">
                             <div class="m-b-sm m-t-sm">
                                 <a class="h5 font-bold text-black">Event Contents</a>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 m-b p-l-none" ng-repeat="(key,data) in event.event_documents">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 m-b p-l-none m-p-n" ng-repeat="(key,data) in event.event_documents">
                                 <button class="btn btn-default r-2x padd-xs min-w-60">Presentation {{key + 1}}</button>
                                 <a class="btn btn-warning r-2x padd-xs" ng-href="{{IMGURL}}{{data.file}}" download="{{data.file.split('/').pop()}}" target="_blank"><i class="fa fa-download"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm m-b-md">
-                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm m-b-md ">
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6 m-p-n">
                             <div class="input-group pull-left">
                                 <button class="btn btn-md btn-warning" ng-click="openaddModal();" ng-if="convertDate(event.start_date) > convertDate(now)"> {{event.travelinfo ? 'Change Your travel Details' : 'Add Your travel Details'}}</button>
                             </div>
@@ -104,7 +104,7 @@
                         </div>
                     </div>
                     <div class="col-xs-12 padder-lg">
-                        <div class="b-t m-b col-xs-12">
+                        <div class="b-t m-b col-xs-12 m-p-n">
                             <div class="m-t">
                                 <div class="col-sm-2 color-main-1 p-l-none" ng-class="{'text-danger':event.isliked}">
                                     <i class="fa m-r-xs" ng-click="changeLike();" ng-class=" event.isliked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'"></i> {{event.likes}} Likes
