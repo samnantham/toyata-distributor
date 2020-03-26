@@ -1,5 +1,5 @@
 'use strict';
-app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '$sessionStorage', 'webServices', 'utility', '$rootScope', '$stateParams', '$timeout', 'toaster', '$firebaseArray', function($scope, $http, $state, authServices, $sessionStorage, webServices, utility, $rootScope, $stateParams, $timeout, toaster, $firebaseArray) {
+app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '$ngConfirm', 'webServices', 'utility', '$rootScope', '$stateParams', '$timeout', 'toaster', '$firebaseArray', function($scope, $http, $state, authServices, $ngConfirm, webServices, utility, $rootScope, $stateParams, $timeout, toaster, $firebaseArray) {
 
     $scope.chatid = $stateParams.chatid;
     $rootScope.chatData = [];
@@ -31,9 +31,34 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         });
     }
 
+    $scope.deletechat = function(chat){
+        webServices.delete('chat/clear/'+ chat.id + '/1').then(function(getData) {
+            $rootScope.loading = false;
+            if (getData.status == 200) {
+                $rootScope.$emit("showSuccessMsg", getData.data.message);
+                $scope.RoomData = getData.data.data;
+                $scope.getusers(); 
+            }else {
+                $rootScope.$emit("showISError", getData);
+            }
+        });
+    }
+
+    $scope.clearchat = function(chat){
+        webServices.delete('chat/clear/'+ chat.id + '/0').then(function(getData) {
+            $rootScope.loading = false;
+            if (getData.status == 200) {
+                $rootScope.$emit("showSuccessMsg", getData.data.message);
+                $scope.RoomData = getData.data.data;
+                $scope.getusers(); 
+            }else {
+                $rootScope.$emit("showISError", getData);
+            }
+        });
+    }
+
     $scope.getFirebaseUser = function() {
         firebase.auth().onAuthStateChanged(function(user) {
-            console.log(user)
             if (!$rootScope.user.firebaseid) {
                 $rootScope.loading = false;
                 $scope.updatefirebaseid(user.uid)
@@ -107,6 +132,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     }
 
     $scope.openModal = function() {
+        $scope.isedit = false;
         $scope.searchData = {};
         $scope.groupData = {};
         $scope.groupData.group_members = [];
@@ -115,6 +141,82 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
             backdrop: 'static',
             keyboard: false
         });
+    }
+
+    $scope.editgroup = function(data) {
+        $rootScope.loading = true;
+        $scope.isedit = true;
+        $scope.searchData = {};
+        $scope.groupData = data.groupinfo;
+        $scope.groupData.group_members = [];
+        $scope.getgroupusers();
+
+        $timeout(function() {
+            $scope.assignmembersChecked();
+            $('#PopupModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        }, 1000);
+        
+    }
+
+    $scope.deletegroupData = function(id) {
+        var url = '/'+ id +'/';
+        $scope.ref = firebase.database().ref().child('groupchat').child(url);
+        $scope.ref.remove();
+        webServices.delete('group/' + id).then(function(getData) {
+            if (getData.status == 200) {
+                $rootScope.$emit("showSuccessMsg", getData.data.message);
+                $scope.getusers();
+            } else {
+                $rootScope.$emit("showISError", getData);
+            }
+        });
+        
+    }
+
+    $scope.deletegroup = function(data) {
+        $ngConfirm({
+            title: 'Are you sure want to delete this group?',
+            content: '',
+            type: 'red',
+            typeAnimated: true,
+            buttons: {
+                tryAgain: {
+                    text: 'Yes',
+                    btnClass: 'btn-red',
+                    action: function() {
+                        $scope.deletegroupData(data.chatroom_id);
+                    }
+                },
+                cancel: {
+                    text: 'No',
+                    action: function () {
+                    }
+                }
+            }
+        });
+    }
+
+
+    $scope.assignmembersChecked = function(){
+        angular.forEach($scope.groupData.members, function(member, no) {
+            member.memberprofile.is_admin = member.is_admin;
+            $scope.groupData.group_members.push(member.memberprofile);
+            angular.forEach($scope.groupuserslist.adminusers, function(admin, num) {
+                if(member.is_admin && member.member_id == admin.id){
+                    admin.ischecked = 1;
+                }
+            });
+
+            angular.forEach($scope.groupuserslist.users, function(user, num) {
+                if(!member.is_admin && member.member_id == user.id){
+                    user.ischecked = 1;
+                }
+            });
+        });
+        $rootScope.loading = false;
     }
 
     $scope.setservererrorMsg = function(errors){
@@ -130,6 +232,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         $scope.errors = [];
         if (form.$valid) {
             $rootScope.loading = true;
+            if (!$scope.isedit) {
                 webServices.upload('group/chat', $scope.groupData).then(function(getData) {
                     $rootScope.loading = false;
                     if (getData.status == 200) {
@@ -143,6 +246,21 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                         $rootScope.$emit("showISError", getData);
                     }
                 });
+            }else{
+                webServices.putupload('group/chat/'+$scope.groupData.id, $scope.groupData).then(function(getData) {
+                    $rootScope.loading = false;
+                    if (getData.status == 200) {
+                        $rootScope.$emit("showSuccessMsg", getData.data.message);
+                        $scope.closeModal();
+                        $scope.getusers();
+                    } else if (getData.status == 401) {
+                        $scope.setservererrorMsg(getData.data.message);
+                        $rootScope.loading = false;
+                    } else {
+                        $rootScope.$emit("showISError", getData);
+                    }
+                });
+            }
         } else {
             if (!form.icon.$valid) {
                 $scope.errorData.icon_error = true;
@@ -210,6 +328,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     $scope.closeModal = function() {
         $('#PopupModal').modal('hide');
         $scope.groupData = {};
+        $scope.isedit = false;
     }
 
     $scope.changeActive = function(key, user) {
@@ -300,7 +419,6 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
             $rootScope.loading = false;
             if (getData.status == 200) {
                 $scope.userslist = getData.data;
-                console.log($scope.userslist)
             } else {
                 //$rootScope.logout();
             }
