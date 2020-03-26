@@ -354,7 +354,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         $timeout(function() {
             var height = (document.getElementById("mCSB_5")).scrollHeight;
             $scope.updateScrollbar('scrollTo', height);
-        },1000);
+        },200);
         $scope.getusers(); 
     }, true);
 
