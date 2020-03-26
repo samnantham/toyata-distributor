@@ -6,11 +6,14 @@
                     <h2>Chat Board </h2>
                 </div>
                 <div class="col-xs-6">
-                    <div class="option text-white text-right">                                        <a class="dropdown-toggle cursor_p" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                        <ul class="dropdown-menu r-menu">
-                                            <li><a ng-click="clearchat(data)">Clear Chat</a></li>
-                                            <li><a ng-click="deletechat(data)">Delete Chat</a></li>
-                                        </ul></div>
+                    <div class="option text-white text-right">                                        
+                        <a class="dropdown-toggle cursor_p" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-if="!RoomData.show_tooltip"><i class="fa fa-ellipsis-v"></i></a>
+                        <ul class="dropdown-menu r-menu">
+                            <li ng-if="!RoomData.groupinfo.is_admin && RoomData.groupinfo.group_admin == user.id"><a ng-click="editgroup(RoomData)">Edit Group</a></li>
+                            <li ng-if="!RoomData.groupinfo.is_admin && RoomData.groupinfo.group_admin == user.id"><a ng-click="deletegroup(RoomData)">Delete Group</a></li>
+                            <li><a ng-click="clearchat(RoomData)">Clear Chat</a></li>
+                            <li><a ng-click="deletechat(RoomData)">Delete Chat</a></li>
+                        </ul></div>
                     <div class="option " ng-if="RoomData.chat_type == 1">
                         <div class="chatter-img box-shadow b m-r-sm cursor_p" background-image="{{IMGURL}}{{RoomData.userprofile.avatar}}" tooltip-html="RoomData.is_admin_chat ? RoomData.userprofile.username + ' (Admin) ': RoomData.userprofile.first_name  + ' ' +  RoomData.userprofile.last_name" tooltip-placement="top"></div>
 
@@ -96,11 +99,13 @@
                     <div class="private-chat">
                         <div class="message-wrap" ng-repeat="message in chatData" ng-if="message.created_at > (RoomData.cleared_at * 1000) ">
                             <div class="message" ng-class="{ 'me' : user.id == message.user_id , 'option-content' : message.isfile }">
-                                <div class="chat-delete text-white">                                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                        <ul class="dropdown-menu r-menu">
-                                            <li><a ng-click="clearchat(data)">Clear Chat</a></li>
-                                            <li><a ng-click="deletechat(data)">Delete Chat</a></li>
-                                        </ul></div>
+                                <div class="chat-delete text-white">                                        
+                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                    <ul class="dropdown-menu no-padder message-action">
+                                        <!-- <li><a ng-click="clearchat(data)">Clear Chat</a></li> -->
+                                        <li><a ng-click="removechatItem(message)"><i class="fa fa-trash-o m-r-xs"></i> Delete</a></li>
+                                    </ul>
+                                </div>
                                 <div class="other-img" ng-if="user.id != message.user_id">
                                     <div class="chat-info-img" background-image="{{IMGURL}}{{message.avatar}}"></div>
                                 </div>
@@ -199,3 +204,12 @@
         </div>
     </div>
 </div>
+
+<style type="text/css">
+    .message-action{
+        min-width: 80px;
+        right: 0 !important;
+        left: auto !important;
+        font-size: 12px;
+    }
+</style>

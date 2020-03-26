@@ -70,6 +70,10 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         });
     }
 
+    $scope.removechatItem = function(message){
+        $rootScope.ref.child(message.$id).remove();
+    }
+
     $scope.updatefirebaseid = function(firebaseid) {
         var obj = {
             firebaseid: firebaseid
@@ -342,7 +346,6 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     
     $scope.updateroom = function() {
         webServices.put('chat/room/'+ $scope.RoomData.chatroom_id + '/' + $scope.RoomData.chat_type).then(function(getData) {
-            console.log(getData)
             if (getData.status == 200) {
             } else {
 
@@ -355,7 +358,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
             var height = (document.getElementById("mCSB_5")).scrollHeight;
             $scope.updateScrollbar('scrollTo', height);
         },200);
-        $scope.getusers(); 
+        //$scope.getusers(); 
     }, true);
 
     $scope.sendReplymessage = function() {
