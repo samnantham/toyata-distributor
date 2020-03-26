@@ -6,17 +6,21 @@
                     <h2>Chat Board </h2>
                 </div>
                 <div class="col-xs-6">
-                    <div class="option text-white text-right"> <i class="fa fa-ellipsis-v "></i></div>
+                    <div class="option text-white text-right">                                        <a class="dropdown-toggle cursor_p" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                        <ul class="dropdown-menu r-menu">
+                                            <li><a ng-click="clearchat(data)">Clear Chat</a></li>
+                                            <li><a ng-click="deletechat(data)">Delete Chat</a></li>
+                                        </ul></div>
                     <div class="option " ng-if="RoomData.chat_type == 1">
-                        <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.userprofile.avatar}}" tooltip-html="RoomData.is_admin_chat ? RoomData.userprofile.username + ' (Admin) ': RoomData.userprofile.first_name  + ' ' +  RoomData.userprofile.last_name" tooltip-placement="top"></div>
+                        <div class="chatter-img box-shadow b m-r-sm cursor_p" background-image="{{IMGURL}}{{RoomData.userprofile.avatar}}" tooltip-html="RoomData.is_admin_chat ? RoomData.userprofile.username + ' (Admin) ': RoomData.userprofile.first_name  + ' ' +  RoomData.userprofile.last_name" tooltip-placement="top"></div>
 
-                        <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{user.avatar}}" tooltip="Me"></div>
+                        <div class="chatter-img box-shadow b m-r-sm cursor_p" background-image="{{IMGURL}}{{user.avatar}}" tooltip="Me"></div>
                     </div>
 
                     <div class="option" ng-if="RoomData.chat_type == 2">
-                        <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.groupinfo.ownerprofile.avatar}}" tooltip-html="((RoomData.groupinfo.ownerprofile.id == user.id) ? 'Me' : (RoomData.is_admin ? RoomData.groupinfo.ownerprofile.username : RoomData.groupinfo.ownerprofile.first_name)) + ' - Group Admin'" tooltip-placement="top"></div>
+                        <div class="chatter-img box-shadow b m-r-sm cursor_p" background-image="{{IMGURL}}{{RoomData.groupinfo.ownerprofile.avatar}}" tooltip-html="((RoomData.groupinfo.ownerprofile.id == user.id) ? 'Me' : (RoomData.is_admin ? RoomData.groupinfo.ownerprofile.username : RoomData.groupinfo.ownerprofile.first_name)) + ' - Group Admin'" tooltip-placement="top"></div>
 
-                        <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{member.memberprofile.avatar}}" tooltip-html="member.is_admin ? member.memberprofile.username : member.memberprofile.first_name" tooltip-placement="top" ng-repeat="(num,member) in RoomData.groupinfo.members"></div>
+                        <div class="chatter-img box-shadow b m-r-sm cursor_p" background-image="{{IMGURL}}{{member.memberprofile.avatar}}" tooltip-html="member.is_admin ? member.memberprofile.username : member.memberprofile.first_name" tooltip-placement="top" ng-repeat="(num,member) in RoomData.groupinfo.members"></div>
                     </div>
                 </div>
                 <div class="pull-right" ng-if="isMobile && Object.keys(RoomData).length > 1"> <i class="fa fa-bars"></i></div>
@@ -41,8 +45,8 @@
                         <div class="chat-user-data">
                             <div ng-if="data.chat_type == 1">
                                 <div class="chatinfo-div">
-                                    <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.userprofile.avatar}}" ng-click="gotoRoom(data)"></div>
-                                    <div class="col-xs-7 p-l-none padder-v font-bold" ng-click="gotoRoom(data)"> {{data.is_admin ? data.userprofile.username + '(Admin)' : (data.is_admin_chat ? data.userprofile.username : data.userprofile.first_name + ' ' + data.userprofile.last_name)}} <small></small></div>
+                                    <div class="chat-search-img pull-left m-r-lg cursor_p" background-image="{{IMGURL}}{{data.userprofile.avatar}}" ng-click="gotoRoom(data)"></div>
+                                    <div class="col-xs-7 p-l-none padder-v font-bold cursor_p" ng-click="gotoRoom(data)"> {{data.is_admin ? data.userprofile.username + '(Admin)' : (data.is_admin_chat ? data.userprofile.username : data.userprofile.first_name + ' ' + data.userprofile.last_name)}} <small></small></div>
                                     <div class="col-xs-1 p-l-none padder-v text-right p-r-none">
                                         <span class="badge badge-sm bg-danger" ng-if="data.unread > 0">{{data.unread}}</span>
                                         <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -73,15 +77,15 @@
                     </div>
                     <div class="col-xs-12 m-b-sm c-bg-1 font-bold no-border p-l-none box-shadow sm-padder-v" ng-if="userslist.adminusers.length > 0">Admin Users </div>
                     <div class="col-xs-12 p-l-none sm-padder-v p-r-none" ng-repeat="(key,data) in userslist.adminusers track by $index" ng-click="createRoom(key,data)" ng-class="{ 'box-shadow' : !$last }">
-                        <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.avatar}}"></div>
-                        <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.username}}</div>
+                        <div class="chat-search-img pull-left m-r-lg cursor_p" background-image="{{IMGURL}}{{data.avatar}}"></div>
+                        <div class="col-xs-6 p-l-none padder-v font-bold cursor_p"> {{data.username}}</div>
                         <div class="col-xs-1 p-l-none padder-v text-right">
                         </div>
                     </div>
                     <div class="col-xs-12 m-b-sm c-bg-1 font-bold no-border p-l-none box-shadow sm-padder-v" ng-if="userslist.users.length > 0">Distributor Users </div>
                     <div class="col-xs-12 p-l-none sm-padder-v" ng-repeat="(key,data) in userslist.users track by $index" ng-click="createRoom(key,data)" ng-class="{ 'box-shadow' : !$last }">
-                        <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.avatar}}"></div>
-                        <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name + ' ' + data.last_name}}</div>
+                        <div class="chat-search-img pull-left m-r-lg cursor_p" background-image="{{IMGURL}}{{data.avatar}}"></div>
+                        <div class="col-xs-6 p-l-none padder-v font-bold cursor_p"> {{data.first_name + ' ' + data.last_name}}</div>
                         <div class="col-xs-1 p-l-none padder-v text-right">
                         </div>
                     </div>
@@ -92,7 +96,11 @@
                     <div class="private-chat">
                         <div class="message-wrap" ng-repeat="message in chatData" ng-if="message.created_at > (RoomData.cleared_at * 1000) ">
                             <div class="message" ng-class="{ 'me' : user.id == message.user_id , 'option-content' : message.isfile }">
-                                <i class="fa fa-ellipsis-v chat-delete text-white"></i>
+                                <div class="chat-delete text-white">                                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                        <ul class="dropdown-menu r-menu">
+                                            <li><a ng-click="clearchat(data)">Clear Chat</a></li>
+                                            <li><a ng-click="deletechat(data)">Delete Chat</a></li>
+                                        </ul></div>
                                 <div class="other-img" ng-if="user.id != message.user_id">
                                     <div class="chat-info-img" background-image="{{IMGURL}}{{message.avatar}}"></div>
                                 </div>
