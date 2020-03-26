@@ -1210,3 +1210,9 @@ body {
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
     background-color: transparent;
 }
+   .message-action{
+   min-width: 80px;
+   right: 0 !important;
+   left: auto !important;
+   font-size: 12px;
+   }
