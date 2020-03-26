@@ -70,10 +70,6 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         });
     }
 
-    $scope.removechatItem = function(message){
-        $rootScope.ref.child(message.$id).remove();
-    }
-
     $scope.updatefirebaseid = function(firebaseid) {
         var obj = {
             firebaseid: firebaseid
@@ -84,6 +80,22 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                 if(Object.keys($scope.RoomData).length > 1){
                     $scope.gotoRoom($scope.RoomData);
                 }
+            }
+        });
+    }
+
+    $scope.removechatItem = function(message){
+        $rootScope.ref.child(message.$id).remove();
+        if(message.isfile){
+            $scope.deleteFile(message.fileurl);
+        }
+    }
+
+    $scope.deleteFile = function(file){
+        var obj = {};
+        obj.file = file
+        webServices.post('chat/delete/attachment', obj).then(function(getData) {
+            if (getData.status == 200) {
             }
         });
     }
@@ -161,8 +173,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                 backdrop: 'static',
                 keyboard: false
             });
-        }, 1000);
-        
+        }, 1000);    
     }
 
     $scope.deletegroupData = function(id) {
