@@ -18,7 +18,7 @@
                 <div class="pull-right" ng-if="isMobile && Object.keys(RoomData).length > 1"> <i class="fa fa-bars"></i></div>
                 
             </div>
-            <div class="col-xs-12 col-lg-4 col-md-4 col-sm-12 bg-white b-r b-2x r-bl-6x padder-v" ng-scrollbars ng-scrollbars-config="scrollconfig">
+            <div class="col-xs-12 col-lg-4 col-md-4 col-sm-12 bg-white b-r b-2x r-bl-6x padder-v user-list" ng-scrollbars ng-scrollbars-config="scrollconfig">
                 <div class="col-xs-12 text-right p-r-none">
                     <button class="btn btn-default btn-xs  m-r-xs r-2x m-t" ng-click="openModal();">Create New Group</button>
                 </div>
@@ -80,8 +80,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-lg-8 col-md-8 col-sm-12" ng-class="{'m-b' : isMobile}" ng-scrollbars ng-scrollbars-config="scrollconfig">
-                <div class="messenger private-chat ng-isolate-scope" scroll-to-bottom="chatData">
+            <div class="col-xs-12 col-lg-8 col-md-8 col-sm-12" ng-class="{'m-b' : isMobile}" >
+                <div class="messenger nopadder" ng-scrollbars ng-scrollbars-config="scrollconfig">
+                <div class=" private-chat ng-isolate-scope" scroll-to-bottom="chatData">
                     <div class="message-wrap" ng-repeat="message in chatData">
                         <div class="message" ng-class="{ 'me' : user.id == message.user_id , 'option-content' : message.isfile }">
                             <div class="other-img" ng-if="user.id != message.user_id">
@@ -102,6 +103,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
                 <div class="sender p-b-none  m-t m-p-n" >
                     <div class="msg-text" tooltip="Please select a chat on your left" tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-enable="RoomData.show_tooltip">

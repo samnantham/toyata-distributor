@@ -610,6 +610,7 @@
      z-index: 99999;
      /*overflow: hidden;*/
      padding: 0px 15px;
+     margin-bottom: 15px;
 }
  .sender .msg-text {
      width: calc(100% - 68px);
@@ -688,13 +689,13 @@
      -moz-border-radius: 50%;
 }
  .messenger {
-     padding: 20px 30px !important;
+     padding: 20px 10px !important;
      width: 100%;
      float: left;
      background: #fff;
-     height: calc(100vh - 270px) !important;
-     overflow-x: hidden;
-     overflow-y: auto;
+     min-height: calc(100vh - 270px) !important;
+     /*overflow-x: hidden;
+     overflow-y: auto;*/
      -moz-appearance: none !important;
 }
  .messenger .message-wrap {
@@ -1092,8 +1093,12 @@
      padding: 15px;
 }
  .chat-wrap .mCustomScrollbar {
-     height: calc(100vh - 184px) !important;
+     height: calc(100vh - 270px) !important;
 }
+ .chat-wrap .user-list.mCustomScrollbar {
+     height: calc(100vh - 187px) !important;
+}
+
  menu-icon {
      -webkit-transition: -webkit-transform .8s ease-in-out;
      transition: transform .8s ease-in-out;
