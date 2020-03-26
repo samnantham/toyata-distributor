@@ -4,21 +4,21 @@
             <div class="message-head b b-3x bdrc-bg1 r-3x r-b-none">
                 <h2>Chat Board </h2>
                 <div class="option m-r-xxl" ng-if="RoomData.chat_type == 1">
-                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.userprofile.avatar}}" tooltip-html="RoomData.is_admin_chat ? RoomData.userprofile.username + ' (Admin) ': RoomData.userprofile.first_name  + ' ' +  RoomData.userprofile.last_name" tooltip-append-to-body="true" tooltip-placement="top"></div>
+                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.userprofile.avatar}}" tooltip-html="RoomData.is_admin_chat ? RoomData.userprofile.username + ' (Admin) ': RoomData.userprofile.first_name  + ' ' +  RoomData.userprofile.last_name" tooltip-placement="top"></div>
 
                     <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{user.avatar}}" tooltip="Me"></div>
                 </div>
 
                 <div class="option m-r-xxl" ng-if="RoomData.chat_type == 2">
-                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.groupinfo.ownerprofile.avatar}}" tooltip-html="((RoomData.groupinfo.ownerprofile.id == user.id) ? 'Me' : (RoomData.is_admin ? RoomData.groupinfo.ownerprofile.username : RoomData.groupinfo.ownerprofile.first_name)) + ' - Group Admin'" tooltip-append-to-body="true" tooltip-placement="top"></div>
+                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.groupinfo.ownerprofile.avatar}}" tooltip-html="((RoomData.groupinfo.ownerprofile.id == user.id) ? 'Me' : (RoomData.is_admin ? RoomData.groupinfo.ownerprofile.username : RoomData.groupinfo.ownerprofile.first_name)) + ' - Group Admin'" tooltip-placement="top"></div>
 
-                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{member.memberprofile.avatar}}" tooltip-html="member.is_admin ? member.memberprofile.username : member.memberprofile.first_name" tooltip-append-to-body="true" tooltip-placement="top" ng-repeat="(num,member) in RoomData.groupinfo.members"></div>
+                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{member.memberprofile.avatar}}" tooltip-html="member.is_admin ? member.memberprofile.username : member.memberprofile.first_name" tooltip-placement="top" ng-repeat="(num,member) in RoomData.groupinfo.members"></div>
             
                 </div>
                 <div class="pull-right" ng-if="isMobile && Object.keys(RoomData).length > 1"> <i class="fa fa-bars"></i></div>
                 
             </div>
-            <div class="col-xs-12 col-lg-4 col-md-4 col-sm-12 bg-white b-r b-2x r-bl-6x padder-v" ng-scrollbars ng-scrollbars-config="scrollconfig">
+            <div class="col-xs-12 col-lg-4 col-md-4 col-sm-12 bg-white b-r b-2x r-bl-6x padder-v user-list" ng-scrollbars ng-scrollbars-config="scrollconfig">
                 <div class="col-xs-12 text-right p-r-none">
                     <button class="btn btn-default btn-xs  m-r-xs r-2x m-t" ng-click="openModal();">Create New Group</button>
                 </div>
@@ -45,11 +45,11 @@
                             <div ng-if="data.chat_type == 1">
                                 <div class="chatinfo-div">
                                     <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.userprofile.avatar}}" ng-click="gotoRoom(data)"></div>
-                                    <div class="col-xs-6 p-l-none padder-v font-bold" ng-click="gotoRoom(data)"> {{data.is_admin ? data.userprofile.username + '(Admin)' : (data.is_admin_chat ? data.userprofile.username : data.userprofile.first_name + ' ' +  data.userprofile.last_name)}} <small></small></div>
-                                    <div class="col-xs-1 p-l-none padder-v text-right">
+                                    <div class="col-xs-7 p-l-none padder-v font-bold" ng-click="gotoRoom(data)"> {{data.is_admin ? data.userprofile.username + '(Admin)' : (data.is_admin_chat ? data.userprofile.username : data.userprofile.first_name + ' ' +  data.userprofile.last_name)}} <small></small></div>
+                                    <div class="col-xs-1 p-l-none padder-v text-right p-r-none">
                                         <span class="badge badge-sm bg-danger" ng-if="data.unread > 0">{{data.unread}}</span>
                                         <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                        <ul class="dropdown-menu" style="min-width: 120px;">
+                                        <ul class="dropdown-menu r-menu">
                                             <li><a ng-click="clearchat(data)">Clear Chat</a></li>
                                             <li><a ng-click="deletechat(data)">Delete Chat</a></li>
                                         </ul>
@@ -59,11 +59,11 @@
                             <div ng-if="data.chat_type == 2">
                                 <div class="chatinfo-div">
                                     <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.groupinfo.group_icon}}" ng-click="gotoRoom(data)"></div>
-                                    <div class="col-xs-6 p-l-none padder-v font-bold" ng-click="gotoRoom(data)"> {{data.groupinfo.group_name}} <small>(Group Chat)</small></div>
-                                    <div class="col-xs-1 p-l-none padder-v text-right">
+                                    <div class="col-xs-7 p-l-none padder-v font-bold" ng-click="gotoRoom(data)"> {{data.groupinfo.group_name}} <small>(Group Chat)</small></div>
+                                    <div class="col-xs-1 p-l-none padder-v text-right p-r-none">
                                         <span class="badge badge-sm bg-danger" ng-if="data.unread > 0">{{data.unread}}</span>
                                         <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                        <ul class="dropdown-menu" style="min-width: 120px;">
+                                        <ul class="dropdown-menu r-menu">
                                             <li ng-if="!data.groupinfo.is_admin && data.groupinfo.group_admin == user.id"><a ng-click="editgroup(data)">Edit Group</a></li>
                                             <li ng-if="!data.groupinfo.is_admin && data.groupinfo.group_admin == user.id"><a ng-click="deletegroup(data)">Delete Group</a></li>
                                             <li><a ng-click="clearchat(data)">Clear Chat</a></li>
@@ -92,8 +92,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-lg-8 col-md-8 col-sm-12" ng-class="{'m-b' : isMobile}" ng-scrollbars ng-scrollbars-config="scrollconfig">
-                <div class="messenger private-chat ng-isolate-scope" scroll-to-bottom="chatData">
+            <div class="col-xs-12 col-lg-8 col-md-8 col-sm-12" ng-class="{'m-b' : isMobile}">
+                <div class="messenger"  ng-scrollbars ng-scrollbars-config="scrollconfig">
+                <div class=" private-chat ng-isolate-scope" scroll-to-bottom="chatData">
                     <div class="message-wrap" ng-repeat="message in chatData" ng-if="message.created_at > (RoomData.cleared_at * 1000) ">
                         <div class="message" ng-class="{ 'me' : user.id == message.user_id , 'option-content' : message.isfile }">
                             <div class="other-img" ng-if="user.id != message.user_id">
@@ -114,6 +115,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
                 <div class="sender p-b-none  m-t m-p-n" >
                     <div class="msg-text" tooltip="Please select a chat on your left" tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-enable="RoomData.show_tooltip">

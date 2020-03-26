@@ -1,3 +1,6 @@
+body {
+    background: transparent;
+}
 .flex {
      display: flex;
 }
@@ -689,11 +692,12 @@
      -moz-border-radius: 50%;
 }
  .messenger {
-     padding: 20px 10px !important;
+     padding:10px !important;
      width: 100%;
      float: left;
      background: #fff;
-     min-height: calc(100vh - 270px) !important;
+     min-height: calc(100vh - 267px) !important;
+     max-width -height: calc(100vh - 267px) !important;
      /*overflow-x: hidden;
      overflow-y: auto;*/
      -moz-appearance: none !important;
@@ -1071,11 +1075,11 @@
     }
 }
  .mCustomScrollbar {
-     height: calc(100vh - 196px) !important;
+     height: calc(100vh - 184px) !important;
 }
  .app-content-body {
      padding-bottom: 41px;
-     padding-top:33px;
+     padding-top:22px;
 }
  .panel {
      margin-bottom: 0px;
@@ -1160,4 +1164,10 @@
 }
  .text-capt {
      text-transform: capitalize;
+}
+.r-menu{
+    min-width: 120px;
+    right: 0 !important;
+    left: auto !important;
+    top: 35px !important;
 }
