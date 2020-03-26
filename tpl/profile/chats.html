@@ -157,6 +157,8 @@
                             </div>
                             <div class="col-xs-12  sm-padder-v  m-t m-p-n gpm" ng-scrollbars ng-scrollbars-config="scrollconfig">
                                 <label>Group Members<code>*</code> <small class="pull-right text-danger" ng-if="errorData.members_error">Required</small></label>
+                                <div class="col-xs-12 m-b-sm c-bg-1 font-bold no-border p-l-none box-shadow sm-padder-v">Admin Users</div>
+                                
                                 <div class="col-xs-12 p-l-none box-shadow sm-padder-v" ng-repeat="(key,data) in groupuserslist.adminusers">
                                     <div class="col-xs-2">
                                         <div class="checkbox">
@@ -169,7 +171,7 @@
                                     <div class="chat-info-img  pull-left m-r-lg m-t-xs" background-image="{{IMGURL}}{{data.avatar}}"></div>
                                     <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.username}}</div>
                                 </div>
-
+                                <div class="col-xs-12 m-b-sm c-bg-1 font-bold no-border p-l-none box-shadow sm-padder-v">Distributor Users</div>
                                 <div class="col-xs-12 p-l-none box-shadow sm-padder-v m-p-n" ng-repeat="(key,data) in groupuserslist.users">
                                     <div class="col-xs-2">
                                         <div class="checkbox">

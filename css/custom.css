@@ -664,7 +664,6 @@ body {
      -moz-border-radius: 4px;
 }
  .chat-wrap {
-     z-index: 9999;
      background: #fff;
      display: inline-block;
 }
@@ -1171,6 +1170,9 @@ body {
  .aside-wrap.mCustomScrollbar {
      height: calc(100vh - 134px) !important;
 }
+.modal-body .mCustomScrollbar {
+     height: calc(100vh - 380px) !important;
+}
  .text-capt {
      text-transform: capitalize;
 }
@@ -1181,9 +1183,30 @@ body {
     top: 35px !important;
 }
  .text-white {
-     color: #FFF;
+     color: #FFF !important;
 }
 .cursor_p
 {
      cursor: pointer;
+}
+.chat_buble
+{
+ background:#FA9F34;  
+ color: #fff;  
+}
+.chat_buble:after {
+     content: '';
+     position: absolute; 
+     top: 0;
+     left: 87%;
+     width: 0;
+     height: 0;
+     border: 15px solid transparent;
+     border-bottom-color: #FA9F34;
+     border-top: 0;
+     margin-left: -15px;
+     margin-top: -15px;
+}
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: transparent;
 }

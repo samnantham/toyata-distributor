@@ -42,21 +42,22 @@
 
         <li class="dropdown" dropdown>
             <a href class="dropdown-toggle clear" dropdown-toggle>
+                <span class="hidden-sm hidden-md pull-right">{{user.first_name}} <b class="caret"></b> </span>
                 <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
                     <div class="chat-info-img" background-image="{{IMGURL}}{{user.avatar}}"></div>
                 </span>
-                <span class="hidden-sm hidden-md">{{user.first_name}} <b class="caret"></b></span>
+                
             </a>
             <!-- dropdown -->
-            <ul class="dropdown-menu animated fadeInRight w">
+            <ul class="dropdown-menu animated fadeInRight chat_buble">
                 <li>
-                    <a class="text-muted" ui-sref="app.profile"><img class="m-r-xs" src="img/account.png"> Account</a>
+                    <a class="text-muted text-white" ui-sref="app.profile"> Account</a>
                 </li>
                 <li>
-                    <a class="text-muted" ui-sref="app.changepassword"><img class="m-r-xs" src="img/c-pass.png"> Change Password</a>
+                    <a class="text-muted text-white" ui-sref="app.changepassword"> Change Password</a>
                 </li>
                 <li>
-                    <a class="text-muted" ng-click="logout();"> <img class="m-r-xs" src="img/signout.png"> Logout</a>
+                    <a class="text-muted text-white" ng-click="logout();">  Logout</a>
                 </li>
             </ul>
             <!-- / dropdown -->
