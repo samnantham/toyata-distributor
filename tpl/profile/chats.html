@@ -2,39 +2,31 @@
     <div class="wrapper-md p-t-none p-b-none m-t">
         <div class="chat-wrap col-xs-12 p-l-none p-r-none  bg-white box-shadow r-b-6x">
             <div class="message-head b b-3x bdrc-bg1 r-3x r-b-none col-xs-12">
-               <div class="col-xs-6"> <h2>Chat Board </h2></div>
-               <div class="col-xs-6">
-                <div class="option text-white text-right" > <i class="fa fa-ellipsis-v "></i></div>
-                <div class="option " ng-if="RoomData.chat_type == 1">
-                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.userprofile.avatar}}" tooltip-html="RoomData.is_admin_chat ? RoomData.userprofile.username + ' (Admin) ': RoomData.userprofile.first_name  + ' ' +  RoomData.userprofile.last_name" tooltip-placement="top"></div>
-
-                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{user.avatar}}" tooltip="Me"></div>
+                <div class="col-xs-6">
+                    <h2>Chat Board </h2>
                 </div>
+                <div class="col-xs-6">
+                    <div class="option text-white text-right"> <i class="fa fa-ellipsis-v "></i></div>
+                    <div class="option " ng-if="RoomData.chat_type == 1">
+                        <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.userprofile.avatar}}" tooltip-html="RoomData.is_admin_chat ? RoomData.userprofile.username + ' (Admin) ': RoomData.userprofile.first_name  + ' ' +  RoomData.userprofile.last_name" tooltip-placement="top"></div>
 
-                <div class="option" ng-if="RoomData.chat_type == 2">
-                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.groupinfo.ownerprofile.avatar}}" tooltip-html="((RoomData.groupinfo.ownerprofile.id == user.id) ? 'Me' : (RoomData.is_admin ? RoomData.groupinfo.ownerprofile.username : RoomData.groupinfo.ownerprofile.first_name)) + ' - Group Admin'" tooltip-placement="top"></div>
+                        <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{user.avatar}}" tooltip="Me"></div>
+                    </div>
 
-                    <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{member.memberprofile.avatar}}" tooltip-html="member.is_admin ? member.memberprofile.username : member.memberprofile.first_name" tooltip-placement="top" ng-repeat="(num,member) in RoomData.groupinfo.members"></div>
-            
+                    <div class="option" ng-if="RoomData.chat_type == 2">
+                        <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{RoomData.groupinfo.ownerprofile.avatar}}" tooltip-html="((RoomData.groupinfo.ownerprofile.id == user.id) ? 'Me' : (RoomData.is_admin ? RoomData.groupinfo.ownerprofile.username : RoomData.groupinfo.ownerprofile.first_name)) + ' - Group Admin'" tooltip-placement="top"></div>
+
+                        <div class="chatter-img box-shadow b m-r-sm" background-image="{{IMGURL}}{{member.memberprofile.avatar}}" tooltip-html="member.is_admin ? member.memberprofile.username : member.memberprofile.first_name" tooltip-placement="top" ng-repeat="(num,member) in RoomData.groupinfo.members"></div>
+                    </div>
                 </div>
-                                
-
-            </div>
                 <div class="pull-right" ng-if="isMobile && Object.keys(RoomData).length > 1"> <i class="fa fa-bars"></i></div>
-                
+
             </div>
             <div class="col-xs-12 col-lg-4 col-md-4 col-sm-12 bg-white b-r b-2x r-bl-6x padder-v user-list" ng-scrollbars ng-scrollbars-config="scrollconfig">
                 <div class="col-xs-12 text-right p-r-none">
                     <button class="btn btn-default btn-xs  m-r-xs r-2x m-t" ng-click="openModal();">Create New Group</button>
                 </div>
-                <!-- <div class="col-xs-12 p-r-none p-l-none m-t">
-                    <div class="col-xs-6 p-r-none p-l-none">
-                        <button class="btn bg-main2 no-radius col-xs-12">Recent</button>
-                    </div>
-                    <div class="col-xs-6 p-l-none p-r-none">
-                        <button class="btn bg-main1 no-radius col-xs-12">Search</button>
-                    </div>
-                </div> -->
+
                 <div class="col-xs-12 text-right p-l-none p-r-none m-t-xs">
                     <div class="form-group m-t-sm inner-addon right-addon">
                         <i class="fa fa-search sm-padder sm-padder-v"></i>
@@ -45,12 +37,12 @@
                 <div class="col-xs-12 p-r-none p-l-none sm-padder-v">
                     <div class="col-xs-12 m-b-sm c-bg-1 font-bold no-border p-l-none box-shadow sm-padder-v" ng-if="userslist.recentchats.length > 0">Recent Chats</div>
                     <div class="col-xs-12 p-l-none sm-padder-v" ng-class="{ 'box-shadow' : !$last }" ng-repeat="(key,data) in userslist.recentchats track by $index" ng-if="!filterData.keyword || (filterData.keyword.toLowerCase().length > 0 && (data.chat_type == 2 && data.groupinfo.group_name.toLowerCase().includes(filterData.keyword.toLowerCase())) || (data.chat_type == 1 && data.is_admin_chat == 0 && (data.userprofile.first_name.toLowerCase().includes(filterData.keyword.toLowerCase()))) || (data.chat_type == 1 && (data.is_admin_chat == 1 && data.is_admin == 1 && data.userprofile.username.toLowerCase().includes(filterData.keyword.toLowerCase())) || (data.is_admin_chat == 1 && data.is_admin == 0 && data.userprofile.username.toLowerCase().includes(filterData.keyword.toLowerCase()))))">
-                         
+
                         <div class="chat-user-data">
                             <div ng-if="data.chat_type == 1">
                                 <div class="chatinfo-div">
                                     <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.userprofile.avatar}}" ng-click="gotoRoom(data)"></div>
-                                    <div class="col-xs-7 p-l-none padder-v font-bold" ng-click="gotoRoom(data)"> {{data.is_admin ? data.userprofile.username + '(Admin)' : (data.is_admin_chat ? data.userprofile.username : data.userprofile.first_name + ' ' +  data.userprofile.last_name)}} <small></small></div>
+                                    <div class="col-xs-7 p-l-none padder-v font-bold" ng-click="gotoRoom(data)"> {{data.is_admin ? data.userprofile.username + '(Admin)' : (data.is_admin_chat ? data.userprofile.username : data.userprofile.first_name + ' ' + data.userprofile.last_name)}} <small></small></div>
                                     <div class="col-xs-1 p-l-none padder-v text-right p-r-none">
                                         <span class="badge badge-sm bg-danger" ng-if="data.unread > 0">{{data.unread}}</span>
                                         <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -84,50 +76,48 @@
                         <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.avatar}}"></div>
                         <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.username}}</div>
                         <div class="col-xs-1 p-l-none padder-v text-right">
-                            <!-- <span class="badge badge-sm bg-danger">{{data.status}}</span> -->
                         </div>
                     </div>
                     <div class="col-xs-12 m-b-sm c-bg-1 font-bold no-border p-l-none box-shadow sm-padder-v" ng-if="userslist.users.length > 0">Distributor Users </div>
                     <div class="col-xs-12 p-l-none sm-padder-v" ng-repeat="(key,data) in userslist.users track by $index" ng-click="createRoom(key,data)" ng-class="{ 'box-shadow' : !$last }">
                         <div class="chat-search-img pull-left m-r-lg" background-image="{{IMGURL}}{{data.avatar}}"></div>
-                        <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name  + ' ' +  data.last_name}}</div>
+                        <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name + ' ' + data.last_name}}</div>
                         <div class="col-xs-1 p-l-none padder-v text-right">
-                            <!-- <span class="badge badge-sm bg-danger">{{data.status}}</span> -->
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-lg-8 col-md-8 col-sm-12" ng-class="{'m-b' : isMobile}">
-                <div class="messenger"  ng-scrollbars ng-scrollbars-config="scrollconfig">
-                <div class=" private-chat ng-isolate-scope" scroll-to-bottom="chatData">
-                    <div class="message-wrap" ng-repeat="message in chatData" ng-if="message.created_at > (RoomData.cleared_at * 1000) ">
-                        <div class="message" ng-class="{ 'me' : user.id == message.user_id , 'option-content' : message.isfile }">
-                            <i class="fa fa-ellipsis-v chat-delete text-white"></i>
-                            <div class="other-img" ng-if="user.id != message.user_id">
-                                <div class="chat-info-img" background-image="{{IMGURL}}{{message.avatar}}"></div>
-                            </div>
-                            <div class="info" ng-if="!message.isfile">
-                                <span ng-bind-html="message.message | imagify"></span>
-                                <div class="time-left">
-                                    <span>{{ message.created_at | amDateFormat: 'DD-MMM-YY hh:mm a' }}</span>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" ng-class="{'m-b' : isMobile}" id="chat-area">
+                <div class="messenger" ng-scrollbars ng-scrollbars-config="scrollconfig" ng-scrollbars-update=updateScrollbar>
+                    <div class="private-chat">
+                        <div class="message-wrap" ng-repeat="message in chatData" ng-if="message.created_at > (RoomData.cleared_at * 1000) ">
+                            <div class="message" ng-class="{ 'me' : user.id == message.user_id , 'option-content' : message.isfile }">
+                                <i class="fa fa-ellipsis-v chat-delete text-white"></i>
+                                <div class="other-img" ng-if="user.id != message.user_id">
+                                    <div class="chat-info-img" background-image="{{IMGURL}}{{message.avatar}}"></div>
                                 </div>
-                            </div>
-                            <div class="info" ng-if="message.isfile">
-                                <span ng-bind-html="message.message | imagify"></span>
-                                <img ng-src="{{IMGURL}}{{message.fileurl}}" ng-click="viewChatImg(message.fileurl);" alt="Chat" ng-if="message.isfile">
-                                <div class="time-left">
-                                    <span>{{ message.created_at | amDateFormat: 'DD-MMM-YY hh:mm a' }}</span>
+                                <div class="info" ng-if="!message.isfile">
+                                    <span ng-bind-html="message.message | imagify"></span>
+                                    <div class="time-left">
+                                        <span>{{ message.created_at | amDateFormat: 'DD-MMM-YY hh:mm a' }}</span>
+                                    </div>
+                                </div>
+                                <div class="info" ng-if="message.isfile">
+                                    <span ng-bind-html="message.message | imagify"></span>
+                                    <img ng-src="{{IMGURL}}{{message.fileurl}}" ng-click="viewChatImg(message.fileurl);" alt="Chat" ng-if="message.isfile">
+                                    <div class="time-left">
+                                        <span>{{ message.created_at | amDateFormat: 'DD-MMM-YY hh:mm a' }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
-                <div class="sender p-b-none  m-t m-p-n" >
+                <div class="sender p-b-none  m-t m-p-n">
                     <div class="msg-text" tooltip="Please select a chat on your left" tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-enable="RoomData.show_tooltip">
                         <input type="text" placeholder="Send something..." aria-invalid="false" ng-model="chatMessage.message" my-enter="sendReplymessage()" ng-disabled="!RoomData.id" id="chatText">
                         <a class="small-btn" emoji-picker="chatMessage.message" placement="top" title="Emoji" recent-limit="12" ng-if="!RoomData.show_tooltip" on-change-func="messageUpdated"></a>
-                        <a class="small-btn" ngf-select ngf-drop ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-allow-dir="allowDir" class="drop-box1" ngf-drop-available="dropAvailable" ngf-change="sendchatattachment($files);" ng-disabled="!RoomData.id"><i class="fa fa-paperclip"></i></a>
+                        <a class="small-btn" ngf-select ngf-drop ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="sendchatattachment($files);" ng-disabled="!RoomData.id"><i class="fa fa-paperclip"></i></a>
                     </div>
                     <button class="chat-btn" tabindex="0" ng-click="sendReplymessage()" type="button"><i class="fa fa-send"></i></button>
                 </div>
@@ -182,7 +172,7 @@
                                         </div>
                                     </div>
                                     <div class="chat-info-img  pull-left m-r-lg m-t-xs" background-image="{{IMGURL}}{{data.avatar}}"></div>
-                                    <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name  + ' ' +  data.last_name}}</div>
+                                    <div class="col-xs-6 p-l-none padder-v font-bold"> {{data.first_name + ' ' + data.last_name}}</div>
                                 </div>
                             </div>
 

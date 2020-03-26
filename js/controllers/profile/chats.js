@@ -351,6 +351,10 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     }
 
     $rootScope.$watch('chatData', function (newVal, oldVal) {  
+        $timeout(function() {
+            var height = (document.getElementById("mCSB_5")).scrollHeight;
+            $scope.updateScrollbar('scrollTo', height);
+        },1000);
         $scope.getusers(); 
     }, true);
 
