@@ -153,6 +153,12 @@ angular.module('app')
                 history.back();
             }
 
+            $rootScope.moveTop = function() {
+                $('html, body').animate({
+                    scrollTop: 10
+                }, 'slow', function() {});
+            }
+
             $rootScope.setSlides = function(){
                 if (!isMobile.phone) {
                     if (($rootScope.screenWidth >= 960) && ($rootScope.screenWidth < 1368)) {
