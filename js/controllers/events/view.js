@@ -3,10 +3,10 @@
 app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParams', 'webServices', 'utility', '$rootScope', '$timeout', '$filter', '$ngConfirm', '$sce', function($scope, $http, $state, $stateParams, webServices, utility, $rootScope, $timeout, $filter, $ngConfirm, $sce) {
 
     $scope.event = {};
-    $rootScope.loading = true;
     $scope.now = new Date();
     $scope.commentData = {};
     $scope.commentData.isfile = 0;
+    $scope.module_id = 1;
 
     $scope.getData = function() {
         webServices.get('event/' + $stateParams.id).then(function(getData) {
@@ -56,9 +56,8 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
     }
 
     $scope.getComments = function() {
-        webServices.get('comments/' + $stateParams.id).then(function(getData) {
+        webServices.get('comments/1/' + $stateParams.id).then(function(getData) {
             $rootScope.loading = false;
-            console.log(getData)
             if (getData.status == 200) {
                 $scope.comments = getData.data;
             } else {
@@ -77,7 +76,7 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
         $scope.commentData.parent = $scope.comments[key].id;
         $scope.commentData.isfile = 0;
         $scope.commentData.item = $stateParams.id;
-        $scope.commentData.module = 1;
+        $scope.commentData.module = $scope.module_id;
         $scope.commentData.is_admin = 0;
         $scope.commentData.is_reply = 1;
         $scope.commentData.reply_for = $scope.comments[key].id;
@@ -105,7 +104,7 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
         }
         $scope.commentData.isfile = 0;
         $scope.commentData.item = $stateParams.id;
-        $scope.commentData.module = 1;
+        $scope.commentData.module = $scope.module_id;
         $scope.comments[key].subcomments[no].showreply = !$scope.comments[key].subcomments[no].showreply;
         $scope.commentData.parent = $scope.comments[key].id;
         $scope.commentData.is_admin = 0
@@ -139,7 +138,7 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
                     $scope.commentData.commentfile = files[0];
                     $scope.commentData.isfile = 1;
                     $scope.commentData.item = $stateParams.id;
-                    $scope.commentData.module = 1;
+                    $scope.commentData.module = $scope.module_id;
                     $scope.sendComment();
                 } else {
                     $scope.errors.push(files[0].name + ' size exceeds 2MB.')
@@ -158,7 +157,7 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
             $scope.commentData.commentfile = '';
             $scope.commentData.isfile = 0;
             $scope.commentData.item = $stateParams.id;
-            $scope.commentData.module = 1;
+            $scope.commentData.module = $scope.module_id;
             $scope.sendComment();
         }
     }

@@ -96,27 +96,6 @@ angular.module('app')
 
             $rootScope.screenHeight = window.innerHeight;
 
-            $rootScope.uiConfig = {
-                calendar: {
-                    height: 'auto',
-                    editable: true,
-                    header: {
-                        left: 'prev,next',
-                        center: 'title',
-                        right: 'month basicWeek basicDay listDay listWeek listMonth,'
-                    },
-                    dayClick: $scope.alertOnEventClick,
-                    eventDrop: $scope.alertOnDrop,
-                    eventResize: $scope.alertOnResize,
-                    eventMouseover: $scope.alertOnMouseOver,
-                    viewRender : function (view, element) {
-                        var monthyear = view.title.split(' ');
-                        var month = $rootScope.getMonthFromString(view.title.split(' ')[0]);
-                        var year = monthyear[1];
-                    }
-                }
-            };
-
          $rootScope.getMonthFromString =function(mon){
            return new Date(Date.parse(mon +" 1, 2012")).getMonth()+1
         }

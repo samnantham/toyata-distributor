@@ -2,7 +2,6 @@
 app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '$ngConfirm', 'webServices', 'utility', '$rootScope', '$stateParams', '$timeout', 'toaster', '$firebaseArray', function($scope, $http, $state, authServices, $ngConfirm, webServices, utility, $rootScope, $stateParams, $timeout, toaster, $firebaseArray) {
 
     $scope.chatid = $stateParams.chatid;
-    $rootScope.chatData = [];
     $scope.filterData = {};
     $scope.filterData.active = 0;
     $scope.chatMessage = {};
@@ -42,6 +41,10 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
                 $rootScope.$emit("showISError", getData);
             }
         });
+    }
+
+    $scope.convertTime = function(time){
+      return Math.floor((Date.now() - (time * 1000) )/1000/60);
     }
 
     $scope.clearchat = function(chat){
@@ -364,12 +367,14 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
         });
     }
 
-    $rootScope.$watch('chatData', function (newVal, oldVal) {  
+     $rootScope.$watch('chatData', function (newVal, oldVal) {  
         $timeout(function() {
             var height = (document.getElementById("mCSB_5")).scrollHeight;
             $scope.updateScrollbar('scrollTo', height);
         },200);
-        //$scope.getusers(); 
+        $timeout(function() {
+            $scope.getusers(); 
+        },5000);
     }, true);
 
     $scope.sendReplymessage = function() {
