@@ -19,7 +19,6 @@ angular.module('app', [
     'oc.lazyLoad',
     'angularMoment',
     'ngFileUpload',
-    'chart.js',
     'ngMap',
     'toaster',
     'bootstrapLightbox',
