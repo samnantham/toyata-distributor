@@ -135,6 +135,40 @@ app.controller('KaizenController', ['$scope', '$http', '$state', 'authServices',
         }
     }
 
+    $scope.addkaizenDocuments = function(files) {
+        $scope.errors = [];
+        if ($scope.formData.kaizen_documents.length < $rootScope.maxUploadFiles) {
+            if (files && files.length) {
+                if (($rootScope.maxUploadFiles - $scope.formData.kaizen_documents.length) >= files.length) {
+                    for (var i = 0; i < files.length; i++) {
+                        var extn = files[i].name.split(".").pop();
+                        if ($rootScope.validfileextensions.includes(extn.toLowerCase())) {
+                            if (files[i].size <= $rootScope.maxUploadsize) {
+                                var newobj = {};
+                                newobj.file = files[i];
+                                newobj.filename = files[i].name.split(".")[0];
+                                newobj.filetype = files[i].type.split("/")[0];
+                                newobj.isfile = 1;
+                                $scope.formData.kaizen_documents.push(newobj);
+                            } else {
+                                $scope.errors.push(files[i].name + ' size exceeds 2MB.')
+                            }
+                        } else {
+                            $scope.errors.push(files[i].name + ' format unsupported.');
+                        }
+                    }
+                } else {
+                    $scope.errors.push('You can now upload only ' + ($rootScope.maxUploadFiles - $scope.formData.kaizen_documents.length) + ' files');
+                }
+            }
+        } else {
+            $scope.errors.push('You can add only maximum of ' + $rootScope.maxUploadFiles + ' files only');
+        }
+        if ($scope.errors.length > 0) {
+            $rootScope.$emit("showErrors", $scope.errors);
+        }
+    }
+
     $scope.changeLimit = function(totalPerPage) {
         $scope.totalPerPage = totalPerPage;
         $scope.pagedata = [];
@@ -178,6 +212,7 @@ app.controller('KaizenController', ['$scope', '$http', '$state', 'authServices',
         $scope.formData.type = $stateParams.type;
         $scope.formData.kaizen_files = [];
         $scope.formData.video_links = [];
+        $scope.formData.kaizen_documents = [];
         $('#PopupModal').modal({
             backdrop: 'static',
             keyboard: false
@@ -214,6 +249,10 @@ app.controller('KaizenController', ['$scope', '$http', '$state', 'authServices',
 
     $scope.removeFile = function(key,data){
         $scope.formData.kaizen_files.splice(key,1);
+    }
+
+    $scope.removeDocuments = function(key,data){
+        $scope.formData.kaizen_documents.splice(key,1);
     }
     
     $scope.getDatas();

@@ -12,7 +12,13 @@
                                 <div class="m-b-sm">
                                     <a class="h5 font-bold text-black">{{event.title}}</a>
                                 </div>
-                                <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{event.cover_image}}"></div>
+                                <div class="mbit-img box-shadow b cursor cover-img" background-image="{{IMGURL}}{{event.cover_image}}" ng-click="showCover(event.cover_image)">
+                                    <div class="overlay">
+                                        <a class="icon-overlay">
+                                          <i class="fa fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-md m-p-n" ng-if="event.survey_link">
@@ -66,9 +72,9 @@
                                     </video>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none " ng-repeat="(key,data) in event.video_links">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none" ng-repeat="(key,data) in event.video_links">
                                 <div class="mbit-img box-shadow b pos-rlt">
-                                    <anguvideo ng-model="data" width="100%" height="100%"></anguvideo>
+                                    <anguvideo ng-model="data" width="100%" height="100%" hideControls></anguvideo>
                                 </div>
                             </div>
                         </div>
@@ -76,18 +82,23 @@
                             <div class="m-b-sm m-t-sm">
                                 <a class="h5 font-bold text-black">Images</a>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none m-p-n" ng-repeat="(key,data) in event.event_files" ng-if="data.filetype == 'image'">
-                                <div class="mbit-img box-shadow b pos-rlt">
-                                    <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{data.file}}"></div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none m-p-n" ng-repeat="(key,data) in mediafiles.images" ng-click="openFiles(key,mediafiles.images)">
+                                <div class="mbit-img box-shadow b pos-rlt cursor cover-img">
+                                    <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{data.file}}"><div class="overlay">
+                                        <a class="icon-overlay">
+                                          <i class="fa fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " ng-if="event.event_documents.length > 0">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="event.event_documents.length > 0">
                             <div class="m-b-sm m-t-sm">
                                 <a class="h5 font-bold text-black">Event Contents</a>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 m-b p-l-none m-p-n" ng-repeat="(key,data) in event.event_documents">
-                                <button class="btn btn-default r-2x padd-xs min-w-60">Presentation {{key + 1}}</button>
+                                <a class="btn btn-default r-2x padd-xs min-w-60" ng-href="{{IMGURL}}{{data.file}}" target="_blank">{{data.filename}}</a>
                                 <a class="btn btn-warning r-2x padd-xs" ng-href="{{IMGURL}}{{data.file}}" download="{{data.file.split('/').pop()}}" target="_blank"><i class="fa fa-download"></i></a>
                             </div>
                         </div>

@@ -19,7 +19,13 @@
                                 <div class="m-b-sm">
                                     <a class="h5 font-bold text-black">{{kaizen.title}}</a>
                                 </div>
-                                <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{kaizen.cover_image}}"></div>
+                                <div class="mbit-img box-shadow b cursor cover-img" background-image="{{IMGURL}}{{kaizen.cover_image}}" ng-click="showCover(kaizen.cover_image)">
+                                    <div class="overlay">
+                                        <a class="icon-overlay">
+                                          <i class="fa fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t">
@@ -38,16 +44,16 @@
                             <div class="m-b-sm m-t-sm">
                                 <a class="h5 font-bold text-black">Watch Videos</a>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 m-b-sm p-l-none  m-p-n" ng-repeat="(key,data) in kaizen.kaizen_files" ng-if="data.filetype == 'video'">
-                                <div class="mbit-img box-shadow b pos-rlt">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none  m-p-n" ng-repeat="(key,data) in kaizen.kaizen_files" ng-if="data.filetype == 'video'">
+                                <div class="mbit-img box-shadow b pos-rlt cursor" ng-click="openFiles(key,kaizen.kaizen_files,kaizen.video_links)">
                                     <video width="100%" height="100%" controls>
                                         <source ng-src="{{getVideoUrl(data.file)}}" type="video/{{data.file.substr(data.file.length - 3)}}">
                                     </video>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 m-b-sm p-l-none  m-p-n" ng-repeat="(key,data) in kaizen.video_links">
-                                <div class="mbit-img box-shadow b pos-rlt">
-                                    <anguvideo ng-model="data" width="100%" height="100%"></anguvideo>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none  m-p-n" ng-repeat="(key,data) in kaizen.video_links">
+                                <div class="mbit-img box-shadow b pos-rlt cursor"  ng-click="openFiles(key,kaizen.kaizen_files,kaizen.video_links)">
+                                    <anguvideo ng-model="data" width="100%" height="100%" hideControls></anguvideo>
                                 </div>
                             </div>
                         </div>
@@ -56,10 +62,26 @@
                             <div class="m-b-sm m-t-sm">
                                 <a class="h5 font-bold text-black">Images</a>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 m-b-sm p-l-none  m-p-n" ng-repeat="(key,data) in kaizen.kaizen_files" ng-if="data.filetype == 'image'">
-                                <div class="mbit-img box-shadow b pos-rlt">
-                                    <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{data.file}}"></div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none  m-p-n"  ng-repeat="(key,data) in mediafiles.images">
+                                <div class="mbit-img box-shadow b pos-rlt cursor cover-img"  ng-click="openFiles(key,mediafiles.images)">
+                                    <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{data.file}}">
+                                        <div class="overlay">
+                                        <a class="icon-overlay">
+                                          <i class="fa fa-eye"></i>
+                                        </a>
+                                    </div>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " ng-if="kaizen.kaizen_documents.length > 0">
+                            <div class="m-b-sm m-t-sm">
+                                <a class="h5 font-bold text-black">Kaizen Documents</a>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 m-b p-l-none m-p-n" ng-repeat="(key,data) in kaizen.kaizen_documents">
+                                <a class="btn btn-default r-2x padd-xs min-w-60" ng-href="{{IMGURL}}{{data.file}}" target="_blank">{{data.filename}}</a>
+                                <a class="btn btn-warning r-2x padd-xs" ng-href="{{IMGURL}}{{data.file}}" download="{{data.file.split('/').pop()}}" target="_blank"><i class="fa fa-download"></i></a>
                             </div>
                         </div>
                     </div>
@@ -245,6 +267,27 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
+                                        <div class="form-group">
+                                            <label class="font-bold">Upload Documents</label>
+                                            <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-max-files="6" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addkaizenDocuments($files);">
+                                                Upload Documents
+                                            </div>
+                                            <div ng-class="{'col-sm-12 p-l-none m-t':!isMobile}">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b p-l-none" ng-repeat="(key,data) in formData.kaizen_documents">
+                                                    <div class="input-group">
+                                                      <input type="text" class="form-control r-2x padd-xs" ng-model="data.filename">
+                                                      <span class="input-group-btn">
+                                                        <button class="btn btn-danger r-2x" type="button" ng-click="removeDocuments(key,data)"><i class="glyphicon glyphicon-trash"></i></button>
+                                                      </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -252,7 +295,7 @@
                     <div class="modal-footer text-center b-no">
                         <div class="col-xs-12 text-center ">
                             <button type="button" class="btn btn-primary no-border  m-auto bg-main2 w-xs" ng-click="closeModal()" ng-disabled="loading">Cancel</button>
-                            <button type="submit" class="btn btn-primary no-border  m-auto bg-main1 w-xs" button-spinner="loading" ng-disabled="loading">Add</button>
+                            <button type="submit" class="btn btn-primary no-border  m-auto bg-main1 w-xs" button-spinner="loading" ng-disabled="loading">Update</button>
 
                         </div>
                     </div>

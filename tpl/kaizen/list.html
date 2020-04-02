@@ -120,9 +120,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-p-n">
-                                        <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{formData.cover_image}}" ngf-background="formData.newcover" ng-if="formData.newcover"></div>
-                                        <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{formData.cover_image}}" ng-if="!formData.newcover"></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-p-n" ng-if="formData.newcover">
+                                        <div class="mbit-img box-shadow b" ngf-background="formData.newcover"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
@@ -172,6 +171,26 @@
                                                     <div class="mbit-img box-shadow b pos-rlt">
                                                         <anguvideo ng-model="data" width="100%" height="100%"></anguvideo>
                                                         <img class="item-img-delete cursor" src="img/delete.png" ng-click="removeVideoLink(key)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
+                                        <div class="form-group">
+                                            <label class="font-bold">Upload Documents</label>
+                                            <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-max-files="6" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addkaizenDocuments($files);">
+                                                Upload Documents
+                                            </div>
+                                            <div ng-class="{'col-sm-12 p-l-none m-t':!isMobile}">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b p-l-none" ng-repeat="(key,data) in formData.kaizen_documents">
+                                                    <div class="input-group">
+                                                      <input type="text" class="form-control r-2x padd-xs" ng-model="data.filename">
+                                                      <span class="input-group-btn">
+                                                        <button class="btn btn-danger r-2x" type="button" ng-click="removeDocuments(key,data)"><i class="glyphicon glyphicon-trash"></i></button>
+                                                      </span>
                                                     </div>
                                                 </div>
                                             </div>

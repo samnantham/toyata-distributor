@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParams', 'webServices', 'utility', '$rootScope', '$timeout', '$filter', '$ngConfirm', '$sce', function($scope, $http, $state, $stateParams, webServices, utility, $rootScope, $timeout, $filter, $ngConfirm, $sce) {
+app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParams', 'webServices', 'utility', '$rootScope', '$timeout', '$filter', '$ngConfirm', '$sce', 'Lightbox', function($scope, $http, $state, $stateParams, webServices, utility, $rootScope, $timeout, $filter, $ngConfirm, $sce, Lightbox) {
 
     $scope.event = {};
     $scope.now = new Date();
@@ -13,6 +13,7 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
             $rootScope.loading = false;
             if (getData.status == 200) {
                 $scope.event = getData.data;
+                $scope.mediafiles = $rootScope.splitFiles($scope.event.event_files); 
                 $scope.event.videocount = $rootScope.getfileCounts($scope.event.event_files,'video'); 
                 $scope.event.imagecount = $rootScope.getfileCounts($scope.event.event_files,'image'); 
                 $scope.getComments();
@@ -21,6 +22,21 @@ app.controller('EventInfoController', ['$scope', '$http', '$state', '$stateParam
             }
         });
     }
+
+    $scope.openLightboxModal = function(key) {
+        $scope.images = [];
+        angular.forEach( $scope.event.event_files, function(media, no) {
+            var obj = {};
+            obj.isVideo = 0;
+            if(media.filetype == video){
+                obj.isVideo = 1;
+            }
+            
+            obj.url = $rootScope.IMGURL + media.OriginalPath;
+            $scope.images.push(obj);
+        });
+        Lightbox.openModal($scope.images, key);
+    };
 
     $scope.removeComment = function(id){
         $ngConfirm({

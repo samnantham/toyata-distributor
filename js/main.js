@@ -3,12 +3,12 @@
 /* Controllers */
 
 angular.module('app')
-    .controller('AppCtrl', ['$scope', '$window', '$timeout', '$rootScope', 'authServices', '$sessionStorage', '$state', 'toaster', 'webServices', 'webNotification', '$location', '$modal', 'isMobile', '$sce',
-        function($scope, $window, $timeout, $rootScope, authServices, $sessionStorage, $state, toaster, webServices, webNotification, $location, $modal, isMobile, $sce, $modalInstance) {
+    .controller('AppCtrl', ['$scope', '$window', '$timeout', '$rootScope', 'authServices', '$sessionStorage', '$state', 'toaster', 'webServices', 'webNotification', '$location', 'isMobile', '$sce', 'Lightbox',
+        function($scope, $window, $timeout, $rootScope, authServices, $sessionStorage, $state, toaster, webServices, webNotification, $location, isMobile, $sce, Lightbox) {
 
             // config
             $scope.app = {
-                name: 'Fast Deal',
+                name: 'Toyota Distributor',
                 version: '1.0',
                 // for chart colors
                 color: {
@@ -38,14 +38,14 @@ angular.module('app')
                 formatYear: 'yyyy',
                 startingDay: 0,
                 class: 'datepicker',
-                showWeeks:false,
-                minMode :'day'
+                showWeeks: false,
+                minMode: 'day'
             };
 
-            $rootScope.validvideo = function(url){
+            $rootScope.validvideo = function(url) {
                 var status = false;
                 if (url.includes('youtu')) {
-                    status = true;   
+                    status = true;
                 } else if (url.includes('vimeo')) {
                     status = true;
                 }
@@ -62,8 +62,34 @@ angular.module('app')
 
                 return !!pattern.test(url);
             }
-            
 
+            $rootScope.showCover = function(file){
+                $rootScope.images = [];
+                var obj = {};
+                obj.isVideo = 0;
+                obj.url = $rootScope.IMGURL + file;
+                $rootScope.images.push(obj);
+                $rootScope.openLightbox($rootScope.images,0);
+            }
+
+            $rootScope.openFiles = function(key,files) {
+                $rootScope.images = [];
+                
+                angular.forEach( files, function(file, no) {
+                    var obj = {};
+                    obj.type = file.filetype;
+                    obj.url = $rootScope.IMGURL + file.file;
+                    if(file.filetype == 'image'){
+                        $rootScope.images.push(obj);
+                    }
+                });
+
+                $rootScope.openLightbox($rootScope.images,key);
+            };
+
+            $rootScope.openLightbox = function(files,key){
+                Lightbox.openModal(files, key);
+            }
 
             $rootScope.height_to_reduce = 100;
             $rootScope.loadingMsg = 'Loading please Wait....';
@@ -82,24 +108,24 @@ angular.module('app')
             $rootScope.kaizentypes = angular.copy(app.kaizentypes);
             $rootScope.tbp_upload_types = angular.copy(app.tbp_upload_types);
 
-            $rootScope.dummyarray = [1,2,3,4,5,6,7,8,9,10];
+            $rootScope.dummyarray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
             $rootScope.scrollconfig = {
-            autoHideScrollbar: true,
-            theme: 'dark',
-            advanced:{
-                updateOnContentResize: true
-            },
+                autoHideScrollbar: true,
+                theme: 'dark',
+                advanced: {
+                    updateOnContentResize: true
+                },
                 setHeight: 500,
                 scrollInertia: 400
             }
 
             $rootScope.screenHeight = window.innerHeight;
 
-         $rootScope.getMonthFromString =function(mon){
-           return new Date(Date.parse(mon +" 1, 2012")).getMonth()+1
-        }
-            
+            $rootScope.getMonthFromString = function(mon) {
+                return new Date(Date.parse(mon + " 1, 2012")).getMonth() + 1
+            }
+
             $rootScope.fixHelper = function(e, ui) {
                 ui.children().each(function() {
                     $(this).width($(this).width());
@@ -107,7 +133,23 @@ angular.module('app')
                 return ui;
             };
 
-            $rootScope.getfileCounts = function(files,type){
+            $rootScope.getfileCounts = function(files, type) {
+                return files.filter((obj) => obj.filetype === type).length;
+            }
+
+            $rootScope.splitFiles = function(files) {
+                var splittedfiles = {};
+                splittedfiles.images = [];
+                splittedfiles.videos = [];
+                angular.forEach(files, function(file, no) {
+                    if(file.filetype == 'image'){
+                        splittedfiles.images.push(file);
+                    }else if(file.filetype == 'video'){
+                        splittedfiles.videos.push(file);
+                    }
+                });
+
+                return splittedfiles;
                 return files.filter((obj) => obj.filetype === type).length;
             }
 
@@ -159,7 +201,7 @@ angular.module('app')
                 }, 'slow', function() {});
             }
 
-            $rootScope.setSlides = function(){
+            $rootScope.setSlides = function() {
                 if (!isMobile.phone) {
                     if (($rootScope.screenWidth >= 960) && ($rootScope.screenWidth < 1368)) {
                         $rootScope.scrollslides = 3;
@@ -197,7 +239,7 @@ angular.module('app')
                             $state.go('app.home');
                         }, 500);
                     }
-                }else{
+                } else {
                     $rootScope.getUserInfo();
                     if (!authServices.isLoggedIn()) {
                         $timeout(function() {
@@ -205,27 +247,39 @@ angular.module('app')
                         }, 500);
                     }
                 }
-                
+
             });
 
-            $rootScope.$on("showErrors", function(event, errors)  {
+            $rootScope.$on("showErrors", function(event, errors) {
                 angular.forEach(errors, function(data, no) {
-                    $scope.toaster = {type: 'error',title: 'Oops',text: data};
+                    $scope.toaster = {
+                        type: 'error',
+                        title: 'Oops',
+                        text: data
+                    };
                     $scope.pop();
                 });
             });
 
-            $rootScope.$on("showSuccessMsg", function(event, msg)  {
-                $scope.toaster = {type: 'success',title: 'Success',text: msg};
+            $rootScope.$on("showSuccessMsg", function(event, msg) {
+                $scope.toaster = {
+                    type: 'success',
+                    title: 'Success',
+                    text: msg
+                };
                 $scope.pop();
             });
 
-            $rootScope.$on("showErrorMsg", function(event, msg)  {
-                $scope.toaster = {type: 'error',title: 'Oops',text: msg};
+            $rootScope.$on("showErrorMsg", function(event, msg) {
+                $scope.toaster = {
+                    type: 'error',
+                    title: 'Oops',
+                    text: msg
+                };
                 $scope.pop();
             });
 
-            $rootScope.setUserInfo = function(){
+            $rootScope.setUserInfo = function() {
                 if (authServices.isLoggedIn()) {
                     $rootScope.getUserInfo();
                 } else {
@@ -233,19 +287,19 @@ angular.module('app')
                 }
             }
 
-            $rootScope.$on("setSliderConfig", function(event)  {
+            $rootScope.$on("setSliderConfig", function(event) {
 
                 $rootScope.slickConfig = {
-                        enabled: true,
-                        autoplay: false,
-                        draggable: true,
-                        slidesToShow: $rootScope.slidecount,
-                        slidesToScroll: $rootScope.scrollslides,
-                        arrows: true,
-                        prevArrow: "<img class='slick-prev slick-arrow' src='img/sliderL.png'>",
-                        nextArrow: "<img class='slick-next slick-arrow' src='img/sliderR.png'>",
-                        method: {},
-                        infinite: false    
+                    enabled: true,
+                    autoplay: false,
+                    draggable: true,
+                    slidesToShow: $rootScope.slidecount,
+                    slidesToScroll: $rootScope.scrollslides,
+                    arrows: true,
+                    prevArrow: "<img class='slick-prev slick-arrow' src='img/sliderL.png'>",
+                    nextArrow: "<img class='slick-next slick-arrow' src='img/sliderR.png'>",
+                    method: {},
+                    infinite: false
                 };
 
                 console.log($rootScope.slickConfig)
@@ -267,15 +321,18 @@ angular.module('app')
                 });
             }
 
-            $rootScope.$on("showISError", function(event, errors)  {
-                $scope.toaster = {type: 'error',title: 'Oops',text: 'Some internal server error.. Please check...'};
+            $rootScope.$on("showISError", function(event, errors) {
+                $scope.toaster = {
+                    type: 'error',
+                    title: 'Oops',
+                    text: 'Some internal server error.. Please check...'
+                };
                 $scope.pop();
             });
 
-            $rootScope.checkPermission= function()
-            {
-                if($rootScope.user.role == 2){
-                    if(!$rootScope.subuserviews.includes($rootScope.stateurl)){
+            $rootScope.checkPermission = function() {
+                if ($rootScope.user.role == 2) {
+                    if (!$rootScope.subuserviews.includes($rootScope.stateurl)) {
                         $state.go('app.404');
                     }
                 }

@@ -247,6 +247,12 @@ body {
 }
  .min-w-60 {
      min-width: 60%;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     width: 60%;
+     /*direction: rtl;*/
+     text-align: left;
 }
  .ev-des {
      min-height: 80px;
@@ -408,6 +414,9 @@ body {
      max-height: auto;
      min-width: 100%;
      border: 1.5px solid #b2b3b678;
+}
+ .mbit-img video{
+     object-fit: cover;
 }
  .mbite-img {
      height: 168px;
@@ -1076,7 +1085,7 @@ body {
     /*.app-aside-folded .navbar-collapse {
          margin-left: 260px !important;
     }
-    */
+     */
      .app-aside-fixed .aside-wrap .navi-wrap{
          width: 280px;
     }
@@ -1228,4 +1237,51 @@ body {
  .calendar-page .fc td {
      height:calc(100vh - 690px) !important;
 }
- 
+.overlay {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+  background: #0f0e0ed4;
+  border: 1.5px solid #220c0cd4;
+  border-radius: 6px;
+}
+
+/* The icon inside the overlay is positioned in the middle vertically and horizontally */
+.icon-overlay {
+  color: #000;
+  font-size: 3em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.icon-overlay i{
+     color:#fff;
+}
+
+.cover-img:hover .overlay {
+  opacity: 0.8;
+}
+
+.cover-img{
+     position: relative;
+}.anguvideo{
+     position: relative;
+     padding-bottom: 56.25%;
+     height: 0;
+}
+.anguvideo iframe,.anguvideo embed,.anguvideo object{
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+}
