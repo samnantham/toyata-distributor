@@ -10,7 +10,6 @@ angular.module('app', [
     'ngSanitize',
     'ngTouch',
     'ngStorage',
-    'ngMaterial',
     'ui.router',
     'ui.bootstrap',
     'ui.utils',

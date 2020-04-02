@@ -64,10 +64,8 @@
                             </div>
                             <div class="bg-white wrapperr col-md-12 col-lg-12 col-sm-12 col-xs-12 b b-2x">
                                 <div class="col-md-12 col-lg-12 col-sm-12 padder-v bg-white b-light b b-2x r-3x tbp-container m-t-sm m-b-sm">
-                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-b b-dark p-r-none p-l-none sm-padder-v font-bold"> Invitation </div>
-                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-b b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,invitation) in data.invitations | limitTo:3"> {{invitation.name}} <a class="btn btn-default btn-xs bdrc-bg2 pull-right b-no" ng-href="{{IMGURL}}{{invitation.file}}" download="{{invitation.file.split('/').pop()}}" target="_blank">Download</a>
-                                    </div>
-                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 p-r-none p-l-none sm-padder-v" ng-repeat="(no,invitation) in dummyarray | limitTo:( 3 - data.invitations.length)" ng-if="data.invitations.length < 3"> <span class="text-white">dummy</span>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-dark b-b p-r-none p-l-none sm-padder-v font-bold"> Invitation </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,invitation) in data.invitations track by $index | limitTo:3" ng-class="{'b-b': ($index < 3 && !$last)}"> <a ng-href="{{IMGURL}}{{invitation.file}}" target="_blank">{{invitation.name}}</a>  <a class="btn btn-default btn-xs bdrc-bg2 pull-right b-no" ng-href="{{IMGURL}}{{invitation.file}}" download="{{invitation.file.split('/').pop()}}" target="_blank">Download</a>
                                     </div>
                                 </div>
                             </div>

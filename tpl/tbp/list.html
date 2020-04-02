@@ -36,7 +36,7 @@
                             <div class="bg-white sm-padder-v sm-padder col-md-12 col-lg-12 col-sm-12  col-xs-12 b b-2x r-3x">
                                 <div class="col-md-12 col-lg-12 col-sm-12 padder-v bg-white b-light b b-2x r-3x tbp-container">
                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-b b-dark p-r-none p-l-none sm-padder-v font-bold"> Invitation </div>
-                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-b b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,invitation) in data.invitations | limitTo:3"> {{invitation.name}} <a class="btn btn-default btn-xs bdrc-bg2 pull-right b-no" ng-href="{{IMGURL}}{{invitation.file}}" download="{{invitation.file.split('/').pop()}}" target="_blank">Download</a> 
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,invitation) in data.invitations track by $index | limitTo:3" ng-class="{'b-b': ($index < 3 && !$last)}"><a ng-href="{{IMGURL}}{{invitation.file}}" target="_blank">{{invitation.name}}</a> <a class="btn btn-default btn-xs bdrc-bg2 pull-right b-no" ng-href="{{IMGURL}}{{invitation.file}}" download="{{invitation.file.split('/').pop()}}" target="_blank">Download</a> 
                                     </div>
                                 </div>
                             </div>
