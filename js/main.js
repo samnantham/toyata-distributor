@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('app')
-    .controller('AppCtrl', ['$scope', '$window', '$timeout', '$rootScope', 'authServices', '$sessionStorage', '$state', 'toaster', 'webServices', 'webNotification', '$location', 'isMobile', '$sce', 'Lightbox',
-        function($scope, $window, $timeout, $rootScope, authServices, $sessionStorage, $state, toaster, webServices, webNotification, $location, isMobile, $sce, Lightbox) {
+    .controller('AppCtrl', ['$scope', '$window', '$timeout', '$rootScope', 'authServices', '$sessionStorage', '$state', 'toaster', 'webServices', '$location', 'isMobile', '$sce', 'Lightbox',
+        function($scope, $window, $timeout, $rootScope, authServices, $sessionStorage, $state, toaster, webServices, $location, isMobile, $sce, Lightbox) {
 
             // config
             $scope.app = {

@@ -9,7 +9,7 @@
                 <div class="bg-white padder-v padder r-b-6x">
                     <slick ng-if="!loading" init-onload="false" data="homeData.whatsnew" settings="slickConfig">
                         <div class="col-md-3 col-lg-2 col-sm-3 col-xs-6" ng-repeat="(key,data) in homeData.whatsnew">
-                            <div class="col-xs-12 bg-main1 text-center">{{data.type == 1 ? 'MEBIT Blog' : data.type == 2  ? 'MEBIT Event'  : data.type == 3 ? 'MEBIT Kaizen' : data.type}}</div>
+                            <div class="col-xs-12 text-center" ng-class="{'bg-main1':data.whatsnew_type == 2, 'bg-main2':data.whatsnew_type == 1, 'bg-dark': data.whatsnew_type == 3 }">{{data.whatsnew_type == 1 ? 'MEBIT Blog' : data.whatsnew_type == 2  ? 'MEBIT Event'  : data.whatsnew_type == 3 ? 'Kaizen, ' + data.typeData.type : data.whatsnew_type}}</div>
                             <div class="col-xs-12 m-b sm-padder padder-v bg-white b bdrc-bg-2">
                                 <div class="col-xs-12 sm-padder" ng-click="viewItem(data)">
                                     <div class="dis-img box-shadow b r-3x" background-image="{{IMGURL}}{{data.cover_image}}"></div>
@@ -19,16 +19,16 @@
                                         <a class="h5 font-bold">{{data.title  | cut:true:20:''}}</a>
                                     </div>
                                     <div class="m-t-xs">
-                                        <div class="mbit-dt text-left inline" ng-if="data.type == 1 || data.type == 3">{{convertDate(data.created_at) | date:'dd MMM yyyy HH:mm'}}</div>
-                                        <div class="mbit-dt text-left inline" ng-if="data.type == 2">{{convertDate(data.start_date) | date:'dd MMM yyyy'}}</div>
-                                        <div class="mbit-dt pull-right text-ellipsis inline m-t-xs c-bg-2" ng-if="data.type == 2">{{data.location}}</div>
+                                        <div class="mbit-dt text-left inline" ng-if="data.whatsnew_type == 1 || data.whatsnew_type == 3">{{convertDate(data.created_at) | date:'dd MMM yyyy HH:mm'}}</div>
+                                        <div class="mbit-dt text-left inline" ng-if="data.whatsnew_type == 2">{{convertDate(data.start_date) | date:'dd MMM yyyy'}}</div>
+                                        <div class="mbit-dt pull-right text-ellipsis inline m-t-xs c-bg-2" ng-if="data.whatsnew_type == 2">{{data.location}}</div>
                                         <div class="clear"></div>
                                     </div>
                                     <small class="block mebit-desc m-t-xs text-justify"> {{data.description | cut:true:230:'....'}}</small>
                                     <div class="m-b m-t">
-                                        <button class="btn btn-default btn-xs btn-danger r-2x read_more pull-left text-u-c cursor" ui-sref="app.viewevent({'id':data.id})" ng-if="data.type == 2">Know More</button>
-                                        <a class="btn btn-default btn-xs btn-danger r-2x read_more pull-left text-u-c cursor" ng-href="{{data.doc_link}}" target="_blank" ng-if="data.type == 1">View Document</a>
-                                         <button class="btn btn-default btn-xs btn-danger r-2x read_more pull-left text-u-c cursor" ui-sref="app.viewkaizen({'id':data.id})" ng-if="data.type == 3">Know More</button>
+                                        <button class="btn btn-default btn-xs btn-danger r-2x read_more pull-left text-u-c cursor" ui-sref="app.viewevent({'id':data.id})" ng-if="data.whatsnew_type == 2">Know More</button>
+                                        <a class="btn btn-default btn-xs btn-danger r-2x read_more pull-left text-u-c cursor" ng-href="{{data.doc_link}}" target="_blank" ng-if="data.whatsnew_type == 1">View Document</a>
+                                         <button class="btn btn-default btn-xs btn-danger r-2x read_more pull-left text-u-c cursor" ui-sref="app.viewkaizen({'id':data.id})" ng-if="data.whatsnew_type == 3">Know More</button>
                                     </div>
                                 </div>
                             </div>

@@ -11,6 +11,8 @@ app.controller('KaizenInfoController', ['$scope', '$http', '$state', '$statePara
         webServices.get('kaizen/' + $stateParams.id).then(function(getData) {
             if (getData.status == 200) {
                 $scope.kaizen = getData.data;
+                console.log($rootScope.user)
+                console.log($scope.kaizen)
                 $scope.mediafiles = $rootScope.splitFiles($scope.kaizen.kaizen_files); 
                 $scope.kaizen.videocount = $rootScope.getfileCounts($scope.kaizen.kaizen_files,'video'); 
                 $scope.kaizen.imagecount = $rootScope.getfileCounts($scope.kaizen.kaizen_files,'image'); 
@@ -160,6 +162,25 @@ app.controller('KaizenInfoController', ['$scope', '$http', '$state', '$statePara
             $scope.formData.deleted_kaizen_files.push(data);
         }
         $scope.formData.kaizen_files.splice(key,1);
+    }
+
+    $scope.removeDocumentLink = function(key){
+        $scope.formData.document_links.splice(key,1);
+    }
+
+    $scope.uploaddocumentlink = function() {
+        if ($rootScope.validURL($scope.documentData.link)) {
+            if(!$scope.formData.document_links.includes($scope.documentData.link)){
+                $scope.formData.document_links.push($scope.documentData.link);
+                $scope.documentData = {};
+            }else{
+                $rootScope.$emit("showErrorMsg", 'Video already added');
+                $scope.documentData.link = '';
+            }
+        }else{
+            $rootScope.$emit("showErrorMsg", 'Please enter a valid document link.');
+            $scope.documentData.link = '';
+        }  
     }
 
     $scope.openaddModal = function() {

@@ -55,6 +55,16 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
                     angular.forEach($scope.calendarevents, function(data, no) {
                         data.start = new Date(data.start);
                     });
+                    angular.forEach($scope.homeData.whatsnew, function(data, no) {
+                        if(data.whatsnew_type == 3){
+                            data.typeData =  $rootScope.kaizentypes.filter(function(kaizen){
+                              return kaizen.id == data.type;
+                            })[0];
+                        }
+                    });
+
+                    console.log($scope.homeData.whatsnew)
+
                     $scope.eventSources = [$scope.calendarevents];
                 } else {
                     $rootScope.$emit("showerror", getData);

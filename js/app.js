@@ -24,7 +24,6 @@ angular.module('app', [
     'angularUtils.directives.dirPagination',
     'cp.ngConfirm',
     'angular-button-spinner',
-    'angular-web-notification',
     'ismobile',
     'ui.calendar',
     'slickCarousel',

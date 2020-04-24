@@ -35,7 +35,7 @@ var app =
                 }];
                 app.kaizentypes = [{
                     id: 1,
-                    type: 'Kaizen Report'
+                    type: 'Report'
                 }, {
                     id: 2,
                     type: 'Branch SGA'
@@ -45,11 +45,14 @@ var app =
                 },{
                     id: 4,
                     type: 'Others'
+                },{
+                    id: 5,
+                    type: 'News Room'
                 }];
 
                 app.tbp_upload_types = [{
                     id: 1,
-                    type: 'Step 1filter',
+                    type: 'Step 1',
                     typename:'type1'
                 }, {
                     id: 2,

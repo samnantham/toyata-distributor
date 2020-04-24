@@ -361,6 +361,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     $scope.updateroom = function() {
         webServices.put('chat/room/'+ $scope.RoomData.chatroom_id + '/' + $scope.RoomData.chat_type).then(function(getData) {
             if (getData.status == 200) {
+                console.log(getData)
             } else {
 
             }
@@ -369,7 +370,7 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
 
      $rootScope.$watch('chatData', function (newVal, oldVal) {  
         $timeout(function() {
-            var height = (document.getElementById("mCSB_5")).scrollHeight;
+            var height = (document.querySelector(".messenger .mCustomScrollBox")).scrollHeight;
             $scope.updateScrollbar('scrollTo', height);
         },200);
         $timeout(function() {

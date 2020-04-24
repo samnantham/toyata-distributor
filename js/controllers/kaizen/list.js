@@ -47,6 +47,25 @@ app.controller('KaizenController', ['$scope', '$http', '$state', 'authServices',
         }  
     }
 
+    $scope.removeDocumentLink = function(key){
+        $scope.formData.document_links.splice(key,1);
+    }
+
+    $scope.uploaddocumentlink = function() {
+        if ($rootScope.validURL($scope.documentData.link)) {
+            if(!$scope.formData.document_links.includes($scope.documentData.link)){
+                $scope.formData.document_links.push($scope.documentData.link);
+                $scope.documentData = {};
+            }else{
+                $rootScope.$emit("showErrorMsg", 'Video already added');
+                $scope.documentData.link = '';
+            }
+        }else{
+            $rootScope.$emit("showErrorMsg", 'Please enter a valid document link.');
+            $scope.documentData.link = '';
+        }  
+    }
+
     $scope.setservererrorMsg = function(errors){
         $scope.errorData = {};
         angular.forEach(errors, function(error, no) {
@@ -213,6 +232,7 @@ app.controller('KaizenController', ['$scope', '$http', '$state', 'authServices',
         $scope.formData.kaizen_files = [];
         $scope.formData.video_links = [];
         $scope.formData.kaizen_documents = [];
+        $scope.formData.document_links = [];
         $('#PopupModal').modal({
             backdrop: 'static',
             keyboard: false

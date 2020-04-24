@@ -51,9 +51,9 @@
                                     </video>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 m-b-sm p-l-none" ng-repeat="(key,data) in tbp.video_links">
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 m-b-sm p-l-none" ng-repeat="(key,data) in tbp.video_links" tooltip="{{data.info}}" tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-class="preview-tooltip">
                                 <div class="mbit-img box-shadow b pos-rlt">
-                                    <anguvideo ng-model="data" width="100%" height="100%"></anguvideo>
+                                    <anguvideo ng-model="data.info" width="100%" height="100%"></anguvideo>
                                 </div>
                             </div>
                         </div>
