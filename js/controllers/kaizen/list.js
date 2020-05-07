@@ -32,14 +32,18 @@ app.controller('KaizenController', ['$scope', '$http', '$state', 'authServices',
         $scope.formData.video_links.splice(key,1);
     }
 
-    $scope.uploadvideo = function() {
+     $scope.uploadvideo = function() {
         if (($rootScope.validURL($scope.videoData.link))&&($rootScope.validvideo($scope.videoData.link))) {
-            if(!$scope.formData.video_links.includes($scope.videoData.link)){
-                $scope.formData.video_links.push($scope.videoData.link);
-                $scope.videoData = {};
-            }else{
+
+            if($scope.formData.video_links.some(videolink => videolink.link === $scope.videoData.link)){
                 $rootScope.$emit("showErrorMsg", 'Video already added');
-                $scope.videoData.link = '';
+            } else{
+                var newobj = {};
+                newobj.link = $scope.videoData.link;
+                newobj.title = 'video link' + ($scope.formData.video_links.length + 1);
+                newobj.info = '';
+                $scope.formData.video_links.push(newobj);
+                $scope.videoData = {};
             }
         }else{
             $rootScope.$emit("showErrorMsg", 'Please upload valid video url.');
@@ -53,19 +57,23 @@ app.controller('KaizenController', ['$scope', '$http', '$state', 'authServices',
 
     $scope.uploaddocumentlink = function() {
         if ($rootScope.validURL($scope.documentData.link)) {
-            if(!$scope.formData.document_links.includes($scope.documentData.link)){
-                $scope.formData.document_links.push($scope.documentData.link);
+
+            if($scope.formData.document_links.some(documentlink => documentlink.link === $scope.documentData.link)){
+                $rootScope.$emit("showErrorMsg", 'Document already added');
+            } else{
+                var newobj = {};
+                newobj.link = $scope.documentData.link;
+                newobj.name = 'External link' + ($scope.formData.document_links.length + 1);
+                newobj.info = '';
+                $scope.formData.document_links.push(newobj);
                 $scope.documentData = {};
-            }else{
-                $rootScope.$emit("showErrorMsg", 'Video already added');
-                $scope.documentData.link = '';
             }
         }else{
             $rootScope.$emit("showErrorMsg", 'Please enter a valid document link.');
             $scope.documentData.link = '';
         }  
     }
-
+    
     $scope.setservererrorMsg = function(errors){
         $scope.errorData = {};
         angular.forEach(errors, function(error, no) {
@@ -165,7 +173,8 @@ app.controller('KaizenController', ['$scope', '$http', '$state', 'authServices',
                             if (files[i].size <= $rootScope.maxUploadsize) {
                                 var newobj = {};
                                 newobj.file = files[i];
-                                newobj.filename = files[i].name.split(".")[0];
+                                newobj.name = files[i].name.split(".")[0];
+                                newobj.info = '';
                                 newobj.filetype = files[i].type.split("/")[0];
                                 newobj.isfile = 1;
                                 $scope.formData.kaizen_documents.push(newobj);

@@ -57,12 +57,12 @@
                 </div>
                 <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 bg-white  dash-2-div r-b-6x m-p-n" ng-scrollbars ng-scrollbars-config="scrollconfig">
                     <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 bg-white r-3x" ng-class="{'m-b-md': $last }" ng-repeat="(key,data) in homeData.tbps track by $index">
-                        <div class="panel panel-default r-3x m-t-md">
+                        <div class="panel panel-default r-3x m-t-md  b-no">
                             <div class="panel-heading r-3x r-b-none bg-main1 tex-center">
-                                {{data.title}}
+                                {{data.title | cut:true:30:''}}
                                 <button class="btn btn-default btn-xs bg-main2 pull-right b-no" ui-sref="app.viewtbp({'id':data.id})">View More</button>
                             </div>
-                            <div class="bg-white wrapperr col-md-12 col-lg-12 col-sm-12 col-xs-12 b b-2x">
+                            <div class="bg-white wrapperr col-md-12 col-lg-12 col-sm-12 col-xs-12 b b-2x  tbp-b-t">
                                 <div class="col-md-12 col-lg-12 col-sm-12 padder-v bg-white b-light b b-2x r-3x tbp-container m-t-sm m-b-sm">
                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-dark b-b p-r-none p-l-none sm-padder-v font-bold"> Invitation </div>
                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,invitation) in data.invitations track by $index | limitTo:3" ng-class="{'b-b': ($index < 3 && !$last)}"> <a ng-href="{{IMGURL}}{{invitation.file}}" target="_blank">{{invitation.name}}</a>  <a class="btn btn-default btn-xs bdrc-bg2 pull-right b-no" ng-href="{{IMGURL}}{{invitation.file}}" download="{{invitation.file.split('/').pop()}}" target="_blank">Download</a>
@@ -94,7 +94,7 @@
                             </div>
                             <div class="col-xs-12 col-lg-8 col-md-8 col-sm-8 sm-padder">
                                 <div class="col-xs-12 no-padder text-right text-muted text-too-small m-b" ng-class="{'m-t-xs' : isMobile}">{{convertDate(data.created_at) | date:'dd MMM yyyy HH:mm:ss'}}</div>
-                                <a href="" class="h6 font-bold m-t">{{data.title}}</a>
+                                <a href="" class="h6 font-bold m-t">{{data.title | cut:true:30:''}}</a>
                                 <small class="block dist-desc m-t-xs text-justify">{{data.description | cut:true:180:'....'}}</small>
                                 <div class="m-b m-t-xs">
                                     <button class="btn btn-default btn-xs w-xs btn-danger r-2x read_more pull-left text-u-c" ui-sref="app.viewkaizen({'id':data.id})">Know More</button>

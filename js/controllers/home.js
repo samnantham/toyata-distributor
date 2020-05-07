@@ -62,9 +62,6 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
                             })[0];
                         }
                     });
-
-                    console.log($scope.homeData.whatsnew)
-
                     $scope.eventSources = [$scope.calendarevents];
                 } else {
                     $rootScope.$emit("showerror", getData);

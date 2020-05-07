@@ -301,8 +301,6 @@ angular.module('app')
                     method: {},
                     infinite: false
                 };
-
-                console.log($rootScope.slickConfig)
             });
 
             $rootScope.getUserInfo = function() {

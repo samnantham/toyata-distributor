@@ -21,7 +21,6 @@ app.controller('ResetPWDController', ['$scope', '$http', '$state', '$timeout', '
                         $state.go('access.signin');
                     }, 1000);
                 } else {
-                    console.log(getData)
                     $rootScope.$emit("showErrorMsg", getData.data.message);
                 }
             });

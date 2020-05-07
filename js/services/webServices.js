@@ -6,25 +6,16 @@
 
     function webServices($q, $http, $sessionStorage, $rootScope, authServices, Upload) {
 
-        var API_URL = app.apiurl;
+        var URL = app.apiurl;
         var obj = {};
-
-        console.log(authServices.getToken())
 
         return {
             get: function(q) {
                 var deferred = $q.defer();
-                var splitUrl = API_URL + q;
-                if (splitUrl.indexOf('?page') > 0) {
-                    var URL = API_URL + q;
-                } else {
-                    var URL = API_URL + q;
-                }
-
-                var start = new Date().getTime();
+                
                 $http({
                     method: 'GET',
-                    url: URL,
+                    url: URL + q,
                     cache: false,
                     headers: {
                         'Authorization': "Bearer " + authServices.getToken(),
@@ -41,18 +32,10 @@
             
             post: function(q, object) {
                 var deferred = $q.defer();
-                var splitUrl = API_URL + q;
-                var check = splitUrl.indexOf('login');
-
-                if (check > 0) {
-                    URL = splitUrl;
-                } else {
-                    URL = splitUrl;
-                }
-
+                
                 $http({
                     method: 'POST',
-                    url: URL,
+                    url: URL + q,
                     data: object,
                     headers: {
                         'Authorization': "Bearer " + authServices.getToken(),
@@ -68,11 +51,10 @@
 
             download: function(q) {
                 var deferred = $q.defer();
-                var URL = API_URL + q;
-
+                
                 $http({
                     method: 'GET',
-                    url: URL,
+                    url: URL + q,
                     cache: false,
                     headers: {
                         'Authorization': "Bearer " + authServices.getToken(),
@@ -90,12 +72,10 @@
 
             put: function(q, object) {
                 var deferred = $q.defer();
-                var splitUrl = API_URL + q;
-                URL = splitUrl;
-
+                
                 $http({
                     method: 'PUT',
-                    url: URL,
+                    url: URL + q,
                     data: object,
                     headers: {
                         'Authorization': "Bearer " + authServices.getToken(),
@@ -111,11 +91,10 @@
             
             normalpost: function(q, object) {
                 var deferred = $q.defer();
-                var URL = API_URL + q;
-
+                
                 $http({
                     method: 'POST',
-                    url: URL,
+                    url: URL + q,
                     data: object,
                     headers: {
                         'Content-Type': 'application/json'
@@ -130,9 +109,9 @@
 
             delete: function(q, object) {
                 var deferred = $q.defer();
-                $http({
+                                $http({
                     method: 'delete',
-                    url: API_URL + q,
+                    url: URL + q,
                     data: object,
                     headers: {
                         'Authorization': "Bearer " + authServices.getToken(),
@@ -149,11 +128,9 @@
             upload: function(q, data) {
 
                 var deferred = $q.defer();
-                var URL = API_URL + q;
-                var start = new Date().getTime();
-
+                
                 Upload.upload({
-                    url: URL,
+                    url: URL + q,
                     headers: {
                         'Authorization': "Bearer " + authServices.getToken(),
                         'Content-Type': 'application/json'
@@ -174,11 +151,9 @@
             putupload: function(q, data) {
 
                 var deferred = $q.defer();
-                var URL = API_URL + q;
-                var start = new Date().getTime();
-                data._method = 'PUT';
+                                data._method = 'PUT';
                 Upload.upload({
-                    url: URL,
+                    url: URL + q,
                     headers: {
                         'Authorization': "Bearer " + authServices.getToken(),
                         'Content-Type': 'application/json'

@@ -25,7 +25,10 @@
                                 </div>
                                 <div class="line b-b line-lg m-t-none m-b-none b-2x"></div>
                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,type) in tbp_uploads track by $index" ng-class="{'b-b': !$last }"> <span ng-if="!type.fileurl"> {{type.type}} </span> <a ng-if="type.fileurl" ng-href="{{IMGURL}}{{type.fileurl}}" target="_blank">{{type.type}}</a>
-                                    <a class="btn btn-default bdrc-bg2 padd-xs pull-right b-no" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadReport(type.id,$files);">Upload</i></a>
+                                    <span class="text-xs m-l-sm text-warning"> {{$even && !type.is_approved && type.admin_upload ? 'Admin revised' : '' }}</span>
+                                    <span class="text-xs m-l-sm text-danger"> {{$even && !type.is_approved && !type.admin_upload && type.fileurl  ? 'Waiting for approval' : '' }}</span>
+                                    <span class="text-xs m-l-sm text-success"> {{ $even && type.is_approved ? 'Admin approved' : '' }}</span>
+                                    <button class="btn btn-default bdrc-bg2 padd-xs pull-right b-no {{type.item_class}}" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadReport(type.typename,$files);">Upload </i></button>
 
                                     <a class="btn btn-warning r-2x padd-xs pull-right b-no m-r-xxl" ng-if="type.fileurl" ng-href="{{IMGURL}}{{type.fileurl}}" download="{{type.fileurl.split('/').pop()}}" target="_blank"><i class="fa fa-download"></i></a>
                                     

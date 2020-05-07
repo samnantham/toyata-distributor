@@ -198,7 +198,6 @@ app.controller('EventsController', ['$scope', '$http', '$state', 'authServices',
         $rootScope.loading = true;
         webServices.post($scope.url + '?page=' + $scope.pageno,$scope.filterData).then(function(getData) {
             $rootScope.loading = false;
-                console.log(getData)
             if (getData.status == 200) {
                 $scope.pagination = {
                     current: $scope.pageno

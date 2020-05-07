@@ -34,7 +34,7 @@
                                     <a class="h5 font-bold text-black">Kaizen Study</a>
                                 </div>
                                 <div class="m-b-sm">
-                                    <p>{{kaizen.description}}</p>
+                                    <p class="pre-wrap">{{kaizen.description}}</p>
                                 </div>
                             </div>
                         </div>
@@ -182,152 +182,185 @@
     </div>
 
     <div class="modal fade" id="PopupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" data-modalFade="true">
-        <div class="modal-dialog" role="document" style="width: 70%;">
-            <div class="modal-content m-p-l m-p-r" ng-class="{'wrapper-xl' : !isMobile}">
-                <form class="form-horizontal" name="addForm" novalidate ng-submit="addData(addForm);">
-                    <div class="modal-header b-no text-center">
-                        <button type="button" class="close" ng-click="closeModal();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Edit Batch</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 wrapper">
-                                <div class="form-group">
-                                    <label class="font-bold">Title</label>
-                                    <small class="pull-right text-danger" ng-if="errorData.title_error">{{errorData.title_errorMsg}}</small>
-                                    <input type="text" name="title" class="form-control r-2x" ng-model="formData.title" placeholder="Name of Kaizen" required ng-change="inputchange()">
-                                </div>
-                                <div class="form-group">
-                                    <label class="font-bold">Type</label>
-                                    <select name="type" class="form-control r-2x" ng-model="formData.type">
-                                        <option value="{{kaizen.id}}" ng-repeat="(num,kaizen) in kaizentypes"> {{kaizen.type}}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="font-bold">Kaizen Study </label>
-                                    <small class="pull-right text-danger" ng-if="errorData.description_error">{{errorData.description_errorMsg}}</small>
-                                    <textarea name="description" class="form-control r-2x" placeholder="Enter Enter text here...." rows="12" ng-model="formData.description" required></textarea>
-                                </div>
-                                <div class="form-group">
-                                   <label class="font-bold">External links</label>
-                                   <div class="input-group">
-                                      <input type="text" name="link" class="form-control r-3x b-2x" ng-model="documentData.link" ng-required="documentData.link">
-                                      <span class="input-group-btn">
-                                      <button class="btn btn-warning r-3x" type="button" ng-disabled="!documentData.link" ng-click="uploaddocumentlink();">Add</button>
-                                      </span>
-                                   </div>
-                                   <div class="m-t-sm m-b-sm" ng-repeat="(key,data) in formData.document_links">
-                                      <div class="input-group">
-                                         <input type="text" class="form-control r-2x padd-xs" ng-model="data">
-                                         <span class="input-group-btn">
-                                         <button class="btn btn-danger r-2x" type="button" ng-click="removeDocumentLink(key)"><i class="glyphicon glyphicon-trash"></i></button>
-                                         </span>
-                                      </div>
-                                   </div>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-p-n">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
-                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-p-n">
-                              <div class="form-group">
-                                 <label class="font-bold">Cover Image</label>
-                                 <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadCover($files);">
-                                    Upload Image
-                                 </div>
-                              </div>
+      <div class="modal-dialog" role="document" style="width: 70%;">
+         <div class="modal-content m-p-l m-p-r" ng-class="{'wrapper-xl' : !isMobile}">
+            <form class="form-horizontal" name="addForm" novalidate ng-submit="addData(addForm);">
+               <div class="modal-header b-no text-center">
+                  <button type="button" class="close" ng-click="closeModal();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Edit Batch</h4>
+               </div>
+               <div class="modal-body">
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 " ng-class="{'wrapper' : !isMobile}">
+                     <div class="form-group">
+                        <label class="font-bold">Title</label>
+                        <small class="pull-right text-danger" ng-if="errorData.title_error">{{errorData.title_errorMsg}}</small>
+                        <input type="text" name="title" class="form-control r-2x" ng-model="formData.title" placeholder="Name of Kaizen" required ng-change="inputchange()">
+                     </div>
+                     <div class="form-group">
+                        <label class="font-bold">Type</label>
+                        <select name="type" class="form-control r-2x" ng-model="formData.type">
+                           <option value="{{kaizen.id}}" ng-repeat="(num,kaizen) in kaizentypes"> {{kaizen.type}}</option>
+                        </select>
+                     </div>
+                     <div class="form-group">
+                        <label class="font-bold">Kaizen Study </label>
+                        <small class="pull-right text-danger" ng-if="errorData.description_error">{{errorData.description_errorMsg}}</small>
+                        <textarea name="description" class="form-control r-2x" placeholder="Enter Enter text here...." rows="8" ng-model="formData.description" required></textarea>
+                     </div>
+                     <div class="form-group">
+                        <label class="font-bold">External links</label>
+                        <div class="input-group">
+                           <input type="text" name="link" class="form-control r-3x b-2x" ng-model="documentData.link" ng-required="documentData.link">
+                           <span class="input-group-btn">
+                           <button class="btn btn-warning r-3x" type="button" ng-disabled="!documentData.link" ng-click="uploaddocumentlink();">Add</button>
+                           </span>
+                        </div>
+                        <div class="panel panel-default m-t-sm" ng-if="formData.document_links.length > 0">
+                           <div class="table-responsive">
+                              <table class="table table-striped b-t b-light">
+                                 <thead>
+                                    <tr>
+                                       <th>Name</th>
+                                       <th>Info</th>
+                                       <th>link</th>
+                                       <th>Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr ng-repeat="(key,data) in formData.document_links">
+                                       <td><input type="text" class="form-control" ng-model="data.name"></td>
+                                       <td><textarea class="form-control" rows="2" ng-model="data.info"></textarea></td>
+                                       <td><a ng-href="{{data.link}}" target="_blank"><span class="text-info font-normal text-xs">Link</span></a></td>
+                                       <td class="text-center">
+                                          <a ng-click="removeDocumentLink(key)"><i class="fa fa-trash-o text-danger text"></i></a>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
                            </div>
-                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-p-n">
-                              <div class="form-group">
-                                 <label class="font-bold text-white">Cover Image</label>
-                                 <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{formData.cover_image}}" ngf-background="formData.newcover" ng-if="formData.newcover" ng-class="{'m-l-sm':!isMobile}"></div>
-                                 <div class="mbit-img box-shadow b" background-image="{{IMGURL}}{{formData.cover_image}}" ng-if="!formData.newcover" ng-class="{'m-l-sm':!isMobile}"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 " ng-class="{'wrapper' : !isMobile}">
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-p-n">
+                           <div class="form-group">
+                              <label class="font-bold">Cover Image</label>
+                              <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'image/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj"
+                                 ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadCover($files);">
+                                 Upload Image
                               </div>
                            </div>
                         </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-p-n" ng-if="formData.newcover">
+                           <label class="font-bold text-white">Cover Image</label>
+                           <div class="mbit-img box-shadow b" ngf-background="formData.newcover"></div>
+                        </div>
+                     </div>
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
-                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
-                              <div class="form-group">
-                                 <label class="font-bold">Images and Videos</label>
-                                 <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-accept="'image/*,video/*'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addkaizenfiles($files);" ngf-maxfiles="6">
-                                    Upload Files
-                                 </div>
-                              </div>
-                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-p-n" ng-repeat="(key,data) in formData.kaizen_files" ng-class-odd="'p-l-none'" ng-class-even="'p-r-none'">
-                                 <div class="form-group">
-                                    <div class="mbit-img box-shadow b pos-rlt" ng-if="data.filetype == 'video'" ng-class-even="'m-l-sm'">
-                                       <video width="100%" height="100%" controls ng-if="!data.hasOwnProperty('isfile');">
-                                          <source ng-src="{{getVideoUrl(data.file)}}" type="video/{{data.file.substr(data.file.length - 3)}}">
-                                       </video>
-                                       <video width="100%" height="100%" controls ng-if="data.hasOwnProperty('isfile');" ngf-src="data.file">
-                                       </video>
-                                       <img class="item-img-delete" src="img/delete.png" ng-click="removeFile(key,data)">
-                                    </div>
-                                    <div class="mbit-img box-shadow b pos-rlt" ng-if="data.filetype == 'image'" ng-class-even="'m-l-sm'">
-                                       <div class="w-full h-full mbit-img" background-image="{{IMGURL}}{{data.file}}" ng-if="!data.hasOwnProperty('isfile');"></div>
-                                       <div class="w-full h-full mbit-img" ngf-background="data.file" ng-if="data.hasOwnProperty('isfile');"></div>
-                                       <img class="item-img-delete cursor" src="img/delete.png" ng-click="removeFile(key,data)">
-                                    </div>
-                                 </div>
+                           <div class="form-group">
+                              <label class="font-bold">Images and Videos</label>
+                              <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-accept="'image/*,video/*'" ngf-capture="capture"
+                                 ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addkaizenfiles($files);" ngf-maxfiles="6">
+                                 Upload Files
                               </div>
                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
-                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
+                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-p-n" ng-repeat="(key,data) in formData.kaizen_files" ng-class-odd="'p-l-none'" ng-class-even="'p-r-none'">
                               <div class="form-group">
-                                 <label class="font-bold">Video Links</label>
-                                 <div class="input-group">
-                                    <input type="text" name="link" class="form-control r-3x b-2x" ng-model="videoData.link" ng-required="videoData.link">
-                                    <span class="input-group-btn">
-                                    <button class="btn btn-warning r-3x" type="button" ng-disabled="!videoData.link" ng-click="uploadvideo();">Add</button>
-                                    </span>
+                                 <div class="mbit-img box-shadow b pos-rlt" ng-if="data.filetype == 'video'" ng-class-even="'m-l-sm'">
+                                    <video width="100%" height="100%" controls ng-if="!data.hasOwnProperty('isfile');">
+                                       <source ng-src="{{getVideoUrl(data.file)}}" type="video/{{data.file.substr(data.file.length - 3)}}">
+                                    </video>
+                                    <video width="100%" height="100%" controls ng-if="data.hasOwnProperty('isfile');" ngf-src="data.file">
+                                    </video>
+                                    <img class="item-img-delete" src="img/delete.png" ng-click="removeFile(key,data)">
                                  </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" ng-repeat="(key,data) in formData.video_links">
-                              <div class="form-group">
-                                 <div class="mbit-img box-shadow b pos-rlt"  ng-class-even="'m-l-sm'">
-                                    <anguvideo ng-model="data" width="100%" height="100%"></anguvideo>
-                                    <img class="item-img-delete cursor m-b" src="img/delete.png" ng-click="removeVideoLink(key)">
+                                 <div class="mbit-img box-shadow b pos-rlt" ng-if="data.filetype == 'image'" ng-class-even="'m-l-sm'">
+                                    <div class="w-full h-full mbit-img" background-image="{{IMGURL}}{{data.file}}" ng-if="!data.hasOwnProperty('isfile');"></div>
+                                    <div class="w-full h-full mbit-img" ngf-background="data.file" ng-if="data.hasOwnProperty('isfile');"></div>
+                                    <img class="item-img-delete cursor" src="img/delete.png" ng-click="removeFile(key,data)">
                                  </div>
                               </div>
                            </div>
                         </div>
+                     </div>
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
-                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
-                              <div class="form-group">
-                                 <label class="font-bold">Upload Documents</label>
-                                 <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-max-files="6" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addkaizenDocuments($files);">
-                                    Upload Documents
-                                 </div>
-                                 <div ng-class="{'col-sm-12 p-l-none m-t':!isMobile}">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b p-l-none" ng-repeat="(key,data) in formData.kaizen_documents">
-                                       <div class="input-group">
-                                          <input type="text" class="form-control r-2x padd-xs" ng-model="data.filename">
-                                          <span class="input-group-btn">
-                                          <button class="btn btn-danger r-2x" type="button" ng-click="removeDocuments(key,data)"><i class="glyphicon glyphicon-trash"></i></button>
-                                          </span>
-                                       </div>
+                           <div class="form-group">
+                              <label class="font-bold">Upload Documents</label>
+                              <div class="b-a r-3x b-2x b wrapper-xl bg-white text-center" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="true" ngf-max-files="6" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'"
+                                 ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="addkaizenDocuments($files);">
+                                 Upload Documents
+                              </div>
+                              <div class="m-t-sm" ng-if="formData.kaizen_documents.length > 0">
+                                 <div class="panel panel-default m-b-sm">
+                                    <div class="table-responsive">
+                                       <table class="table table-striped b-t b-light">
+                                          <thead>
+                                             <tr>
+                                                <th>Name</th>
+                                                <th>Info</th>
+                                                <th>Action</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr ng-repeat="(key,data) in formData.kaizen_documents">
+                                                <td><input type="text" class="form-control" ng-model="data.name"></td>
+                                                <td><textarea class="form-control" rows="2" ng-model="data.info"></textarea></td>
+                                                <td class="text-center">
+                                                   <a ng-click="removeDocuments(key,data)"><i class="fa fa-trash-o text-danger text"></i></a>
+                                                </td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
                                     </div>
                                  </div>
                               </div>
                            </div>
                         </div>
                      </div>
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n">
+                           <div class="form-group">
+                              <label class="font-bold">Video Links</label>
+                              <div class="input-group">
+                                 <input type="text" name="link" class="form-control r-3x b-2x" ng-model="videoData.link" ng-required="videoData.link">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-warning r-3x" type="button" ng-disabled="!videoData.link" ng-click="uploadvideo();">Add</button>
+                                 </span>
+                              </div>
+                           </div>
                         </div>
-
-                    </div>
-                    <div class="modal-footer text-center b-no">
-                        <div class="col-xs-12 text-center ">
-                            <button type="button" class="btn btn-primary no-border  m-auto bg-main2 w-xs" ng-click="closeModal()" ng-disabled="loading">Cancel</button>
-                            <button type="submit" class="btn btn-primary no-border  m-auto bg-main1 w-xs" button-spinner="loading" ng-disabled="loading">Update</button>
-
+                     </div>
+                     <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-sm m-b-sm" ng-repeat="(key,data) in formData.video_links">
+                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <div class="mbit-img box-shadow b pos-rlt">
+                                 <anguvideo ng-model="data.link" width="100%" height="100%"></anguvideo>
+                                 <img class="item-img-delete cursor" src="img/delete.png" ng-click="removeVideoLink(key)">
+                              </div>
+                           </div>
+                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <div class="form-group">
+                                 <input type="text" name="title" class="form-control r-2x" placeholder="Video Title" ng-model="data.title">
+                              </div>
+                              <div class="form-group">
+                                 <textarea name="info" class="form-control r-2x" placeholder="Video Info" ng-model="data.info" rows="3"></textarea>
+                              </div>
+                           </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="modal-footer text-center b-no">
+                  <div class="col-xs-12 text-center ">
+                     <button type="button" class="btn btn-primary no-border  m-auto bg-main2 w-xs" ng-click="closeModal()" ng-disabled="loading">Cancel</button>
+                     <button type="submit" class="btn btn-primary no-border  m-auto bg-main1 w-xs" button-spinner="loading" ng-disabled="loading">Update</button>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
 </div>

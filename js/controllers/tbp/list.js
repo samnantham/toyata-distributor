@@ -165,7 +165,6 @@ app.controller('TBPController', ['$scope', '$http', '$state', 'authServices', '$
     $scope.getResults = function() {
         $rootScope.loading = true;
         webServices.post($scope.url + '?page=' + $scope.pageno,$scope.filterData).then(function(getData) {
-            console.log(getData)
             $rootScope.loading = false;
             if (getData.status == 200) {
                 $scope.pagination = {

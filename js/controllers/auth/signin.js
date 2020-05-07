@@ -21,7 +21,6 @@ app.controller('SigninFormController', ['$scope', '$http', '$state', 'authServic
                 localStorage.userData = '';
             }
             webServices.normalpost('login', $scope.formData).then(function(getData) {
-                console.log(getData)
                 $rootScope.loading = false;
                 if(getData.status==200) {
                     $rootScope.user = $sessionStorage.user = getData.data;

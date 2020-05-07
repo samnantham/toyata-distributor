@@ -361,7 +361,6 @@ app.controller('ChatController', ['$scope', '$http', '$state', 'authServices', '
     $scope.updateroom = function() {
         webServices.put('chat/room/'+ $scope.RoomData.chatroom_id + '/' + $scope.RoomData.chat_type).then(function(getData) {
             if (getData.status == 200) {
-                console.log(getData)
             } else {
 
             }

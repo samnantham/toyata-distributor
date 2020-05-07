@@ -31,7 +31,6 @@ app.controller('ProfileController', ['$scope', '$http', '$state', 'authServices'
 
         }
         if ($scope.errors.length > 0) {
-            console.log($scope.errors)
             $rootScope.$emit("showErrors", $scope.errors);
         }
     }

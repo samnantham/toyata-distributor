@@ -16,7 +16,6 @@ app.controller('FGTPWDController', ['$scope', '$http', '$state', 'authServices',
                         $state.go('access.signin');
                     }, 1000);
                 } else {
-                    console.log(getData)
                     $rootScope.$emit("showErrorMsg", getData.data.message);
                 }
             });

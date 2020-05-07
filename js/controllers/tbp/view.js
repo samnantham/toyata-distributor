@@ -16,10 +16,33 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
                     $scope.tbp.imagecount = $rootScope.getfileCounts($scope.tbp.tbp_files, 'image');
                     if($scope.tbp.uploads){
                         angular.forEach($scope.tbp_uploads, function(upload, no) {
-                           upload.fileurl =  $scope.tbp.uploads[upload.typename];
+                            upload.fileurl =  $scope.tbp.uploads[upload.typename];
+                            upload.item_class = '';
+                            if((no + 1) % 2 == 0){
+                                upload.item_class = 'disabled';
+                                upload.fileurl =  $scope.tbp.uploads[upload.typename];
+                                if(($scope.tbp_uploads[no - 1].is_approved) || (!$scope.tbp_uploads[no - 1].is_approved && $scope.tbp_uploads[no - 1].admin_upload)){
+                                    upload.item_class = '';
+                                }
+                            }else{
+                                var approved = upload.typename + '_approved';
+                                var is_admin_upload = upload.typename + '_is_admin_upload';
+                                upload[approved] =  $scope.tbp.uploads[approved];
+                                upload.is_approved =  $scope.tbp.uploads[approved];
+                                upload[is_admin_upload] =  $scope.tbp.uploads[is_admin_upload];
+                                upload.admin_upload =  $scope.tbp.uploads[is_admin_upload];
+                                if(no > 0){
+                                    if(($scope.tbp.uploads[$scope.tbp_uploads[no - 1].typename] === undefined) || ($scope.tbp.uploads[$scope.tbp_uploads[no - 1].typename] === null) || ($scope.tbp.uploads[$scope.tbp_uploads[no - 1].typename] === '')){
+                                        upload.item_class = 'disabled';
+                                    }
+                                }else{
+                                    if($scope.tbp.uploads[approved]){
+                                        upload.item_class = 'disabled';
+                                    }
+                                }
+                            }
                         });
                     }
-                    console.log($scope.tbp)
                 }else{
                     $state.go('app.tbps',{'type':1});
                 }
@@ -35,10 +58,10 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
             var extn = files[0].name.split(".").pop();
             if ($rootScope.validfileextensions.includes(extn.toLowerCase())) {
                 if (files[0].size <= $rootScope.maxUploadsize) {
-                    $scope.fileData = angular.copy($scope.tbp);
-                    $scope.fileData.tbp = $stateParams.id;
-                    $scope.fileData.newdocument = files[0];
-                    $scope.fileData.type = type;
+                    $scope.tbpuploadData = {};
+                    $scope.tbpuploadData.tbp = $stateParams.id;
+                    $scope.tbpuploadData.newdocument = files[0];
+                    $scope.tbpuploadData.type = type;
                     $scope.confirmUpload();
                 } else {
                     $scope.errors.push(files[0].name + ' size exceeds 2MB.')
@@ -69,8 +92,8 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
                 cancel: {
                     text: 'No',
                     action: function () {
-                        $scope.fileData = {};
-                        $scope.fileData.newdocument = '';
+                        $scope.tbpuploadData = {};
+                        $scope.tbpuploadData.newdocument = '';
                     }
                 }
             }
@@ -78,12 +101,12 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
     }
 
     $scope.uploadDocument = function(){
-        webServices.upload('tbp/report/upload', $scope.fileData).then(function(getData) {
+        webServices.upload('tbp/report/upload', $scope.tbpuploadData).then(function(getData) {
             $rootScope.loading = false;
             if (getData.status == 200) {
                 $rootScope.$emit("showSuccessMsg", getData.data.message);
-                $scope.fileData = {};
-                $scope.fileData.newdocument = '';
+                $scope.tbpuploadData = {};
+                $scope.tbpuploadData.newdocument = '';
                 $scope.getData();
             } else {
                 $rootScope.$emit("showISError", getData);
