@@ -19,7 +19,7 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
                             upload.fileurl =  $scope.tbp.uploads[upload.typename];
                             upload.item_class = '';
                             if((no + 1) % 2 == 0){
-                                upload.item_class = 'disabled';
+                                //upload.item_class = 'disabled';
                                 upload.fileurl =  $scope.tbp.uploads[upload.typename];
                                 if(($scope.tbp_uploads[no - 1].is_approved) || (!$scope.tbp_uploads[no - 1].is_approved && $scope.tbp_uploads[no - 1].admin_upload)){
                                     upload.item_class = '';
@@ -33,16 +33,22 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
                                 upload.admin_upload =  $scope.tbp.uploads[is_admin_upload];
                                 if(no > 0){
                                     if(($scope.tbp.uploads[$scope.tbp_uploads[no - 1].typename] === undefined) || ($scope.tbp.uploads[$scope.tbp_uploads[no - 1].typename] === null) || ($scope.tbp.uploads[$scope.tbp_uploads[no - 1].typename] === '')){
-                                        upload.item_class = 'disabled';
+                                        //upload.item_class = 'disabled';
                                     }
                                 }else{
                                     if($scope.tbp.uploads[approved]){
-                                        upload.item_class = 'disabled';
+                                       //upload.item_class = 'disabled';
                                     }
                                 }
                             }
                         });
-                    }
+                    }else{
+                            angular.forEach($scope.tbp_uploads, function(upload, no) {
+                                if(no > 0){
+                                    upload.item_class = 'disabled';
+                                }
+                            });
+                        }
                 }else{
                     $state.go('app.tbps',{'type':1});
                 }

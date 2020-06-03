@@ -8,11 +8,11 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" ng-if="!loading">
+                        <li><a ng-click="changeActive(0)">All}</a></li>
                         <li ng-repeat="(num,kaizen) in kaizentypes"><a ng-click="changeActive(kaizen.id)">{{kaizen.type}}</a></li>
-
                     </ul>
                 </div>
-
+                <button class="btn no-shadow b-no btn-default panel-tab web-visible" ng-class="{'active': activetab == 0}" ng-click="changeActive(0)">All</button>
                 <button class="btn no-shadow b-no  btn-default panel-tab web-visible" ng-class="{'active': activetab == kaizen.id}" ng-click="changeActive(kaizen.id)" ng-repeat="(num,kaizen) in kaizentypes">{{kaizen.type}}</button>
                 <li class="dropdown pull-right list-none" dropdown>
                     <a href class="dropdown-toggle clear" dropdown-toggle ng-class="{'m-t-xs' : isMobile}">
@@ -59,6 +59,7 @@
                                 <div class="m-b m-t-xs">
 
                                     <button class="btn btn-default btn-xs w-xs btn-danger r-2x read_more pull-left text-u-c" ui-sref="app.viewkaizen({'id':data.id})">Know More</button>
+                                    <span class="pull-right text-danger text-xs font-bold" ng-class="{'m-t-xs' : isMobile}">{{data.is_admin ? data.ownerprofile.username : data.ownerprofile.first_name + ' ' + data.ownerprofile.last_name + ' - ' + data.ownerprofile.distributorinfo.name }} {{data.is_admin ? '(Admin)':''}}</span>
                                 </div>
 
                             </div>

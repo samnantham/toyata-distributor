@@ -10,7 +10,7 @@
     </li>
 
     <li ng-class="{active: $state.includes('app.events')  || $state.includes('app.viewevent') || $state.includes('app.editevent')}">
-        <a ui-sref="app.events({type:'upcoming'})" class="auto">
+        <a ui-sref="app.events({type:'all'})" class="auto">
              <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.events') || (currentState == 'app.viewevent')  || (currentState == 'app.editevent') ? 'img/mebitevents.png' : 'img/mebitevents_active.png' }}">
             <p>MEBIT EVENT</p>
              </span>
@@ -19,7 +19,7 @@
     </li>
 
     <li ng-class="{active: $state.includes('app.tbps') || $state.includes('app.viewtbp')}">
-        <a ui-sref="app.tbps({type:'1'})" class="auto">
+        <a ui-sref="app.tbps({type:'0'})" class="auto">
                <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.tbps') || (currentState == 'app.viewtbp') ? 'img/tbp.png' : 'img/tbp_active.png' }}">
                 <p>TBP</p>
                </span>
@@ -37,7 +37,7 @@
     </li>
     
     <li ng-class="{active: $state.includes('app.kaizens') || $state.includes('app.viewkaizen')}">
-        <a ui-sref="app.kaizens({type:'1'})" class="auto">
+        <a ui-sref="app.kaizens({type:'0'})" class="auto">
                <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.kaizens') || (currentState == 'app.viewkaizen') ? 'img/kaizen.png' : 'img/kaizen_active.png' }}">
                 <p>Reports</p>
                </span>

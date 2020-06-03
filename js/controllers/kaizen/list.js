@@ -32,7 +32,7 @@ app.controller('KaizenController', ['$scope', '$http', '$state', 'authServices',
         $scope.formData.video_links.splice(key,1);
     }
 
-     $scope.uploadvideo = function() {
+    $scope.uploadvideo = function() {
         if (($rootScope.validURL($scope.videoData.link))&&($rootScope.validvideo($scope.videoData.link))) {
 
             if($scope.formData.video_links.some(videolink => videolink.link === $scope.videoData.link)){

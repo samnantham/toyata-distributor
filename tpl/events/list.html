@@ -8,11 +8,13 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" ng-if="!loading">
+                        <li><a ng-click="changeActive('all')">All Events</a></li>
                         <li><a ng-click="changeActive('upcoming')">Upcoming Events</a></li>
                         <li><a ng-click="changeActive('past')">Past Events</a></li>
 
                     </ul>
                 </div>
+                <button class="btn no-shadow b-no btn-default panel-tab web-visible" ng-class="{'active': activetab == 'all'}" ng-click="changeActive('all')">All Events</button>
                 <button class="btn no-shadow b-no btn-default panel-tab web-visible" ng-class="{'active': activetab == 'upcoming'}" ng-click="changeActive('upcoming')">Upcoming Events</button>
                 <button class="btn no-shadow b-no btn-default panel-tab web-visible" ng-class="{'active': activetab == 'past'}" ng-click="changeActive('past')">Past Events</button>
 

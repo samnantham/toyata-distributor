@@ -226,8 +226,8 @@ app.controller('EventsController', ['$scope', '$http', '$state', 'authServices',
     };
 
     if(!$stateParams.type){
-        $scope.activetab = 'upcoming';
-        $scope.filterData.status = 'upcoming';
+        $scope.activetab = 'all';
+        $scope.filterData.status = 'all';
     }else{
         $scope.activetab = $stateParams.type;
         $scope.filterData.status = $stateParams.type;

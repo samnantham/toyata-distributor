@@ -8,9 +8,11 @@
                <span class="caret"></span>
                </button>
                <ul class="dropdown-menu" ng-if="!loading">
+                  <li><a ng-click="changeActive(0)">All</a></li>
                   <li ng-repeat="(num,tbp) in tbptypes"><a ng-click="changeActive(tbp.id)">{{tbp.type}}</a></li>
                </ul>
             </div>
+            <button class="btn no-shadow b-no btn-default panel-tab web-visible" ng-class="{'active': activetab == 0}" ng-click="changeActive(0)">All</button>
             <button class="btn no-shadow b-no btn-default panel-tab web-visible" ng-class="{'active': activetab == tbp.id}" ng-click="changeActive(tbp.id)" ng-repeat="(num,tbp) in tbptypes">{{tbp.type}}</button>
          </div>
          <div class="bg-white padder r-b-6x" ng-scrollbars ng-scrollbars-config="scrollconfig">

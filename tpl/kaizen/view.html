@@ -64,7 +64,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-b-sm p-l-none  m-p-n" ng-repeat="(key,data) in kaizen.video_links" tooltip="{{data.info}}" tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-class="preview-tooltip">
                                 <div class="mbit-img box-shadow b pos-rlt cursor"  ng-click="openFiles(key,kaizen.kaizen_files,kaizen.video_links)">
-                                    <anguvideo ng-model="data" width="100%" height="100%" hideControls></anguvideo>
+                                    <anguvideo ng-model="data.link" width="100%" height="100%" hideControls></anguvideo>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                 <a class="h5 font-bold text-black">Kaizen Documents</a>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 m-b p-l-none m-p-n" ng-repeat="(key,data) in kaizen.kaizen_documents">
-                                <a class="btn btn-default r-2x padd-xs min-w-60" ng-href="{{IMGURL}}{{data.file}}" target="_blank" tooltip="{{data.info}}" tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-class="preview-tooltip">{{data.filename}}</a>
+                                <a class="btn btn-default r-2x padd-xs min-w-60" ng-href="{{IMGURL}}{{data.file}}" target="_blank" tooltip="{{data.info}}" tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-class="preview-tooltip">{{data.name}}</a>
                                 <a class="btn btn-warning r-2x padd-xs" ng-href="{{IMGURL}}{{data.file}}" download="{{data.file.split('/').pop()}}" target="_blank"><i class="fa fa-download"></i></a>
                             </div>
                         </div>
