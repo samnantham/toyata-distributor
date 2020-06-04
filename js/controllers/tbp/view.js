@@ -11,6 +11,8 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
             $rootScope.loading = false;
             if (getData.status == 200) {
                 $scope.tbp = getData.data;
+                $scope.mediafiles = $rootScope.splitFiles($scope.tbp.tbp_files); 
+                console.log($scope.mediafiles)
                 if(Object.keys($scope.tbp).length > 0){
                     $scope.tbp.videocount = $rootScope.getfileCounts($scope.tbp.tbp_files, 'video');
                     $scope.tbp.imagecount = $rootScope.getfileCounts($scope.tbp.tbp_files, 'image');
@@ -27,9 +29,11 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
                             }else{
                                 var approved = upload.typename + '_approved';
                                 var is_admin_upload = upload.typename + '_is_admin_upload';
+                                var admin_file = upload.typename + '_admin_file';
                                 upload[approved] =  $scope.tbp.uploads[approved];
                                 upload.is_approved =  $scope.tbp.uploads[approved];
                                 upload[is_admin_upload] =  $scope.tbp.uploads[is_admin_upload];
+                                upload.admin_file =  $scope.tbp.uploads[admin_file];
                                 upload.admin_upload =  $scope.tbp.uploads[is_admin_upload];
                                 if(no > 0){
                                     if(($scope.tbp.uploads[$scope.tbp_uploads[no - 1].typename] === undefined) || ($scope.tbp.uploads[$scope.tbp_uploads[no - 1].typename] === null) || ($scope.tbp.uploads[$scope.tbp_uploads[no - 1].typename] === '')){
@@ -49,6 +53,8 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
                                 }
                             });
                         }
+
+                        console.log($scope.tbp_uploads)
                 }else{
                     $state.go('app.tbps',{'type':1});
                 }

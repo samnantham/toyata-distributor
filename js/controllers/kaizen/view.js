@@ -84,6 +84,7 @@ app.controller('KaizenInfoController', ['$scope', '$http', '$state', '$statePara
             $rootScope.loading = false;
             if (getData.status == 200) {
                 $scope.comments = getData.data;
+                $scope.viewKaizen();
             } else {
                 $rootScope.$emit("showISError",getData);
             }
@@ -422,6 +423,19 @@ app.controller('KaizenInfoController', ['$scope', '$http', '$state', '$statePara
             if (getData.status == 200) {
                 $rootScope.$emit("showSuccessMsg", getData.data.message);
                 $state.go('app.kaizens',{type:1});
+            } else {
+                $rootScope.$emit("showISError",getData);
+            }
+        });
+    }
+
+    $scope.viewKaizen = function(){
+        var obj = {};
+        obj.module = $scope.module_id;
+        obj.item = $stateParams.id;
+        webServices.post('view',obj).then(function(getData) {
+            console.log(getData)
+            if (getData.status == 200) {
             } else {
                 $rootScope.$emit("showISError",getData);
             }
