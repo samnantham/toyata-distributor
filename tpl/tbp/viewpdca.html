@@ -1,0 +1,71 @@
+<div ng-controller="PDCAInfoController">
+    <div class="wrapper-md p-t-none p-b-none m-t-sm">
+        <div class="panel panel-default r-3x">
+            <div class="panel-heading r-3x r-b-none bg-main2 text-center">
+                <span class="font-normal">{{pdca.title}}</span>
+            </div>
+            <div class="bg-white padder r-b-6x " ng-scrollbars ng-scrollbars-config="scrollconfig">
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 wrapper-md p-t-none m-t-sm">
+                        <div class="bg-white sm-padder-v sm-padder col-md-12 col-lg-12 col-sm-12  col-xs-12 m-p-n">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padder-v bg-white b-light b b-2x r-3x">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padder">
+                                    <h5 class="font-normal"> Invitation </h5>
+                                </div>
+                                <div class="line b-b line-lg m-t-none m-b-none b-2x"></div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,invitation) in pdca.invitations track by $index" ng-class="{'b-b': !$last }"> <a ng-href="{{IMGURL}}{{invitation.file}}" target="_blank">{{invitation.name}} </a><a class="btn btn-warning r-2x padd-xs pull-right b-no" ng-href="{{IMGURL}}{{invitation.file}}" download="{{invitation.file.split('/').pop()}}" target="_blank"><i class="fa fa-download"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white sm-padder-v sm-padder col-md-12 col-lg-12 col-sm-12  col-xs-12 m-p-n m-t">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padder-v bg-white b-light b b-2x r-3x">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padder">
+                                    <h5 class="font-bold"> PDCA Reports </h5>
+                                </div>
+                                <div class="line b-b line-lg m-t-none m-b-none b-2x"></div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 b-light p-r-none p-l-none sm-padder-v" ng-repeat="(no,type) in pdca_uploads track by $index" ng-class="{'b-b': !$last }"> <span ng-if="!type.fileurl"> {{type.type}} </span> <a ng-if="type.fileurl" ng-href="{{IMGURL}}{{type.fileurl}}" target="_blank">{{type.type}}</a>
+                                    <span class="text-xs m-l-sm text-warning"> {{$even && !type.is_approved && type.admin_upload ? 'Admin revised' : '' }}</span>
+                                    <span class="text-xs m-l-sm text-danger"> {{$even && !type.is_approved && !type.admin_upload && type.fileurl  ? 'Waiting for approval' : '' }}</span>
+                                    <span class="text-xs m-l-sm text-success"> {{ $even && type.is_approved ? 'Admin approved' : '' }}</span>
+                                    <button class="btn btn-default bdrc-bg2 padd-xs pull-right b-no {{type.item_class}}" ngf-select ngf-drop ngf-max-size="{{maxFilesize}}" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-multiple="false" ngf-accept="'application/pdf,application/xls,application/xlsx,application/csv'" ngf-capture="capture" ngf-drag-over-class="dragOverClassObj" ngf-ignore-invalid="ignoreInvalid" ngf-allow-dir="allowDir" ngf-drop-available="dropAvailable" ngf-change="uploadReport(type.typename,$files);">Upload </i></button>
+
+                                    <a class="btn btn-warning r-2x padd-xs pull-right b-no m-r-sm" ng-if="type.admin_file" ng-href="{{IMGURL}}{{type.admin_file}}" download="{{type.admin_file.split('/').pop()}}" target="_blank" tooltip="Click here to view revised document" tooltip-trigger="mouseenter" tooltip-placement="top" ng-if="type.admin_upload"><i class="fa fa-download"></i></a>
+
+                                    <a class="btn btn-warning r-2x padd-xs pull-right b-no m-r-sm" ng-if="type.fileurl" ng-href="{{IMGURL}}{{type.fileurl}}" download="{{type.fileurl.split('/').pop()}}" target="_blank" tooltip="Click here to view your upload" tooltip-trigger="mouseenter" tooltip-placement="top"><i class="fa fa-download"></i></a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12 wrapper-md p-t-none m-t-sm">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-p-n" ng-if="pdca.video_links.length > 0 || pdca.videos.length > 0 ">
+                            <div class="m-b-sm m-t-sm">
+                                <a class="h3 btn m-sm btn-warning b-r">Training Videos</a>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-b-sm" ng-repeat="(key,data) in pdca.videos">
+                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <a class="h4 text-black" tooltip="{{data.info}}" tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-class="preview-tooltip" ng-href="{{IMGURL}}{{data.video_link}}" target="_blank" ng-click="viewVideo(data)">{{data.title}} <i class="fa fa-eye pull-right" ng-class="(data.hasOwnProperty('viewstatus') && data['viewstatus']) ? '': 'opa-less'"></i></a>
+                                </div>
+                                <!-- <div class="mbit-img box-shadow b pos-rlt">
+                                    <video width="100%" height="100%" controls>
+                                        <source ng-src="{{getVideoUrl(data.video_link)}}" type="video/{{data.video_link.substr(data.video_link.length - 3)}}">
+                                    </video>
+                                </div> -->
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-b-sm" ng-repeat="(key,data) in pdca.video_links">
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <a class="h4 text-black" tooltip="{{data.info}}" tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-class="preview-tooltip" ng-href="{{data.video_link}}" target="_blank" ng-click="viewVideo(data)">{{data.title}} <i class="fa fa-eye pull-right" ng-class="(data.hasOwnProperty('viewstatus') && data['viewstatus']) ? '': 'opa-less'"></i></a>
+                                </div>
+                                <!-- <div class="mbit-img box-shadow b pos-rlt">
+                                    <anguvideo ng-model="data.video_link" width="100%" height="100%"></anguvideo>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

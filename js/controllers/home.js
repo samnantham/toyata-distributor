@@ -18,7 +18,13 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
                 eventDrop: $scope.alertOnDrop,
                 eventResize: $scope.alertOnResize,
                 eventMouseover: $scope.alertOnMouseOver,
-                viewRender: function(view, element) {
+                dayClick: function( date, allDay, jsEvent, view ) {
+                   
+                },eventClick: function (event) {
+                    $rootScope.formData = event;
+                    $rootScope.openeventModal();
+                    console.log(event)
+                },viewRender: function(view, element) {
                     var monthyear = view.title.split(' ');
                     var month = $rootScope.getMonthFromString(view.title.split(' ')[0]);
                     var year = parseInt(monthyear[1]);
@@ -29,8 +35,27 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
             }
         };
 
+        $scope.viewEvent = function(){
+            if($rootScope.formData.type < 4){
+                if ($rootScope.formData.type == 1) {
+                    $state.go('app.viewevent', {
+                        id: $rootScope.formData.caleventInfo.item
+                    });
+                } else if ($rootScope.formData.type == 2) {
+                    $state.go('app.viewtbp', {
+                        id: $rootScope.formData.caleventInfo.item
+                    });
+                } else if ($rootScope.formData.type == 3) {
+                    $state.go('app.viewkaizen', {
+                        id: $rootScope.formData.caleventInfo.item
+                    });
+                }
+            }
+        }
+
         $scope.getMonthevents = function(month,year){
             webServices.get('calendar/info/'+month+'/'+year).then(function(getData) {
+                console.log(getData)
                 if (getData.status == 200) {
                     $rootScope.loading = false;
                     $scope.calendarevents = getData.data;
@@ -63,6 +88,7 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
                         }
                     });
                     $scope.eventSources = [$scope.calendarevents];
+                    console.log($scope.eventSources)
                 } else {
                     $rootScope.$emit("showerror", getData);
                 }
@@ -76,7 +102,7 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
                 $state.go('app.viewevent', {
                     id: data.id
                 });
-            } else if (data.type == 2) {
+            } else if (data.type == 3) {
                 $state.go('app.viewkaizen', {
                     id: data.id
                 });
@@ -92,9 +118,19 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
             });
         }
 
+         $rootScope.openeventModal = function() {
+            $('#EventInfoModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        }
+
+        EventInfoModal
+
         $rootScope.closeModal = function() {
             $rootScope.formData = {};
             $('#PopupModal').modal('hide');
+            $('#EventInfoModal').modal('hide');
         }
 
         $scope.getData();

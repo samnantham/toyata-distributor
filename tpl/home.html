@@ -140,4 +140,33 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="EventInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" data-modalFade="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-main1 b-no text-center">
+                    <button type="button" class="close" ng-click="closeModal();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{formData.title}}</h4>
+                </div>
+                <div class="modal-body wrapper-lg">
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <p>{{formData.info}}</p>
+                        </div>
+                    </div>
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="formData.caleventInfo.type < 4">
+                            <a class="btn btn-default btn-xs btn-danger r-2x read_more pull-left text-u-c cursor" ng-click="viewEvent()" target="_blank">Goto {{ (formData.caleventInfo.type == '1' ? 'Event' : formData.caleventInfo.type == '2' ? 'TBP' : (formData.caleventInfo.type == '3' ? 'Report' : formData.caleventInfo.type)) }}</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer text-center b-no">
+                    <div class="col-xs-12 text-center ">
+                        <button type="button" class="btn btn-primary no-border m-auto bg-main2 w-xs" ng-click="closeModal()" ng-disabled="loading">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

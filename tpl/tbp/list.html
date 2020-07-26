@@ -31,7 +31,8 @@
                   <div class="panel panel-default r-3x m-t-md b-no">
                      <div class="panel-heading r-3x r-b-none bg-main1 tex-center">
                         {{data.title}}
-                        <button class="btn btn-default btn-xs bg-main2 pull-right b-no" ui-sref="app.viewtbp({'id':data.id})">View More</button>
+                        <button class="btn btn-default btn-xs bg-main2 pull-right b-no" ui-sref="app.viewtbp({'id':data.id})" ng-if="activetab < 4">View More</button>
+                        <button class="btn btn-default btn-xs bg-main2 pull-right b-no" ui-sref="app.viewpdca({'id':data.id})" ng-if="activetab == 4">View More</button>
                      </div>
                      <div class="bg-white sm-padder-v sm-padder col-md-12 col-lg-12 col-sm-12  col-xs-12 b b-2x r-3x tbp-b-t">
                         <div class="col-md-12 col-lg-12 col-sm-12 padder-v bg-white b-light b b-2x r-3x tbp-container">

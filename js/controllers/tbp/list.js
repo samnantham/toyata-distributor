@@ -25,6 +25,9 @@ app.controller('TBPController', ['$scope', '$http', '$state', 'authServices', '$
             $rootScope.loading = true;
             $scope.activetab = tab;
             $scope.filterData.type = tab;
+            if($scope.activetab == 4){
+                $scope.url = 'pdca/paginate/' + $scope.totalPerPage;
+            }
             $scope.getResults();
         }
     }
@@ -140,20 +143,6 @@ app.controller('TBPController', ['$scope', '$http', '$state', 'authServices', '$
         }
     }
 
-    $scope.changeLimit = function(totalPerPage) {
-        $scope.totalPerPage = totalPerPage;
-        $scope.pagedata = [];
-        $scope.pageno = 1;
-        if ($scope.sortorder) {
-            $scope.pagedata = [];
-            $scope.pageno = 1;
-            $scope.url = 'vendor/sort/' + $scope.sortkey + '/' + $scope.sortorder + '/' + $scope.totalPerPage;
-        } else {
-            $scope.url = 'vendor/get/paginate/' + $scope.totalPerPage;
-        }
-        $scope.getResults();
-    };
-
     $scope.sortData = function(key,order) {
         $scope.filterData.sortkey = key;
         $scope.filterData.sortorder = order;
@@ -166,6 +155,7 @@ app.controller('TBPController', ['$scope', '$http', '$state', 'authServices', '$
         $rootScope.loading = true;
         webServices.post($scope.url + '?page=' + $scope.pageno,$scope.filterData).then(function(getData) {
             $rootScope.loading = false;
+            console.log(getData)
             if (getData.status == 200) {
                 $scope.pagination = {
                     current: $scope.pageno

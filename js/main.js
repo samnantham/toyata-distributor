@@ -107,7 +107,7 @@ angular.module('app')
             $rootScope.tbptypes = angular.copy(app.tbptypes);
             $rootScope.kaizentypes = angular.copy(app.kaizentypes);
             $rootScope.tbp_upload_types = angular.copy(app.tbp_upload_types);
-
+            $rootScope.pdca_upload_types = angular.copy(app.pdca_upload_types);
             $rootScope.dummyarray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
             $rootScope.scrollconfig = {

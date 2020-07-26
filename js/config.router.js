@@ -67,6 +67,12 @@ angular.module('app')
                   resolve: load(['js/controllers/tbp/view.js'])
               })
 
+              .state('app.viewpdca', {
+                  url: 'pdca/info/:id',
+                  templateUrl: 'tpl/tbp/viewpdca.html',
+                  resolve: load(['js/controllers/tbp/viewpdca.js'])
+              })
+
               //Kaizen
               .state('app.kaizens', {
                   url: 'kaizen/list/:type?',

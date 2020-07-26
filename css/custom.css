@@ -1287,6 +1287,9 @@ body {
  .preview-tooltip{
      opacity: 1!important;
 }
+.opa-less{
+     opacity: 0.3!important;
+}
  .pre-wrap{
      white-space: pre-wrap;
 }
@@ -1294,4 +1297,6 @@ body {
      border-top: none;
      border-top-left-radius: 0;
      border-top-right-radius: 0;
+}.fc-day-grid-event .fc-time {
+     display:none;
 }
