@@ -43,6 +43,30 @@ body {
      border-color: #c4c4c4;
      border-width: 1.5px;
 }
+.color_1
+{
+     color: #FA9F34 !important;
+}
+.color_2
+{
+     color: #F1592A !important;
+}
+.color_3
+{
+     color: #c4c4c4 !important;
+}
+.f-10
+{
+     font-size: 10px !important;
+}
+.border-bottom-1
+{
+     border-bottom: 1px solid #F1592A !important; 
+}
+.border-1
+{
+     border: 1px solid #F1592A !important; 
+}
  textarea {
      resize: none;
 }
@@ -1299,4 +1323,21 @@ body {
      border-top-right-radius: 0;
 }.fc-day-grid-event .fc-time {
      display:none;
+}
+.dis-img {
+    height: 200px;
+    max-width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 2px;
+}
+.background-3
+{
+     background-color: #2a50f1 !important;
+     color: #fff !important;
+}
+.border-3
+{
+     border:1px solid #2a50f1;
 }
