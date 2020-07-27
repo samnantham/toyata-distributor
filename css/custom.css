@@ -1325,12 +1325,13 @@ body {
      display:none;
 }
 .dis-img {
-    height: 200px;
+    height: 180px;
     max-width: 100%;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     margin: 2px;
+    margin-top: 0px;
 }
 .background-3
 {
@@ -1340,4 +1341,13 @@ body {
 .border-3
 {
      border:1px solid #2a50f1;
+}
+.ad-holder .panel,.ad-holder .panel-heading
+{
+border: 0px;
+}
+.ad-holder .mebit-desc {
+    min-height: 26px;
+    max-height: 26px;
+
 }

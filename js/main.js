@@ -202,7 +202,7 @@ angular.module('app')
             }
 
             $rootScope.setSlides = function() {
-                if (!isMobile.phone) {
+                /*if (!isMobile.phone) {
                     if (($rootScope.screenWidth >= 960) && ($rootScope.screenWidth < 1368)) {
                         $rootScope.scrollslides = 3;
                         $rootScope.slidecount = 3;
@@ -222,7 +222,9 @@ angular.module('app')
                 } else {
                     $rootScope.slidecount = 1;
                     $rootScope.scrollslides = 1;
-                }
+                }*/
+                 $rootScope.slidecount = 1;
+                    $rootScope.scrollslides = 1;
             }
 
             $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
