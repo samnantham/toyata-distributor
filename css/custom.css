@@ -1342,11 +1342,11 @@ body {
 {
      border:1px solid #2a50f1;
 }
-.ad-holder .panel,.ad-holder .panel-heading
+.promotion-area .panel,.promotion-area .panel-heading
 {
 border: 0px;
 }
-.ad-holder .mebit-desc {
+.promotion-area .mebit-desc {
     min-height: 26px;
     max-height: 26px;
 

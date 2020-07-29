@@ -2,46 +2,87 @@
 
     <li ng-class="{active: $state.includes('app.home') }">
         <a ui-sref="app.home" class="auto">
-      <span class="icon-holder"><img class="menu-icon" ng-src="{{currentState == 'app.home' ? 'img/home.png' : 'img/home_active.png' }}">
-        <p>Home</p>
-      </span>
-            
-        </a>
-    </li>
+          <span class="icon-holder"><img class="menu-icon" ng-src="{{currentState == 'app.home' ? 'img/home.png' : 'img/home_active.png' }}">
+            <p>Home</p>
+        </span>
 
-    <li ng-class="{active: $state.includes('app.events')  || $state.includes('app.viewevent') || $state.includes('app.editevent')}">
-        <a ui-sref="app.events({type:'all'})" class="auto">
-             <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.events') || (currentState == 'app.viewevent')  || (currentState == 'app.editevent') ? 'img/mebitevents.png' : 'img/mebitevents_active.png' }}">
-            <p>MEBIT EVENT</p>
-             </span>
-            
-        </a>
-    </li>
+    </a>
+</li>
 
-    <li ng-class="{active: $state.includes('app.tbps') || $state.includes('app.viewtbp')}">
-        <a ui-sref="app.tbps({type:'0'})" class="auto">
-               <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.tbps') || (currentState == 'app.viewtbp') ? 'img/tbp.png' : 'img/tbp_active.png' }}">
-                <p>TBP</p>
-               </span>
-            
-        </a>
-    </li>
+<li ng-class="{active: $state.includes('app.events')  || $state.includes('app.viewevent') || $state.includes('app.editevent')}">
+    <a ui-sref="app.events({type:'all'})" class="auto">
+     <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.events') || (currentState == 'app.viewevent')  || (currentState == 'app.editevent') ? 'img/mebitevents.png' : 'img/mebitevents_active.png' }}">
+        <p>MEBIT EVENT</p>
+    </span>
 
-    <li ng-class="{active: $state.includes('app.chats')}">
-        <a ui-sref="app.chats" class="auto">
-             <span class="icon-holder"><img class="menu-icon" ng-src="{{currentState == 'app.chats' ? 'img/chat.png' : 'img/chat_active.png' }}">
-                 <p>CHAT</p>
-             </span>
-           
-        </a>
-    </li>
-    
-    <li ng-class="{active: $state.includes('app.kaizens') || $state.includes('app.viewkaizen')}">
-        <a ui-sref="app.kaizens({type:'0'})" class="auto">
-               <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.kaizens') || (currentState == 'app.viewkaizen') ? 'img/kaizen.png' : 'img/kaizen_active.png' }}">
-                <p>Reports</p>
-               </span>
-            
-        </a>
-    </li>
+</a>
+</li>
+
+<li ng-class="{active: $state.includes('app.tbps') || $state.includes('app.viewtbp')}">
+    <a ui-sref="app.tbps({type:'0'})" class="auto">
+       <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.tbps') || (currentState == 'app.viewtbp') ? 'img/tbp.png' : 'img/tbp_active.png' }}">
+        <p>TBP</p>
+    </span>
+
+</a>
+</li>
+
+<li ng-class="{active: $state.includes('app.chats')}">
+    <a ui-sref="app.chats" class="auto">
+     <span class="icon-holder"><img class="menu-icon" ng-src="{{currentState == 'app.chats' ? 'img/chat.png' : 'img/chat_active.png' }}">
+         <p>CHAT</p>
+     </span>
+
+ </a>
+</li>
+
+<li ng-class="{active: $state.includes('app.kaizens') || $state.includes('app.viewkaizen')}">
+    <a ui-sref="app.kaizens({type:'0'})" class="auto">
+       <span class="icon-holder"><img class="menu-icon" ng-src="{{(currentState == 'app.kaizens') || (currentState == 'app.viewkaizen') ? 'img/kaizen_active.png' : 'img/kaizen_active.png' }}">
+        <p>Reports</p>
+    </span>
+
+</a>
+</li>
+
+<li>
+    <a class="auto">
+        <span class="icon-holder"><img class="menu-icon" src="img/kaizen_active.png">
+            <p>News Releases</p>
+        </span>
+    </a>
+</li>
+
+<li>
+    <a class="auto">
+        <span class="icon-holder"><img class="menu-icon" src="img/kaizen_active.png">
+            <p>SDGs</p>
+        </span>
+    </a>
+</li>
+
+<li>
+    <a class="auto">
+        <span class="icon-holder"><img class="menu-icon" src="img/kaizen_active.png">
+            <p>MAAS</p>
+        </span>
+    </a>
+</li>
+
+<li>
+    <a class="auto">
+        <span class="icon-holder"><img class="menu-icon" src="img/kaizen_active.png">
+            <p>GR</p>
+        </span>
+    </a>
+</li>
+
+<li class="m-b-xxl">
+    <a class="auto">
+        <span class="icon-holder"><img class="menu-icon" src="img/kaizen_active.png">
+            <p>History Relation</p>
+        </span>
+    </a>
+</li>
+
 </ul>

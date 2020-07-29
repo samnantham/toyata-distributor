@@ -12,7 +12,6 @@ app.controller('TBPInfoController', ['$scope', '$state', '$stateParams', 'webSer
             if (getData.status == 200) {
                 $scope.tbp = getData.data;
                 $scope.mediafiles = $rootScope.splitFiles($scope.tbp.tbp_files); 
-                console.log($scope.mediafiles)
                 if(Object.keys($scope.tbp).length > 0){
                     $scope.tbp.videocount = $rootScope.getfileCounts($scope.tbp.tbp_files, 'video');
                     $scope.tbp.imagecount = $rootScope.getfileCounts($scope.tbp.tbp_files, 'image');

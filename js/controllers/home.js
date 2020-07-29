@@ -19,7 +19,7 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
                 eventResize: $scope.alertOnResize,
                 eventMouseover: $scope.alertOnMouseOver,
                 dayClick: function( date, allDay, jsEvent, view ) {
-                   
+
                 },eventClick: function (event) {
                     $rootScope.formData = event;
                     $rootScope.openeventModal();
@@ -34,6 +34,20 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
                 }
             }
         };
+
+        $scope.goToitem = function(item){
+            if(item.whatsnew_type == 2){
+                $state.go('app.viewevent', {
+                    id: item.id
+                });
+
+            }else if(item.whatsnew_type == 3){
+                $state.go('app.viewkaizen', {
+                    id: item.id
+                });    
+            }
+            console.log(item)
+        }
 
         $scope.viewEvent = function(){
             if($rootScope.formData.type < 4){
@@ -51,6 +65,26 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
                     });
                 }
             }
+        }
+
+        $scope.updateReminder = function(reminder){
+            var obj = {};
+            obj.item = reminder.item;
+            obj.module = reminder.module;
+            webServices.put('reminder/update',obj).then(function(getData) {
+                console.log(getData)
+                /*if (getData.status == 200) {
+                    $rootScope.loading = false;
+                    $scope.calendarevents = getData.data;
+                    angular.forEach($scope.calendarevents, function(data, no) {
+                        data.start = new Date(data.start);
+                    });
+                    $scope.eventSources.splice(0,1);
+                    $scope.eventSources.push($scope.calendarevents);
+                } else {
+                    $rootScope.$emit("showerror", getData);
+                }*/
+            });
         }
 
         $scope.getMonthevents = function(month,year){
@@ -83,7 +117,7 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
                     angular.forEach($scope.homeData.whatsnew, function(data, no) {
                         if(data.whatsnew_type == 3){
                             data.typeData =  $rootScope.kaizentypes.filter(function(kaizen){
-                              return kaizen.id == data.type;
+                                return kaizen.id == data.type;
                             })[0];
                         }
                     });
@@ -118,7 +152,7 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
             });
         }
 
-         $rootScope.openeventModal = function() {
+        $rootScope.openeventModal = function() {
             $('#EventInfoModal').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -136,4 +170,4 @@ app.controller('DashboardCtrl', ['$scope', '$state', 'webServices', '$rootScope'
         $scope.getData();
 
     }
-]);
+    ]);
