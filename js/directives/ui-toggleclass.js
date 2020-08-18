@@ -1,91 +1,128 @@
 angular.module('app')
-    .directive('uiToggleClass', ['$timeout', '$document', function($timeout, $document) {
-        return {
-            restrict: 'AC',
-            link: function(scope, el, attr) {
-                el.on('click', function(e) {
-                    e.preventDefault();
-                    var classes = attr.uiToggleClass.split(','),
-                        targets = (attr.target && attr.target.split(',')) || Array(el),
-                        key = 0;
-                    angular.forEach(classes, function(_class) {
-                        var target = targets[(targets.length && key)];
-                        (_class.indexOf('*') !== -1) && magic(_class, target);
-                        $(target).toggleClass(_class);
-                        key++;
-                    });
-                    $(el).toggleClass('active');
-
-                    function magic(_class, target) {
-                        var patt = new RegExp('\\s' +
-                            _class.replace(/\*/g, '[A-Za-z0-9-_]+').split(' ').join('\\s|\\s') +
-                            '\\s', 'g');
-                        var cn = ' ' + $(target)[0].className + ' ';
-                        while (patt.test(cn)) {
-                            cn = cn.replace(patt, ' ');
-                        }
-                        $(target)[0].className = $.trim(cn);
-                    }
+.directive('uiToggleClass', ['$timeout', '$document', function($timeout, $document) {
+    return {
+        restrict: 'AC',
+        link: function(scope, el, attr) {
+            el.on('click', function(e) {
+                e.preventDefault();
+                var classes = attr.uiToggleClass.split(','),
+                targets = (attr.target && attr.target.split(',')) || Array(el),
+                key = 0;
+                angular.forEach(classes, function(_class) {
+                    var target = targets[(targets.length && key)];
+                    (_class.indexOf('*') !== -1) && magic(_class, target);
+                    $(target).toggleClass(_class);
+                    key++;
                 });
-            }
-        };
-    }])
+                $(el).toggleClass('active');
 
-    .filter("trustUrl", ['$sce', function ($sce) {
-        return function (recordingUrl) {
-            return $sce.trustAsResourceUrl(recordingUrl);
-        };
-    }])
+                function magic(_class, target) {
+                    var patt = new RegExp('\\s' +
+                        _class.replace(/\*/g, '[A-Za-z0-9-_]+').split(' ').join('\\s|\\s') +
+                        '\\s', 'g');
+                    var cn = ' ' + $(target)[0].className + ' ';
+                    while (patt.test(cn)) {
+                        cn = cn.replace(patt, ' ');
+                    }
+                    $(target)[0].className = $.trim(cn);
+                }
+            });
+        }
+    };
+}])
 
-    .filter('ageFilter', function() {
-     function calculateAge(birthday) {
+.filter("trustUrl", ['$sce', function ($sce) {
+    return function (recordingUrl) {
+        return $sce.trustAsResourceUrl(recordingUrl);
+    };
+}])
+
+.filter('ageFilter', function() {
+    function calculateAge(birthday) {
      newdate =  new Date(birthday); // birthday is a date
-         var ageDifMs = Date.now() - newdate.getTime();
+     var ageDifMs = Date.now() - newdate.getTime();
          var ageDate = new Date(ageDifMs); // miliseconds from epoch
          return Math.abs(ageDate.getUTCFullYear() - 1970) +' Years';
      }
 
      return function(birthdate) { 
-           return calculateAge(birthdate);
+         return calculateAge(birthdate);
      }; 
-})
+ })
 
-    .directive('scrollToBottom', function($timeout, $window) {
-        return {
-            scope: {
-                scrollToBottom: "="
-            },
-            restrict: 'A',
-            link: function(scope, element, attr) {
-                scope.$watchCollection('scrollToBottom', function(newVal) {
-                    if (newVal) {
-                        $timeout(function() {
-                            element[0].scrollTop = element[0].scrollHeight;
-                        }, 0);
-                    }
+.directive('someVideo', function ($window, $timeout) {
+    return {
+        scope: {
+            videoCurrentTime: "=videoCurrentTime"
+        },
+        controller: function ($scope, $element) {
 
+            $scope.onTimeUpdate = function () {
+                var currTime = $element[0].currentTime;
+                if (currTime - $scope.videoCurrentTime > 0.5 || $scope.videoCurrentTime - currTime > 0.5) {
+                    $element[0].currentTime = $scope.videoCurrentTime;
+                }
+                $scope.$apply(function () {
+                    $scope.videoCurrentTime = $element[0].currentTime;
                 });
             }
-        };
-    })
+        },
+        link: function (scope, elm) {
+            // Use this $watch to restart the video if it has ended
+            scope.$watch('videoCurrentTime', function (newVal) {
 
-    .directive('errSrc', function() {
-  return {
-    link: function(scope, element, attrs) {
-      var defaultSrc = attrs.src;
-      element.bind('error', function() {
-        if(attrs.errSrc) {
-            element.attr('src', attrs.errSrc);
+                if (elm[0].ended) {
+                    // Do a second check because the last 'timeupdate'
+                    // after the video stops causes a hiccup.
+                    if (elm[0].currentTime !== newVal) {
+                        elm[0].currentTime = newVal;
+                        elm[0].play();
+                    }
+                }
+            });
+            // Otherwise keep any model syncing here.
+            elm.bind('timeupdate', scope.onTimeUpdate);
         }
-        else if(attrs.src) {
-            element.attr('src', defaultSrc);
-        }
-      });
     }
-  }
 })
 
-        .directive('backgroundImage', function(){
+
+.directive('scrollToBottom', function($timeout, $window) {
+    return {
+        scope: {
+            scrollToBottom: "="
+        },
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            scope.$watchCollection('scrollToBottom', function(newVal) {
+                if (newVal) {
+                    $timeout(function() {
+                        element[0].scrollTop = element[0].scrollHeight;
+                    }, 0);
+                }
+
+            });
+        }
+    };
+})
+
+.directive('errSrc', function() {
+    return {
+        link: function(scope, element, attrs) {
+            var defaultSrc = attrs.src;
+            element.bind('error', function() {
+                if(attrs.errSrc) {
+                    element.attr('src', attrs.errSrc);
+                }
+                else if(attrs.src) {
+                    element.attr('src', defaultSrc);
+                }
+            });
+        }
+    }
+})
+
+.directive('backgroundImage', function(){
     return function(scope, element, attrs){
         restrict: 'A',
         attrs.$observe('backgroundImage', function(value) {
@@ -119,22 +156,22 @@ angular.module('app')
 })
 
 .directive('notification', ['$timeout', function($timeout) {
-        return {
-            restrict: 'E',
-            template: "<div class='popup-error alert alert-{{alertData.type}}' ng-show='alertData.message' role='alert' data-notification='{{alertData.status}}'>{{alertData.message}}</div>",
-            scope: {
-                alertData: "="
-            },
-            replace: true
-        };
-    }])
-    .directive('restrictField', function() {
-        return {
-            restrict: 'AE',
-            scope: {
-                restrictField: '='
-            },
-            link: function(scope) {
+    return {
+        restrict: 'E',
+        template: "<div class='popup-error alert alert-{{alertData.type}}' ng-show='alertData.message' role='alert' data-notification='{{alertData.status}}'>{{alertData.message}}</div>",
+        scope: {
+            alertData: "="
+        },
+        replace: true
+    };
+}])
+.directive('restrictField', function() {
+    return {
+        restrict: 'AE',
+        scope: {
+            restrictField: '='
+        },
+        link: function(scope) {
                 // this will match spaces, tabs, line feeds etc
                 // you can change this regex as you want
                 var regex = /\s/g;
@@ -208,39 +245,39 @@ angular.module('app')
 
 
 .filter('minLength', function() {
-        return function(input, len, pad) {
-            input = input.toString();
-            if (input.length >= len) return input;
-            else {
-                pad = (pad || 0).toString();
-                return new Array(1 + len - input.length).join(pad) + input;
+    return function(input, len, pad) {
+        input = input.toString();
+        if (input.length >= len) return input;
+        else {
+            pad = (pad || 0).toString();
+            return new Array(1 + len - input.length).join(pad) + input;
+        }
+    };
+})
+.filter('dateToISO', function() {
+    return function(input) {
+        input = new Date(input).toISOString();
+        return input;
+    };
+})
+.filter('htmlToPlaintext', function() {
+    return function(text) {
+        var newtext = text ? String(text).replace(/<[^>]+>/gm, '\n') : '';
+        return newtext.replace(/\&nbsp;/g, '').replace(/\&gt;-/g, '').replace(/\&lt;-/g, '');
+    };
+})
+.directive('myEnter', function() {
+    return function(scope, element, attrs) {
+        element.bind("keydown keypress", function(event) {
+            if (event.which === 13) {
+                scope.$apply(function() {
+                    scope.$eval(attrs.myEnter);
+                });
+                event.preventDefault();
             }
-        };
-    })
-    .filter('dateToISO', function() {
-        return function(input) {
-            input = new Date(input).toISOString();
-            return input;
-        };
-    })
-    .filter('htmlToPlaintext', function() {
-        return function(text) {
-            var newtext = text ? String(text).replace(/<[^>]+>/gm, '\n') : '';
-            return newtext.replace(/\&nbsp;/g, '').replace(/\&gt;-/g, '').replace(/\&lt;-/g, '');
-        };
-    })
-    .directive('myEnter', function() {
-        return function(scope, element, attrs) {
-            element.bind("keydown keypress", function(event) {
-                if (event.which === 13) {
-                    scope.$apply(function() {
-                        scope.$eval(attrs.myEnter);
-                    });
-                    event.preventDefault();
-                }
-            });
-        };
-    })
+        });
+    };
+})
 
 .directive('validNumber', function() {
     return {
@@ -336,11 +373,11 @@ angular.module('app')
 })
 
 .directive('testDirective', function() {
-      return {
+    return {
         link: function(scope,elem,attrs) {
-          angular.element(elem).on('click', function (evt) {
-            alert('You clicked on: ' + scope.vm.viewDate)
-          });
+            angular.element(elem).on('click', function (evt) {
+                alert('You clicked on: ' + scope.vm.viewDate)
+            });
         }
     };
 })
@@ -360,9 +397,9 @@ angular.module('app')
 .directive('parseStyle', function($interpolate) {
     return function(scope, elem) {
         var exp = $interpolate(elem.html()),
-            watchFunc = function() {
-                return exp(scope);
-            };
+        watchFunc = function() {
+            return exp(scope);
+        };
 
         scope.$watch(watchFunc, function(html) {
             elem.html(html);

@@ -30,5 +30,6 @@ angular.module('app', [
     'ngScrollbars',
     'firebase',
     'anguvideo',
-    'vkEmojiPicker'
+    'vkEmojiPicker',
+    'videosharing-embed'
 ]);
